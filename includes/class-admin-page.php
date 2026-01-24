@@ -507,78 +507,71 @@ class WP_Clean_Up_Admin_Page {
      * Render Menus tab content
      */
     private function render_menus_tab( $options ) {
-        $menus_options = isset( $options['menus'] ) ? $options['menus'] : [];
-
-        // Define menu items
+        $menus = isset( $options['menus'] ) ? $options['menus'] : [];
         $menu_items = [
-            'posts'      => [ 'label' => __( 'Posts', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Posts" menu', 'admin-clean-up' ) ],
-            'media'      => [ 'label' => __( 'Media', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Media" menu', 'admin-clean-up' ) ],
-            'pages'      => [ 'label' => __( 'Pages', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Pages" menu', 'admin-clean-up' ) ],
-            'appearance' => [ 'label' => __( 'Appearance', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Appearance" menu', 'admin-clean-up' ) ],
-            'plugins'    => [ 'label' => __( 'Plugins', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Plugins" menu', 'admin-clean-up' ) ],
-            'users'      => [ 'label' => __( 'Users', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Users" menu', 'admin-clean-up' ) ],
-            'tools'      => [ 'label' => __( 'Tools', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Tools" menu', 'admin-clean-up' ) ],
-            'settings'   => [ 'label' => __( 'Settings', 'admin-clean-up' ), 'menu_label' => __( 'Hide "Settings" menu', 'admin-clean-up' ), 'warning' => true ],
+            'posts'      => __( 'Posts', 'admin-clean-up' ),
+            'media'      => __( 'Media', 'admin-clean-up' ),
+            'pages'      => __( 'Pages', 'admin-clean-up' ),
+            'appearance' => __( 'Appearance', 'admin-clean-up' ),
+            'plugins'    => __( 'Plugins', 'admin-clean-up' ),
+            'users'      => __( 'Users', 'admin-clean-up' ),
+            'tools'      => __( 'Tools', 'admin-clean-up' ),
+            'settings'   => __( 'Settings', 'admin-clean-up' ),
         ];
-
-        // Role options for dropdown
         $role_options = [
-            'non_admin'  => __( 'All except administrators', 'admin-clean-up' ),
-            'non_editor' => __( 'All except administrators & editors', 'admin-clean-up' ),
-            'all'        => __( 'All users', 'admin-clean-up' ),
+            [ 'value' => 'non_admin',  'label' => __( 'All except administrators', 'admin-clean-up' ) ],
+            [ 'value' => 'non_editor', 'label' => __( 'All except administrators & editors', 'admin-clean-up' ) ],
+            [ 'value' => 'all',        'label' => __( 'All users', 'admin-clean-up' ) ],
         ];
         ?>
-        <h2><?php esc_html_e( 'Admin Menu Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Select which admin menus to hide and for which user roles.', 'admin-clean-up' ); ?>
-        </p>
+        <style>
+        .acu-menu-item { padding: 12px 0; border-bottom: 1px solid var(--acu-dark-border); }
+        .acu-menu-item:last-child { border-bottom: none; }
+        .acu-menu-item .acu-select { margin-top: 8px; margin-left: 60px; }
+        .acu-menu-item .acu-text-warning { margin: 8px 0 0 60px; font-size: 12px; }
+        </style>
+        <?php
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <?php foreach ( $menu_items as $key => $item ) : ?>
-                    <?php
-                    $is_hidden = ! empty( $menus_options[ 'remove_' . $key ] );
-                    $hide_for  = isset( $menus_options[ 'remove_' . $key . '_for' ] ) ? $menus_options[ 'remove_' . $key . '_for' ] : 'non_admin';
-                    ?>
-                    <tr class="menu-item-row">
-                        <th scope="row"><?php echo esc_html( $item['label'] ); ?></th>
-                        <td>
-                            <label>
-                                <input type="checkbox"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[menus][remove_<?php echo esc_attr( $key ); ?>]"
-                                       value="1"
-                                       class="menu-toggle"
-                                       data-target="<?php echo esc_attr( $key ); ?>"
-                                       <?php checked( $is_hidden ); ?>>
-                                <?php echo esc_html( $item['menu_label'] ); ?>
-                            </label>
-                            <select name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[menus][remove_<?php echo esc_attr( $key ); ?>_for]"
-                                    id="menu-role-<?php echo esc_attr( $key ); ?>"
-                                    class="menu-role-select"
-                                    <?php echo ! $is_hidden ? 'disabled' : ''; ?>>
-                                <?php foreach ( $role_options as $value => $label ) : ?>
-                                    <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $hide_for, $value ); ?>>
-                                        <?php echo esc_html( $label ); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php if ( ! empty( $item['warning'] ) ) : ?>
-                                <p class="description menu-warning">
-                                    <?php esc_html_e( 'Warning: If you hide this for all users, you cannot access this plugin\'s settings via the menu.', 'admin-clean-up' ); ?>
-                                </p>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        ob_start();
+        foreach ( $menu_items as $key => $label ) {
+            $is_hidden = ! empty( $menus[ 'remove_' . $key ] );
+            $hide_for  = isset( $menus[ 'remove_' . $key . '_for' ] ) ? $menus[ 'remove_' . $key . '_for' ] : 'non_admin';
 
+            echo '<div class="acu-menu-item">';
+            WP_Clean_Up_Components::render_toggle( [
+                'name'    => WP_Clean_Up::OPTION_KEY . '[menus][remove_' . $key . ']',
+                'checked' => $is_hidden,
+                'label'   => sprintf( __( 'Hide "%s" menu', 'admin-clean-up' ), $label ),
+            ] );
+            WP_Clean_Up_Components::render_select( [
+                'name'     => WP_Clean_Up::OPTION_KEY . '[menus][remove_' . $key . '_for]',
+                'value'    => $hide_for,
+                'options'  => $role_options,
+                'disabled' => ! $is_hidden,
+                'id'       => 'menu-role-' . $key,
+            ] );
+            if ( 'settings' === $key ) {
+                echo '<p class="acu-text-warning">';
+                esc_html_e( 'Warning: If you hide this for all users, you cannot access this plugin\'s settings via the menu.', 'admin-clean-up' );
+                echo '</p>';
+            }
+            echo '</div>';
+        }
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Admin Menus', 'admin-clean-up' ),
+            'description' => __( 'Select which admin menus to hide and for which user roles.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
+
+        // JavaScript for toggle-select interaction
+        ?>
         <script>
         jQuery(document).ready(function($) {
-            $('.menu-toggle').on('change', function() {
-                var target = $(this).data('target');
-                var $select = $('#menu-role-' + target);
-                $select.prop('disabled', !$(this).is(':checked'));
+            $('.acu-menu-item .acu-toggle__input').on('change', function() {
+                var $select = $(this).closest('.acu-menu-item').find('.acu-select');
+                $select.prop('disabled', !this.checked);
             });
         });
         </script>
@@ -589,68 +582,51 @@ class WP_Clean_Up_Admin_Page {
      * Render Footer tab content
      */
     private function render_footer_tab( $options ) {
-        $footer_options = isset( $options['footer'] ) ? $options['footer'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Footer Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Customize or remove the text in the admin footer.', 'admin-clean-up' ); ?>
-        </p>
+        $footer = isset( $options['footer'] ) ? $options['footer'] : [];
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Footer Text', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][remove_footer_text]"
-                                   value="1"
-                                   <?php checked( ! empty( $footer_options['remove_footer_text'] ) ); ?>>
-                            <?php esc_html_e( 'Remove footer text ("Thank you for creating with WordPress")', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Custom Footer Text', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <input type="text"
-                               name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][custom_footer_text]"
-                               value="<?php echo esc_attr( $footer_options['custom_footer_text'] ?? '' ); ?>"
-                               class="regular-text"
-                               placeholder="<?php esc_attr_e( 'E.g. Developed by Digiwise', 'admin-clean-up' ); ?>">
-                        <p class="description">
-                            <?php esc_html_e( 'Leave empty to use WordPress default text, or enter custom text. Ignored if "Remove footer text" is enabled.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Version Number', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][remove_version]"
-                                   value="1"
-                                   <?php checked( ! empty( $footer_options['remove_version'] ) ); ?>>
-                            <?php esc_html_e( 'Remove WordPress version number', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Custom Version Text', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <input type="text"
-                               name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][custom_version_text]"
-                               value="<?php echo esc_attr( $footer_options['custom_version_text'] ?? '' ); ?>"
-                               class="regular-text"
-                               placeholder="<?php esc_attr_e( 'E.g. Version 2.0', 'admin-clean-up' ); ?>">
-                        <p class="description">
-                            <?php esc_html_e( 'Leave empty to show WordPress version, or enter custom text. Ignored if "Remove version number" is enabled.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        // Card 1: Footer Text
+        ob_start();
+        WP_Clean_Up_Components::render_toggle( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[footer][remove_footer_text]',
+            'checked'     => ! empty( $footer['remove_footer_text'] ),
+            'label'       => __( 'Remove Footer Text', 'admin-clean-up' ),
+            'description' => __( 'Removes "Thank you for creating with WordPress" from the admin footer.', 'admin-clean-up' ),
+        ] );
+        WP_Clean_Up_Components::render_text_input( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[footer][custom_footer_text]',
+            'value'       => $footer['custom_footer_text'] ?? '',
+            'label'       => __( 'Custom Footer Text', 'admin-clean-up' ),
+            'placeholder' => __( 'E.g. Developed by Digiwise', 'admin-clean-up' ),
+            'description' => __( 'Leave empty for WordPress default. Ignored if "Remove Footer Text" is enabled.', 'admin-clean-up' ),
+        ] );
+        $content1 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'   => __( 'Footer Text', 'admin-clean-up' ),
+            'content' => $content1,
+        ] );
+
+        // Card 2: Version Number
+        ob_start();
+        WP_Clean_Up_Components::render_toggle( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[footer][remove_version]',
+            'checked'     => ! empty( $footer['remove_version'] ),
+            'label'       => __( 'Remove Version Number', 'admin-clean-up' ),
+            'description' => __( 'Removes the WordPress version number from the admin footer.', 'admin-clean-up' ),
+        ] );
+        WP_Clean_Up_Components::render_text_input( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[footer][custom_version_text]',
+            'value'       => $footer['custom_version_text'] ?? '',
+            'label'       => __( 'Custom Version Text', 'admin-clean-up' ),
+            'placeholder' => __( 'E.g. Version 2.0', 'admin-clean-up' ),
+            'description' => __( 'Leave empty to show WordPress version. Ignored if "Remove Version Number" is enabled.', 'admin-clean-up' ),
+        ] );
+        $content2 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'   => __( 'Version Number', 'admin-clean-up' ),
+            'content' => $content2,
+        ] );
     }
 
     /**
