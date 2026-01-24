@@ -12,7 +12,7 @@ Transform Admin Clean Up from a functional-but-boring settings page into a premi
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Code Quality Foundation** - Fix data handling bugs, add constants, PYS condition, and i18n support
+- [x] **Phase 1: Code Quality Foundation** - Fix data handling bugs, add constants, PYS condition, and i18n support
 - [ ] **Phase 2: UI Architecture** - Build CSS design system and PHP component render methods
 - [ ] **Phase 3: Premium Settings Redesign** - Convert all 9 tabs to card/toggle layout with polish
 
@@ -31,8 +31,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Deep merge, OPTION_KEY constant, and activation sync
-- [ ] 01-02-PLAN.md -- PYS Free-only condition and internationalization
+- [x] 01-01-PLAN.md -- Deep merge, OPTION_KEY constant, and activation sync
+- [x] 01-02-PLAN.md -- PYS Free-only condition and internationalization
 
 ### Phase 2: UI Architecture
 **Goal**: A complete, tested CSS design system and PHP component library exist, ready for tab migration
@@ -74,6 +74,6 @@ Phases execute in numeric order: 1 --> 2 --> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Code Quality Foundation | 0/2 | Not started | - |
+| 1. Code Quality Foundation | 2/2 | Complete | 2026-01-24 |
 | 2. UI Architecture | 0/2 | Not started | - |
 | 3. Premium Settings Redesign | 0/3 | Not started | - |

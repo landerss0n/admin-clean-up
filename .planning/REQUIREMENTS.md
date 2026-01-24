@@ -53,11 +53,11 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CODE-01 | Phase 2 | Pending |
-| CODE-02 | Phase 1 | Pending |
-| CODE-03 | Phase 1 | Pending |
-| CODE-04 | Phase 1 | Pending |
-| PYS-01 | Phase 1 | Pending |
-| I18N-01 | Phase 1 | Pending |
+| CODE-02 | Phase 1 | Complete |
+| CODE-03 | Phase 1 | Complete |
+| CODE-04 | Phase 1 | Complete |
+| PYS-01 | Phase 1 | Complete |
+| I18N-01 | Phase 1 | Complete |
 | UI-01 | Phase 3 | Pending |
 
 **Coverage:** 7/7 requirements mapped.
