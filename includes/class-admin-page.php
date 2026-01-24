@@ -474,45 +474,27 @@ class WP_Clean_Up_Admin_Page {
      */
     private function render_comments_tab( $options ) {
         $comments_options = isset( $options['comments'] ) ? $options['comments'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Comments Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Completely disable comments functionality on your website.', 'admin-clean-up' ); ?>
-        </p>
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Disable Comments', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[comments][disable_comments]"
-                                   value="1"
-                                   <?php checked( ! empty( $comments_options['disable_comments'] ) ); ?>>
-                            <?php esc_html_e( 'Disable comments completely', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'This removes all comment functionality:', 'admin-clean-up' ); ?>
-                        </p>
-                        <ul class="description" style="list-style: disc; margin-left: 20px; margin-top: 8px;">
-                            <li><?php esc_html_e( 'Closes comments on all posts and pages', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Hides existing comments and returns 0 for count', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes Comments from admin menu', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes Discussion from Settings menu', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes comment icon from admin bar', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes discussion panel from Gutenberg and classic editor', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Hides comment options in Quick Edit', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Disables pingbacks and trackbacks', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Disables comments in REST API and XML-RPC', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Redirects comment feeds to homepage', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes comment-related rewrite rules', 'admin-clean-up' ); ?></li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        // Build toggle content using output buffering
+        ob_start();
+        WP_Clean_Up_Components::render_toggle(
+            [
+                'name'        => WP_Clean_Up::OPTION_KEY . '[comments][disable_comments]',
+                'checked'     => ! empty( $comments_options['disable_comments'] ),
+                'label'       => __( 'Disable comments completely', 'admin-clean-up' ),
+                'description' => __( 'Removes all comment functionality: closes comments on all posts, hides existing comments, removes Comments and Discussion from admin menus, disables pingbacks, trackbacks, REST API comments, and XML-RPC comment methods.', 'admin-clean-up' ),
+            ]
+        );
+        $content = ob_get_clean();
+
+        // Render card with toggle
+        WP_Clean_Up_Components::render_card(
+            [
+                'title'       => __( 'Comments', 'admin-clean-up' ),
+                'description' => __( 'Completely disable comments functionality on your website.', 'admin-clean-up' ),
+                'content'     => $content,
+            ]
+        );
     }
 
     /**
