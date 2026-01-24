@@ -55,8 +55,20 @@ class WP_Clean_Up {
      * Constructor
      */
     private function __construct() {
+        add_action( 'init', [ $this, 'load_textdomain' ] );
         $this->load_dependencies();
         $this->init_modules();
+    }
+
+    /**
+     * Load plugin text domain for translations.
+     */
+    public function load_textdomain() {
+        load_plugin_textdomain(
+            'admin-clean-up',
+            false,
+            dirname( plugin_basename( __FILE__ ) ) . '/languages'
+        );
     }
 
     /**
