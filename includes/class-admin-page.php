@@ -366,93 +366,50 @@ class WP_Clean_Up_Admin_Page {
      * Render Admin Bar tab content
      */
     private function render_adminbar_tab( $options ) {
-        $adminbar_options = isset( $options['adminbar'] ) ? $options['adminbar'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Admin Bar Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Select which elements to remove from the admin bar.', 'admin-clean-up' ); ?>
-        </p>
+        $adminbar = isset( $options['adminbar'] ) ? $options['adminbar'] : [];
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'WordPress Logo', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_wp_logo]"
-                                   value="1"
-                                   <?php checked( ! empty( $adminbar_options['remove_wp_logo'] ) ); ?>>
-                            <?php esc_html_e( 'Remove WordPress logo', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Removes the WordPress logo and its submenu from the admin bar.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Site Name', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_site_menu]"
-                                   value="1"
-                                   <?php checked( ! empty( $adminbar_options['remove_site_menu'] ) ); ?>>
-                            <?php esc_html_e( 'Remove submenus under site name', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Keeps the main link to the site but removes the submenu.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'New Content', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_new_content]"
-                                   value="1"
-                                   <?php checked( ! empty( $adminbar_options['remove_new_content'] ) ); ?>>
-                            <?php esc_html_e( 'Remove "New" (+New)', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Removes the "+New" button from the admin bar.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Search Field', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_search]"
-                                   value="1"
-                                   <?php checked( ! empty( $adminbar_options['remove_search'] ) ); ?>>
-                            <?php esc_html_e( 'Remove search field', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Removes the search field from the admin bar.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Account Menu (Frontend)', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_howdy_frontend]"
-                                   value="1"
-                                   <?php checked( ! empty( $adminbar_options['remove_howdy_frontend'] ) ); ?>>
-                            <?php esc_html_e( 'Hide "Howdy, user" on frontend', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Removes the account menu ("Howdy, username") from the admin bar on the frontend. Still visible in admin.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        ob_start();
+        WP_Clean_Up_Components::render_setting_group( [
+            'settings' => [
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[adminbar][remove_wp_logo]',
+                    'checked'     => ! empty( $adminbar['remove_wp_logo'] ),
+                    'label'       => __( 'WordPress Logo', 'admin-clean-up' ),
+                    'description' => __( 'Removes the WordPress logo and its submenu from the admin bar.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[adminbar][remove_site_menu]',
+                    'checked'     => ! empty( $adminbar['remove_site_menu'] ),
+                    'label'       => __( 'Site Name Submenu', 'admin-clean-up' ),
+                    'description' => __( 'Keeps the main link to the site but removes the submenu.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[adminbar][remove_new_content]',
+                    'checked'     => ! empty( $adminbar['remove_new_content'] ),
+                    'label'       => __( 'New Content Button', 'admin-clean-up' ),
+                    'description' => __( 'Removes the "+New" button from the admin bar.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[adminbar][remove_search]',
+                    'checked'     => ! empty( $adminbar['remove_search'] ),
+                    'label'       => __( 'Search Field', 'admin-clean-up' ),
+                    'description' => __( 'Removes the search field from the admin bar.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[adminbar][remove_howdy_frontend]',
+                    'checked'     => ! empty( $adminbar['remove_howdy_frontend'] ),
+                    'label'       => __( 'Account Menu on Frontend', 'admin-clean-up' ),
+                    'description' => __( 'Hides the "Howdy, username" menu from the admin bar on the frontend. Still visible in admin.', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Admin Bar Elements', 'admin-clean-up' ),
+            'description' => __( 'Select which elements to remove from the admin bar.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
     }
 
     /**
@@ -487,113 +444,63 @@ class WP_Clean_Up_Admin_Page {
      * Render Dashboard tab content
      */
     private function render_dashboard_tab( $options ) {
-        $dashboard_options = isset( $options['dashboard'] ) ? $options['dashboard'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Dashboard Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Select which dashboard widgets to remove.', 'admin-clean-up' ); ?>
-        </p>
+        $dashboard = isset( $options['dashboard'] ) ? $options['dashboard'] : [];
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Welcome Panel', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_welcome_panel]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['remove_welcome_panel'] ) ); ?>>
-                            <?php esc_html_e( 'Remove Welcome Panel', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'At a Glance', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_at_a_glance]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['remove_at_a_glance'] ) ); ?>>
-                            <?php esc_html_e( 'Remove "At a Glance" widget', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Activity', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_activity]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['remove_activity'] ) ); ?>>
-                            <?php esc_html_e( 'Remove "Activity" widget', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Quick Draft', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_quick_draft]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['remove_quick_draft'] ) ); ?>>
-                            <?php esc_html_e( 'Remove "Quick Draft" widget', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'WordPress News', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_wp_events]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['remove_wp_events'] ) ); ?>>
-                            <?php esc_html_e( 'Remove "WordPress Events and News" widget', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Site Health', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_site_health]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['remove_site_health'] ) ); ?>>
-                            <?php esc_html_e( 'Remove "Site Health" widget', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Disable Site Health', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][disable_site_health]"
-                                   value="1"
-                                   <?php checked( ! empty( $dashboard_options['disable_site_health'] ) ); ?>>
-                            <?php esc_html_e( 'Completely disable Site Health', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'This completely disables Site Health functionality:', 'admin-clean-up' ); ?>
-                        </p>
-                        <ul class="description" style="list-style: disc; margin-left: 20px; margin-top: 8px;">
-                            <li><?php esc_html_e( 'Removes Site Health from Tools menu', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes Site Health dashboard widget', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Disables all site health tests', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Stops scheduled background checks (cron)', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Disables Site Health REST API endpoints', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Stops email reports about site health', 'admin-clean-up' ); ?></li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        ob_start();
+        WP_Clean_Up_Components::render_setting_group( [
+            'title'    => __( 'Widgets', 'admin-clean-up' ),
+            'settings' => [
+                [
+                    'name'    => WP_Clean_Up::OPTION_KEY . '[dashboard][remove_welcome_panel]',
+                    'checked' => ! empty( $dashboard['remove_welcome_panel'] ),
+                    'label'   => __( 'Welcome Panel', 'admin-clean-up' ),
+                ],
+                [
+                    'name'    => WP_Clean_Up::OPTION_KEY . '[dashboard][remove_at_a_glance]',
+                    'checked' => ! empty( $dashboard['remove_at_a_glance'] ),
+                    'label'   => __( 'At a Glance', 'admin-clean-up' ),
+                ],
+                [
+                    'name'    => WP_Clean_Up::OPTION_KEY . '[dashboard][remove_activity]',
+                    'checked' => ! empty( $dashboard['remove_activity'] ),
+                    'label'   => __( 'Activity', 'admin-clean-up' ),
+                ],
+                [
+                    'name'    => WP_Clean_Up::OPTION_KEY . '[dashboard][remove_quick_draft]',
+                    'checked' => ! empty( $dashboard['remove_quick_draft'] ),
+                    'label'   => __( 'Quick Draft', 'admin-clean-up' ),
+                ],
+                [
+                    'name'    => WP_Clean_Up::OPTION_KEY . '[dashboard][remove_wp_events]',
+                    'checked' => ! empty( $dashboard['remove_wp_events'] ),
+                    'label'   => __( 'WordPress Events and News', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        WP_Clean_Up_Components::render_setting_group( [
+            'title'    => __( 'Site Health', 'admin-clean-up' ),
+            'settings' => [
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[dashboard][remove_site_health]',
+                    'checked'     => ! empty( $dashboard['remove_site_health'] ),
+                    'label'       => __( 'Remove Site Health Widget', 'admin-clean-up' ),
+                    'description' => __( 'Removes the Site Health Status widget from the dashboard.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[dashboard][disable_site_health]',
+                    'checked'     => ! empty( $dashboard['disable_site_health'] ),
+                    'label'       => __( 'Disable Site Health Completely', 'admin-clean-up' ),
+                    'description' => __( 'Removes Site Health from Tools menu, disables all tests, stops scheduled background checks, disables REST API endpoints, and stops email reports.', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Dashboard', 'admin-clean-up' ),
+            'description' => __( 'Select which dashboard widgets to remove.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
     }
 
     /**
