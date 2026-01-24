@@ -42,7 +42,7 @@ class WP_Clean_Up_Admin_Page {
     public function register_settings() {
         register_setting(
             'wp_clean_up_options_group',
-            'wp_clean_up_options',
+            WP_Clean_Up::OPTION_KEY,
             [
                 'type'              => 'array',
                 'sanitize_callback' => [ $this, 'sanitize_options' ],
@@ -72,7 +72,7 @@ class WP_Clean_Up_Admin_Page {
      */
     public function sanitize_options( $input ) {
         // Get existing options to preserve settings from other tabs
-        $existing = get_option( 'wp_clean_up_options', [] );
+        $existing = get_option( WP_Clean_Up::OPTION_KEY, [] );
         $sanitized = is_array( $existing ) ? $existing : [];
 
         // Get the current tab being saved
@@ -326,7 +326,7 @@ class WP_Clean_Up_Admin_Page {
                 <div class="wp-clean-up-content">
                     <form method="post" action="options.php">
                         <?php settings_fields( 'wp_clean_up_options_group' ); ?>
-                        <input type="hidden" name="wp_clean_up_options[_current_tab]" value="<?php echo esc_attr( $current_tab ); ?>">
+                        <input type="hidden" name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[_current_tab]" value="<?php echo esc_attr( $current_tab ); ?>">
 
                         <?php
                         switch ( $current_tab ) {
@@ -389,7 +389,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[adminbar][remove_wp_logo]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_wp_logo]"
                                    value="1"
                                    <?php checked( ! empty( $adminbar_options['remove_wp_logo'] ) ); ?>>
                             <?php esc_html_e( 'Remove WordPress logo', 'admin-clean-up' ); ?>
@@ -404,7 +404,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[adminbar][remove_site_menu]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_site_menu]"
                                    value="1"
                                    <?php checked( ! empty( $adminbar_options['remove_site_menu'] ) ); ?>>
                             <?php esc_html_e( 'Remove submenus under site name', 'admin-clean-up' ); ?>
@@ -419,7 +419,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[adminbar][remove_new_content]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_new_content]"
                                    value="1"
                                    <?php checked( ! empty( $adminbar_options['remove_new_content'] ) ); ?>>
                             <?php esc_html_e( 'Remove "New" (+New)', 'admin-clean-up' ); ?>
@@ -434,7 +434,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[adminbar][remove_search]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_search]"
                                    value="1"
                                    <?php checked( ! empty( $adminbar_options['remove_search'] ) ); ?>>
                             <?php esc_html_e( 'Remove search field', 'admin-clean-up' ); ?>
@@ -449,7 +449,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[adminbar][remove_howdy_frontend]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[adminbar][remove_howdy_frontend]"
                                    value="1"
                                    <?php checked( ! empty( $adminbar_options['remove_howdy_frontend'] ) ); ?>>
                             <?php esc_html_e( 'Hide "Howdy, user" on frontend', 'admin-clean-up' ); ?>
@@ -482,7 +482,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[comments][disable_comments]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[comments][disable_comments]"
                                    value="1"
                                    <?php checked( ! empty( $comments_options['disable_comments'] ) ); ?>>
                             <?php esc_html_e( 'Disable comments completely', 'admin-clean-up' ); ?>
@@ -528,7 +528,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][remove_welcome_panel]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_welcome_panel]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['remove_welcome_panel'] ) ); ?>>
                             <?php esc_html_e( 'Remove Welcome Panel', 'admin-clean-up' ); ?>
@@ -540,7 +540,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][remove_at_a_glance]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_at_a_glance]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['remove_at_a_glance'] ) ); ?>>
                             <?php esc_html_e( 'Remove "At a Glance" widget', 'admin-clean-up' ); ?>
@@ -552,7 +552,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][remove_activity]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_activity]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['remove_activity'] ) ); ?>>
                             <?php esc_html_e( 'Remove "Activity" widget', 'admin-clean-up' ); ?>
@@ -564,7 +564,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][remove_quick_draft]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_quick_draft]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['remove_quick_draft'] ) ); ?>>
                             <?php esc_html_e( 'Remove "Quick Draft" widget', 'admin-clean-up' ); ?>
@@ -576,7 +576,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][remove_wp_events]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_wp_events]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['remove_wp_events'] ) ); ?>>
                             <?php esc_html_e( 'Remove "WordPress Events and News" widget', 'admin-clean-up' ); ?>
@@ -588,7 +588,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][remove_site_health]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][remove_site_health]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['remove_site_health'] ) ); ?>>
                             <?php esc_html_e( 'Remove "Site Health" widget', 'admin-clean-up' ); ?>
@@ -600,7 +600,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[dashboard][disable_site_health]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[dashboard][disable_site_health]"
                                    value="1"
                                    <?php checked( ! empty( $dashboard_options['disable_site_health'] ) ); ?>>
                             <?php esc_html_e( 'Completely disable Site Health', 'admin-clean-up' ); ?>
@@ -665,14 +665,14 @@ class WP_Clean_Up_Admin_Page {
                         <td>
                             <label>
                                 <input type="checkbox"
-                                       name="wp_clean_up_options[menus][remove_<?php echo esc_attr( $key ); ?>]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[menus][remove_<?php echo esc_attr( $key ); ?>]"
                                        value="1"
                                        class="menu-toggle"
                                        data-target="<?php echo esc_attr( $key ); ?>"
                                        <?php checked( $is_hidden ); ?>>
                                 <?php echo esc_html( $item['menu_label'] ); ?>
                             </label>
-                            <select name="wp_clean_up_options[menus][remove_<?php echo esc_attr( $key ); ?>_for]"
+                            <select name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[menus][remove_<?php echo esc_attr( $key ); ?>_for]"
                                     id="menu-role-<?php echo esc_attr( $key ); ?>"
                                     class="menu-role-select"
                                     <?php echo ! $is_hidden ? 'disabled' : ''; ?>>
@@ -723,7 +723,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[footer][remove_footer_text]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][remove_footer_text]"
                                    value="1"
                                    <?php checked( ! empty( $footer_options['remove_footer_text'] ) ); ?>>
                             <?php esc_html_e( 'Remove footer text ("Thank you for creating with WordPress")', 'admin-clean-up' ); ?>
@@ -734,7 +734,7 @@ class WP_Clean_Up_Admin_Page {
                     <th scope="row"><?php esc_html_e( 'Custom Footer Text', 'admin-clean-up' ); ?></th>
                     <td>
                         <input type="text"
-                               name="wp_clean_up_options[footer][custom_footer_text]"
+                               name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][custom_footer_text]"
                                value="<?php echo esc_attr( $footer_options['custom_footer_text'] ?? '' ); ?>"
                                class="regular-text"
                                placeholder="<?php esc_attr_e( 'E.g. Developed by Digiwise', 'admin-clean-up' ); ?>">
@@ -748,7 +748,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[footer][remove_version]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][remove_version]"
                                    value="1"
                                    <?php checked( ! empty( $footer_options['remove_version'] ) ); ?>>
                             <?php esc_html_e( 'Remove WordPress version number', 'admin-clean-up' ); ?>
@@ -759,7 +759,7 @@ class WP_Clean_Up_Admin_Page {
                     <th scope="row"><?php esc_html_e( 'Custom Version Text', 'admin-clean-up' ); ?></th>
                     <td>
                         <input type="text"
-                               name="wp_clean_up_options[footer][custom_version_text]"
+                               name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[footer][custom_version_text]"
                                value="<?php echo esc_attr( $footer_options['custom_version_text'] ?? '' ); ?>"
                                class="regular-text"
                                placeholder="<?php esc_attr_e( 'E.g. Version 2.0', 'admin-clean-up' ); ?>">
@@ -791,7 +791,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[notices][hide_update_notices]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_update_notices]"
                                    value="1"
                                    <?php checked( ! empty( $notices_options['hide_update_notices'] ) ); ?>>
                             <?php esc_html_e( 'Hide update notices', 'admin-clean-up' ); ?>
@@ -806,7 +806,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[notices][hide_all_notices]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_all_notices]"
                                    value="1"
                                    <?php checked( ! empty( $notices_options['hide_all_notices'] ) ); ?>>
                             <?php esc_html_e( 'Hide all admin notices', 'admin-clean-up' ); ?>
@@ -821,7 +821,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[notices][hide_screen_options]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_screen_options]"
                                    value="1"
                                    <?php checked( ! empty( $notices_options['hide_screen_options'] ) ); ?>>
                             <?php esc_html_e( 'Hide "Screen Options" tab', 'admin-clean-up' ); ?>
@@ -833,7 +833,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[notices][hide_help_tab]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_help_tab]"
                                    value="1"
                                    <?php checked( ! empty( $notices_options['hide_help_tab'] ) ); ?>>
                             <?php esc_html_e( 'Hide "Help" tab', 'admin-clean-up' ); ?>
@@ -863,7 +863,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[media][clean_filenames]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[media][clean_filenames]"
                                    value="1"
                                    <?php checked( ! empty( $media_options['clean_filenames'] ) ); ?>>
                             <?php esc_html_e( 'Clean filenames automatically on upload', 'admin-clean-up' ); ?>
@@ -890,7 +890,7 @@ class WP_Clean_Up_Admin_Page {
                         <fieldset>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[media][clean_filenames_types]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[media][clean_filenames_types]"
                                        value="all"
                                        <?php checked( ( $media_options['clean_filenames_types'] ?? 'all' ), 'all' ); ?>>
                                 <?php esc_html_e( 'All file types', 'admin-clean-up' ); ?>
@@ -898,7 +898,7 @@ class WP_Clean_Up_Admin_Page {
                             <br>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[media][clean_filenames_types]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[media][clean_filenames_types]"
                                        value="images"
                                        <?php checked( ( $media_options['clean_filenames_types'] ?? 'all' ), 'images' ); ?>>
                                 <?php esc_html_e( 'Images only (JPG, PNG, GIF, WebP, etc.)', 'admin-clean-up' ); ?>
@@ -944,7 +944,7 @@ class WP_Clean_Up_Admin_Page {
                         <td>
                             <label>
                                 <input type="checkbox"
-                                       name="wp_clean_up_options[plugins][<?php echo esc_attr( $plugin['option'] ); ?>]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[plugins][<?php echo esc_attr( $plugin['option'] ); ?>]"
                                        value="1"
                                        <?php checked( ! empty( $plugins_options[ $plugin['option'] ] ) ); ?>>
                                 <?php echo esc_html( $plugin_labels[ $key ] ?? sprintf( __( 'Hide %s notices', 'admin-clean-up' ), $plugin['name'] ) ); ?>
@@ -981,7 +981,7 @@ class WP_Clean_Up_Admin_Page {
                         <fieldset>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[updates][core_updates]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
                                        value="default"
                                        <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'default' ); ?>>
                                 <?php esc_html_e( 'WordPress default (minor updates only)', 'admin-clean-up' ); ?>
@@ -989,7 +989,7 @@ class WP_Clean_Up_Admin_Page {
                             <br>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[updates][core_updates]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
                                        value="security_only"
                                        <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'security_only' ); ?>>
                                 <?php esc_html_e( 'Security updates only (minor releases)', 'admin-clean-up' ); ?>
@@ -997,7 +997,7 @@ class WP_Clean_Up_Admin_Page {
                             <br>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[updates][core_updates]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
                                        value="minor_only"
                                        <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'minor_only' ); ?>>
                                 <?php esc_html_e( 'Minor updates only (e.g., 6.4.1 to 6.4.2)', 'admin-clean-up' ); ?>
@@ -1005,7 +1005,7 @@ class WP_Clean_Up_Admin_Page {
                             <br>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[updates][core_updates]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
                                        value="all_updates"
                                        <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'all_updates' ); ?>>
                                 <?php esc_html_e( 'All updates (major + minor, e.g., 6.4 to 6.5)', 'admin-clean-up' ); ?>
@@ -1013,7 +1013,7 @@ class WP_Clean_Up_Admin_Page {
                             <br>
                             <label>
                                 <input type="radio"
-                                       name="wp_clean_up_options[updates][core_updates]"
+                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
                                        value="disable_all"
                                        <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'disable_all' ); ?>>
                                 <?php esc_html_e( 'Disable all automatic core updates', 'admin-clean-up' ); ?>
@@ -1029,7 +1029,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[updates][disable_plugin_updates]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][disable_plugin_updates]"
                                    value="1"
                                    <?php checked( ! empty( $updates_options['disable_plugin_updates'] ) ); ?>>
                             <?php esc_html_e( 'Disable automatic plugin updates', 'admin-clean-up' ); ?>
@@ -1044,7 +1044,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[updates][disable_theme_updates]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][disable_theme_updates]"
                                    value="1"
                                    <?php checked( ! empty( $updates_options['disable_theme_updates'] ) ); ?>>
                             <?php esc_html_e( 'Disable automatic theme updates', 'admin-clean-up' ); ?>
@@ -1059,7 +1059,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[updates][disable_update_emails]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][disable_update_emails]"
                                    value="1"
                                    <?php checked( ! empty( $updates_options['disable_update_emails'] ) ); ?>>
                             <?php esc_html_e( 'Disable update notification emails', 'admin-clean-up' ); ?>
@@ -1074,7 +1074,7 @@ class WP_Clean_Up_Admin_Page {
                     <td>
                         <label>
                             <input type="checkbox"
-                                   name="wp_clean_up_options[updates][hide_update_nags]"
+                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][hide_update_nags]"
                                    value="1"
                                    <?php checked( ! empty( $updates_options['hide_update_nags'] ) ); ?>>
                             <?php esc_html_e( 'Hide update nags in admin', 'admin-clean-up' ); ?>

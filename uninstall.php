@@ -12,5 +12,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     exit;
 }
 
+// Load plugin to access OPTION_KEY constant
+require_once __DIR__ . '/admin-clean-up.php';
+
 // Delete plugin options
-delete_option( 'wp_clean_up_options' );
+delete_option( WP_Clean_Up::OPTION_KEY );
