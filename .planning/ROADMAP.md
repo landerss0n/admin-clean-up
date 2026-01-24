@@ -44,11 +44,12 @@ Plans:
   3. Toggle switches visually reflect checkbox state without any JavaScript -- toggling works via CSS `:checked` only
   4. Each component (card, toggle, setting group) is rendered by a single PHP method call with parameters -- no duplicated HTML blocks
   5. Components use WordPress admin color scheme variables (`--wp-admin-theme-color`) so they adapt to user-selected color schemes
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- CSS design system (custom properties, card, toggle, setting, setting-group BEM components)
-- [ ] 02-02-PLAN.md -- PHP component render methods (WP_Clean_Up_Components class with hidden input pattern)
+- [x] 02-01-PLAN.md -- CSS design system (custom properties, card, toggle, setting, setting-group BEM components)
+- [x] 02-02-PLAN.md -- PHP component render methods (WP_Clean_Up_Components class with hidden input pattern)
+- [ ] 02-03-PLAN.md -- Gap closure: Convert Comments tab to component-based rendering (proof of concept)
 
 ### Phase 3: Premium Settings Redesign
 **Goal**: Every settings tab uses the premium card/toggle UI, feels polished, and works reliably
@@ -75,5 +76,5 @@ Phases execute in numeric order: 1 --> 2 --> 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Code Quality Foundation | 2/2 | Complete | 2026-01-24 |
-| 2. UI Architecture | 0/2 | Not started | - |
+| 2. UI Architecture | 2/3 | In progress | - |
 | 3. Premium Settings Redesign | 0/3 | Not started | - |
