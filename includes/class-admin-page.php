@@ -267,7 +267,7 @@ class WP_Clean_Up_Admin_Page {
         $installed_plugins = $this->get_installed_supported_plugins();
         if ( ! empty( $installed_plugins ) ) {
             $tabs['plugins'] = [
-                'title'    => __( 'Plugins', 'admin-clean-up' ),
+                'title'    => __( 'Plugin Cleanup', 'admin-clean-up' ),
                 'active'   => true,
             ];
         }
@@ -295,40 +295,24 @@ class WP_Clean_Up_Admin_Page {
 
         $options = WP_Clean_Up::get_options();
         ?>
-        <div class="wrap wp-clean-up-settings-wrap">
-            <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-
-            <div class="wp-clean-up-settings">
-                <nav class="wp-clean-up-sidebar">
-                    <ul class="wp-clean-up-nav">
+        <div class="wrap acu-settings-wrap">
+            <div class="acu-settings">
+                <nav class="acu-sidebar">
+                    <ul class="acu-sidebar__nav">
                         <?php foreach ( $tabs as $tab_id => $tab ) : ?>
-                            <?php
-                            $link_class = '';
-                            if ( $current_tab === $tab_id ) {
-                                $link_class = 'active';
-                            }
-                            if ( ! $tab['active'] ) {
-                                $link_class = 'disabled';
-                            }
-                            ?>
-                            <li>
-                                <?php if ( $tab['active'] ) : ?>
+                            <?php if ( $tab['active'] ) : ?>
+                                <li>
                                     <a href="<?php echo esc_url( add_query_arg( 'tab', $tab_id, admin_url( 'options-general.php?page=admin-clean-up' ) ) ); ?>"
-                                       class="<?php echo esc_attr( $link_class ); ?>">
+                                       class="acu-sidebar__link<?php echo $current_tab === $tab_id ? ' acu-sidebar__link--active' : ''; ?>">
                                         <?php echo esc_html( $tab['title'] ); ?>
                                     </a>
-                                <?php else : ?>
-                                    <a class="disabled">
-                                        <?php echo esc_html( $tab['title'] ); ?>
-                                        <span class="badge"><?php esc_html_e( 'Soon', 'admin-clean-up' ); ?></span>
-                                    </a>
-                                <?php endif; ?>
-                            </li>
+                                </li>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
                 </nav>
 
-                <div class="wp-clean-up-content">
+                <div class="acu-content">
                     <form method="post" action="options.php">
                         <?php settings_fields( 'wp_clean_up_options_group' ); ?>
                         <input type="hidden" name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[_current_tab]" value="<?php echo esc_attr( $current_tab ); ?>">
@@ -368,7 +352,9 @@ class WP_Clean_Up_Admin_Page {
                         }
                         ?>
 
-                        <?php submit_button( __( 'Save Settings', 'admin-clean-up' ) ); ?>
+                        <div class="acu-submit">
+                            <button type="submit" class="acu-button-primary"><?php esc_html_e( 'Save Settings', 'admin-clean-up' ); ?></button>
+                        </div>
                     </form>
                 </div>
             </div>

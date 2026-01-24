@@ -164,4 +164,163 @@ class WP_Clean_Up_Components {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Render a radio group component
+	 *
+	 * For Updates core_updates and Media clean_filenames_types.
+	 *
+	 * @param array $args {
+	 *     Component parameters.
+	 *
+	 *     @type string $name    Form field name attribute.
+	 *     @type string $value   Currently selected value.
+	 *     @type array  $options Array of radio options.
+	 *                           Each option: ['value' => '', 'label' => '', 'description' => ''].
+	 * }
+	 * @return void Outputs HTML directly.
+	 */
+	public static function render_radio_group( $args = [] ) {
+		$defaults = [
+			'name'    => '',
+			'value'   => '',
+			'options' => [],
+		];
+		$args = wp_parse_args( $args, $defaults );
+
+		?>
+		<div class="acu-radio-group">
+			<?php foreach ( $args['options'] as $option ) : ?>
+				<?php
+				$option_value = isset( $option['value'] ) ? $option['value'] : '';
+				$option_label = isset( $option['label'] ) ? $option['label'] : '';
+				$option_description = isset( $option['description'] ) ? $option['description'] : '';
+				$radio_id = 'radio-' . sanitize_title( $args['name'] . '-' . $option_value );
+				?>
+				<div class="acu-radio">
+					<input type="radio"
+					       id="<?php echo esc_attr( $radio_id ); ?>"
+					       name="<?php echo esc_attr( $args['name'] ); ?>"
+					       value="<?php echo esc_attr( $option_value ); ?>"
+					       class="acu-radio__input"
+					       <?php checked( $args['value'], $option_value ); ?>>
+					<label for="<?php echo esc_attr( $radio_id ); ?>" class="acu-radio__indicator"></label>
+					<div class="acu-radio__content">
+						<label for="<?php echo esc_attr( $radio_id ); ?>" class="acu-radio__label">
+							<?php echo esc_html( $option_label ); ?>
+						</label>
+						<?php if ( ! empty( $option_description ) ) : ?>
+							<p class="acu-radio__description"><?php echo esc_html( $option_description ); ?></p>
+						<?php endif; ?>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render a text input component
+	 *
+	 * For Footer custom text fields.
+	 *
+	 * @param array $args {
+	 *     Component parameters.
+	 *
+	 *     @type string $name        Form field name attribute.
+	 *     @type string $value       Input value.
+	 *     @type string $placeholder Placeholder text (optional).
+	 *     @type string $label       Setting label text.
+	 *     @type string $description Help text below input (optional).
+	 *     @type string $id          HTML id (auto-generated from name if empty).
+	 * }
+	 * @return void Outputs HTML directly.
+	 */
+	public static function render_text_input( $args = [] ) {
+		$defaults = [
+			'name'        => '',
+			'value'       => '',
+			'placeholder' => '',
+			'label'       => '',
+			'description' => '',
+			'id'          => '',
+		];
+		$args = wp_parse_args( $args, $defaults );
+
+		// Auto-generate ID from name if not provided
+		if ( empty( $args['id'] ) ) {
+			$id_base = str_replace( [ '[', ']' ], [ '-', '' ], $args['name'] );
+			$args['id'] = 'text-' . sanitize_title( $id_base );
+		}
+
+		?>
+		<div class="acu-setting acu-setting--text">
+			<div class="acu-setting__content">
+				<label for="<?php echo esc_attr( $args['id'] ); ?>" class="acu-setting__label">
+					<?php echo esc_html( $args['label'] ); ?>
+				</label>
+				<input type="text"
+				       id="<?php echo esc_attr( $args['id'] ); ?>"
+				       name="<?php echo esc_attr( $args['name'] ); ?>"
+				       value="<?php echo esc_attr( $args['value'] ); ?>"
+				       placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>"
+				       class="acu-text-input">
+				<?php if ( ! empty( $args['description'] ) ) : ?>
+					<p class="acu-setting__description"><?php echo esc_html( $args['description'] ); ?></p>
+				<?php endif; ?>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render a select dropdown component
+	 *
+	 * For Menus tab role dropdowns.
+	 *
+	 * @param array $args {
+	 *     Component parameters.
+	 *
+	 *     @type string $name     Form field name attribute.
+	 *     @type string $value    Currently selected value.
+	 *     @type array  $options  Array of select options.
+	 *                            Each option: ['value' => '', 'label' => ''].
+	 *     @type string $id       HTML id (auto-generated from name if empty).
+	 *     @type bool   $disabled Disabled state (default false).
+	 * }
+	 * @return void Outputs HTML directly.
+	 */
+	public static function render_select( $args = [] ) {
+		$defaults = [
+			'name'     => '',
+			'value'    => '',
+			'options'  => [],
+			'id'       => '',
+			'disabled' => false,
+		];
+		$args = wp_parse_args( $args, $defaults );
+
+		// Auto-generate ID from name if not provided
+		if ( empty( $args['id'] ) ) {
+			$id_base = str_replace( [ '[', ']' ], [ '-', '' ], $args['name'] );
+			$args['id'] = 'select-' . sanitize_title( $id_base );
+		}
+
+		?>
+		<select id="<?php echo esc_attr( $args['id'] ); ?>"
+		        name="<?php echo esc_attr( $args['name'] ); ?>"
+		        class="acu-select"
+		        <?php disabled( $args['disabled'] ); ?>>
+			<?php foreach ( $args['options'] as $option ) : ?>
+				<?php
+				$option_value = isset( $option['value'] ) ? $option['value'] : '';
+				$option_label = isset( $option['label'] ) ? $option['label'] : '';
+				?>
+				<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $args['value'], $option_value ); ?>>
+					<?php echo esc_html( $option_label ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+		<?php
+	}
 }
