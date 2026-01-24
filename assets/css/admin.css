@@ -308,3 +308,43 @@
         padding-top: 0;
     }
 }
+
+/* ============================================ */
+/* Design System - CSS Custom Properties       */
+/* ============================================ */
+
+:root {
+    /* Primary colors (from WordPress admin) */
+    --acu-color-primary: var(--wp-admin-theme-color, #2271b1);
+    --acu-color-primary-dark: var(--wp-admin-theme-color-darker-10, #135e96);
+    --acu-color-primary-darker: var(--wp-admin-theme-color-darker-20, #0a4b78);
+
+    /* Semantic colors */
+    --acu-color-background: #fff;
+    --acu-color-surface: #f6f7f7;
+    --acu-color-border: #c3c4c7;
+    --acu-color-border-light: #e0e0e0;
+    --acu-color-text: #1d2327;
+    --acu-color-text-muted: #646970;
+    --acu-color-success: #00a32a;
+    --acu-color-warning: #dba617;
+    --acu-color-error: #d63638;
+
+    /* Spacing scale */
+    --acu-spacing-xs: 4px;
+    --acu-spacing-sm: 8px;
+    --acu-spacing-md: 16px;
+    --acu-spacing-lg: 24px;
+    --acu-spacing-xl: 32px;
+
+    /* Component tokens */
+    --acu-card-padding: var(--acu-spacing-lg);
+    --acu-card-border-radius: 4px;
+    --acu-card-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    --acu-toggle-width: 44px;
+    --acu-toggle-height: 24px;
+    --acu-toggle-thumb-size: 20px;
+    --acu-toggle-thumb-offset: 2px;
+    --acu-transition-fast: 0.15s ease;
+    --acu-transition-normal: 0.2s ease;
+}
