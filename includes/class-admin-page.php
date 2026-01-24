@@ -523,14 +523,6 @@ class WP_Clean_Up_Admin_Page {
             [ 'value' => 'non_editor', 'label' => __( 'All except administrators & editors', 'admin-clean-up' ) ],
             [ 'value' => 'all',        'label' => __( 'All users', 'admin-clean-up' ) ],
         ];
-        ?>
-        <style>
-        .acu-menu-item { padding: 12px 0; border-bottom: 1px solid var(--acu-dark-border); }
-        .acu-menu-item:last-child { border-bottom: none; }
-        .acu-menu-item .acu-select { margin-top: 8px; margin-left: 60px; }
-        .acu-menu-item .acu-text-warning { margin: 8px 0 0 60px; font-size: 12px; }
-        </style>
-        <?php
 
         ob_start();
         foreach ( $menu_items as $key => $label ) {
@@ -633,315 +625,194 @@ class WP_Clean_Up_Admin_Page {
      * Render Notices tab content
      */
     private function render_notices_tab( $options ) {
-        $notices_options = isset( $options['notices'] ) ? $options['notices'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Notices Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Control which notices and elements are displayed in admin.', 'admin-clean-up' ); ?>
-        </p>
+        $notices = isset( $options['notices'] ) ? $options['notices'] : [];
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Update Notices', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_update_notices]"
-                                   value="1"
-                                   <?php checked( ! empty( $notices_options['hide_update_notices'] ) ); ?>>
-                            <?php esc_html_e( 'Hide update notices', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Hides notices about WordPress, plugin and theme updates.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'All Notices', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_all_notices]"
-                                   value="1"
-                                   <?php checked( ! empty( $notices_options['hide_all_notices'] ) ); ?>>
-                            <?php esc_html_e( 'Hide all admin notices', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description" style="color: #d63638;">
-                            <?php esc_html_e( 'Warning: This hides ALL notices, including important error messages and warnings.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Screen Options', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_screen_options]"
-                                   value="1"
-                                   <?php checked( ! empty( $notices_options['hide_screen_options'] ) ); ?>>
-                            <?php esc_html_e( 'Hide "Screen Options" tab', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Help Tab', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[notices][hide_help_tab]"
-                                   value="1"
-                                   <?php checked( ! empty( $notices_options['hide_help_tab'] ) ); ?>>
-                            <?php esc_html_e( 'Hide "Help" tab', 'admin-clean-up' ); ?>
-                        </label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        ob_start();
+        WP_Clean_Up_Components::render_setting_group( [
+            'settings' => [
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[notices][hide_update_notices]',
+                    'checked'     => ! empty( $notices['hide_update_notices'] ),
+                    'label'       => __( 'Hide Update Notices', 'admin-clean-up' ),
+                    'description' => __( 'Hides notices about WordPress, plugin and theme updates.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[notices][hide_all_notices]',
+                    'checked'     => ! empty( $notices['hide_all_notices'] ),
+                    'label'       => __( 'Hide All Admin Notices', 'admin-clean-up' ),
+                    'description' => __( 'Warning: This hides ALL notices, including important error messages and warnings.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[notices][hide_screen_options]',
+                    'checked'     => ! empty( $notices['hide_screen_options'] ),
+                    'label'       => __( 'Hide Screen Options Tab', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[notices][hide_help_tab]',
+                    'checked'     => ! empty( $notices['hide_help_tab'] ),
+                    'label'       => __( 'Hide Help Tab', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Notices & UI Elements', 'admin-clean-up' ),
+            'description' => __( 'Control which notices and interface elements are displayed in admin.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
     }
 
     /**
      * Render Media tab content
      */
     private function render_media_tab( $options ) {
-        $media_options = isset( $options['media'] ) ? $options['media'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Media Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Settings for the media library and file uploads.', 'admin-clean-up' ); ?>
-        </p>
+        $media = isset( $options['media'] ) ? $options['media'] : [];
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Clean Filenames', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[media][clean_filenames]"
-                                   value="1"
-                                   <?php checked( ! empty( $media_options['clean_filenames'] ) ); ?>>
-                            <?php esc_html_e( 'Clean filenames automatically on upload', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'This automatically cleans filenames when files are uploaded:', 'admin-clean-up' ); ?>
-                        </p>
-                        <ul class="description" style="list-style: disc; margin-left: 20px; margin-top: 8px;">
-                            <li><?php esc_html_e( 'Converts special characters (å, ä, ö, etc.) to their ASCII equivalents', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Replaces spaces and underscores with dashes', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Removes special characters and accents', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Converts to lowercase', 'admin-clean-up' ); ?></li>
-                            <li><?php esc_html_e( 'Preserves the original title as the image title in the media library', 'admin-clean-up' ); ?></li>
-                        </ul>
-                        <p class="description" style="margin-top: 10px;">
-                            <strong><?php esc_html_e( 'Example:', 'admin-clean-up' ); ?></strong><br>
-                            <code>My Image_from Malmö (2024).jpg</code> → <code>my-image-from-malmo-2024.jpg</code>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'File Types to Clean', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <fieldset>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[media][clean_filenames_types]"
-                                       value="all"
-                                       <?php checked( ( $media_options['clean_filenames_types'] ?? 'all' ), 'all' ); ?>>
-                                <?php esc_html_e( 'All file types', 'admin-clean-up' ); ?>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[media][clean_filenames_types]"
-                                       value="images"
-                                       <?php checked( ( $media_options['clean_filenames_types'] ?? 'all' ), 'images' ); ?>>
-                                <?php esc_html_e( 'Images only (JPG, PNG, GIF, WebP, etc.)', 'admin-clean-up' ); ?>
-                            </label>
-                        </fieldset>
-                        <p class="description">
-                            <?php esc_html_e( 'Select which file types should have their filenames cleaned on upload.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        ob_start();
+        WP_Clean_Up_Components::render_toggle( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[media][clean_filenames]',
+            'checked'     => ! empty( $media['clean_filenames'] ),
+            'label'       => __( 'Clean Filenames on Upload', 'admin-clean-up' ),
+            'description' => __( 'Converts special characters to ASCII, replaces spaces with dashes, removes accents, and converts to lowercase. Original title preserved in media library.', 'admin-clean-up' ),
+        ] );
+        WP_Clean_Up_Components::render_radio_group( [
+            'name'    => WP_Clean_Up::OPTION_KEY . '[media][clean_filenames_types]',
+            'value'   => $media['clean_filenames_types'] ?? 'all',
+            'options' => [
+                [
+                    'value' => 'all',
+                    'label' => __( 'All file types', 'admin-clean-up' ),
+                ],
+                [
+                    'value' => 'images',
+                    'label' => __( 'Images only', 'admin-clean-up' ),
+                    'description' => __( 'JPG, PNG, GIF, WebP, etc.', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Media Library', 'admin-clean-up' ),
+            'description' => __( 'Settings for file uploads and the media library.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
     }
 
     /**
      * Render Plugins tab content
      */
     private function render_plugins_tab( $options ) {
-        $plugins_options = isset( $options['plugins'] ) ? $options['plugins'] : [];
+        $plugins = isset( $options['plugins'] ) ? $options['plugins'] : [];
         $installed_plugins = $this->get_installed_supported_plugins();
 
-        // Plugin-specific descriptions
         $plugin_descriptions = [
-            'pixelyoursite' => __( 'Hides the "Free PIXELYOURSITE HACKS" email signup, video tips, and other promotional notices from PixelYourSite plugin.', 'admin-clean-up' ),
+            'pixelyoursite' => __( 'Hides the "Free PIXELYOURSITE HACKS" email signup, video tips, and other promotional notices.', 'admin-clean-up' ),
         ];
 
-        // Plugin-specific checkbox labels
         $plugin_labels = [
-            'pixelyoursite' => __( 'Hide PixelYourSite promotional notices', 'admin-clean-up' ),
+            'pixelyoursite' => __( 'Hide PixelYourSite Promotional Notices', 'admin-clean-up' ),
         ];
-        ?>
-        <h2><?php esc_html_e( 'Plugin Notices Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Hide annoying promotional notices and nag screens from specific plugins.', 'admin-clean-up' ); ?>
-        </p>
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <?php foreach ( $installed_plugins as $key => $plugin ) : ?>
-                    <tr>
-                        <th scope="row"><?php echo esc_html( $plugin['name'] ); ?></th>
-                        <td>
-                            <label>
-                                <input type="checkbox"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[plugins][<?php echo esc_attr( $plugin['option'] ); ?>]"
-                                       value="1"
-                                       <?php checked( ! empty( $plugins_options[ $plugin['option'] ] ) ); ?>>
-                                <?php echo esc_html( $plugin_labels[ $key ] ?? sprintf( __( 'Hide %s notices', 'admin-clean-up' ), $plugin['name'] ) ); ?>
-                            </label>
-                            <?php if ( ! empty( $plugin_descriptions[ $key ] ) ) : ?>
-                                <p class="description">
-                                    <?php echo esc_html( $plugin_descriptions[ $key ] ); ?>
-                                </p>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?php
+        ob_start();
+        foreach ( $installed_plugins as $key => $plugin ) {
+            WP_Clean_Up_Components::render_toggle( [
+                'name'        => WP_Clean_Up::OPTION_KEY . '[plugins][' . $plugin['option'] . ']',
+                'checked'     => ! empty( $plugins[ $plugin['option'] ] ),
+                'label'       => $plugin_labels[ $key ] ?? sprintf( __( 'Hide %s notices', 'admin-clean-up' ), $plugin['name'] ),
+                'description' => $plugin_descriptions[ $key ] ?? '',
+            ] );
+        }
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Plugin Cleanup', 'admin-clean-up' ),
+            'description' => __( 'Hide promotional notices and nag screens from specific plugins.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
     }
 
     /**
      * Render Updates tab content
      */
     private function render_updates_tab( $options ) {
-        $updates_options = isset( $options['updates'] ) ? $options['updates'] : [];
-        ?>
-        <h2><?php esc_html_e( 'Automatic Updates Settings', 'admin-clean-up' ); ?></h2>
-        <p class="description">
-            <?php esc_html_e( 'Control automatic updates for WordPress core, plugins, and themes.', 'admin-clean-up' ); ?>
-        </p>
+        $updates = isset( $options['updates'] ) ? $options['updates'] : [];
 
-        <table class="form-table" role="presentation">
-            <tbody>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'WordPress Core Updates', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <fieldset>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
-                                       value="default"
-                                       <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'default' ); ?>>
-                                <?php esc_html_e( 'WordPress default (minor updates only)', 'admin-clean-up' ); ?>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
-                                       value="security_only"
-                                       <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'security_only' ); ?>>
-                                <?php esc_html_e( 'Security updates only (minor releases)', 'admin-clean-up' ); ?>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
-                                       value="minor_only"
-                                       <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'minor_only' ); ?>>
-                                <?php esc_html_e( 'Minor updates only (e.g., 6.4.1 to 6.4.2)', 'admin-clean-up' ); ?>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
-                                       value="all_updates"
-                                       <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'all_updates' ); ?>>
-                                <?php esc_html_e( 'All updates (major + minor, e.g., 6.4 to 6.5)', 'admin-clean-up' ); ?>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="radio"
-                                       name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][core_updates]"
-                                       value="disable_all"
-                                       <?php checked( ( $updates_options['core_updates'] ?? 'default' ), 'disable_all' ); ?>>
-                                <?php esc_html_e( 'Disable all automatic core updates', 'admin-clean-up' ); ?>
-                            </label>
-                        </fieldset>
-                        <p class="description" style="margin-top: 10px;">
-                            <?php esc_html_e( 'Note: Security updates are recommended to keep your site safe.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Plugin Auto-Updates', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][disable_plugin_updates]"
-                                   value="1"
-                                   <?php checked( ! empty( $updates_options['disable_plugin_updates'] ) ); ?>>
-                            <?php esc_html_e( 'Disable automatic plugin updates', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Prevents plugins from updating automatically. You can still update them manually.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Theme Auto-Updates', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][disable_theme_updates]"
-                                   value="1"
-                                   <?php checked( ! empty( $updates_options['disable_theme_updates'] ) ); ?>>
-                            <?php esc_html_e( 'Disable automatic theme updates', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Prevents themes from updating automatically. You can still update them manually.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Update Emails', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][disable_update_emails]"
-                                   value="1"
-                                   <?php checked( ! empty( $updates_options['disable_update_emails'] ) ); ?>>
-                            <?php esc_html_e( 'Disable update notification emails', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Stops WordPress from sending emails about automatic updates (core, plugins, themes).', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Update Nags', 'admin-clean-up' ); ?></th>
-                    <td>
-                        <label>
-                            <input type="checkbox"
-                                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[updates][hide_update_nags]"
-                                   value="1"
-                                   <?php checked( ! empty( $updates_options['hide_update_nags'] ) ); ?>>
-                            <?php esc_html_e( 'Hide update nags in admin', 'admin-clean-up' ); ?>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e( 'Hides the "WordPress X.X is available! Please update now" message and update count badges.', 'admin-clean-up' ); ?>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <?php
+        // Card 1: Core Updates (radio group)
+        ob_start();
+        WP_Clean_Up_Components::render_radio_group( [
+            'name'    => WP_Clean_Up::OPTION_KEY . '[updates][core_updates]',
+            'value'   => $updates['core_updates'] ?? 'default',
+            'options' => [
+                [
+                    'value' => 'default',
+                    'label' => __( 'WordPress Default', 'admin-clean-up' ),
+                    'description' => __( 'Minor updates only (recommended)', 'admin-clean-up' ),
+                ],
+                [
+                    'value' => 'security_only',
+                    'label' => __( 'Security Updates Only', 'admin-clean-up' ),
+                ],
+                [
+                    'value' => 'minor_only',
+                    'label' => __( 'Minor Updates Only', 'admin-clean-up' ),
+                    'description' => __( 'E.g., 6.4.1 to 6.4.2', 'admin-clean-up' ),
+                ],
+                [
+                    'value' => 'all_updates',
+                    'label' => __( 'All Updates', 'admin-clean-up' ),
+                    'description' => __( 'Major + minor (e.g., 6.4 to 6.5)', 'admin-clean-up' ),
+                ],
+                [
+                    'value' => 'disable_all',
+                    'label' => __( 'Disable All Core Updates', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content1 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'WordPress Core Updates', 'admin-clean-up' ),
+            'description' => __( 'Control automatic update behavior for WordPress core.', 'admin-clean-up' ),
+            'content'     => $content1,
+        ] );
+
+        // Card 2: Auto-Update Controls (toggles)
+        ob_start();
+        WP_Clean_Up_Components::render_setting_group( [
+            'settings' => [
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[updates][disable_plugin_updates]',
+                    'checked'     => ! empty( $updates['disable_plugin_updates'] ),
+                    'label'       => __( 'Disable Plugin Auto-Updates', 'admin-clean-up' ),
+                    'description' => __( 'Prevents plugins from updating automatically. Manual updates still available.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[updates][disable_theme_updates]',
+                    'checked'     => ! empty( $updates['disable_theme_updates'] ),
+                    'label'       => __( 'Disable Theme Auto-Updates', 'admin-clean-up' ),
+                    'description' => __( 'Prevents themes from updating automatically. Manual updates still available.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[updates][disable_update_emails]',
+                    'checked'     => ! empty( $updates['disable_update_emails'] ),
+                    'label'       => __( 'Disable Update Emails', 'admin-clean-up' ),
+                    'description' => __( 'Stops WordPress from sending emails about automatic updates.', 'admin-clean-up' ),
+                ],
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[updates][hide_update_nags]',
+                    'checked'     => ! empty( $updates['hide_update_nags'] ),
+                    'label'       => __( 'Hide Update Nags', 'admin-clean-up' ),
+                    'description' => __( 'Hides "WordPress X.X is available!" messages and update count badges.', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content2 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Auto-Update Controls', 'admin-clean-up' ),
+            'content'     => $content2,
+        ] );
     }
 }

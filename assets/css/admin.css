@@ -503,6 +503,29 @@
 }
 
 /* ============================================ */
+/* Menu Item Component (Menus tab)              */
+/* ============================================ */
+
+.acu-menu-item {
+	padding: 12px 0;
+	border-bottom: 1px solid var(--acu-dark-border);
+}
+
+.acu-menu-item:last-child {
+	border-bottom: none;
+}
+
+.acu-menu-item .acu-select {
+	margin-top: 8px;
+	margin-left: 60px;
+}
+
+.acu-menu-item .acu-text-warning {
+	margin: 8px 0 0 60px;
+	font-size: 12px;
+}
+
+/* ============================================ */
 /* Responsive Layout                            */
 /* ============================================ */
 
