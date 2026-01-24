@@ -53,6 +53,13 @@ The settings page must feel premium and be immediately understandable — every 
 - No external dependencies — pure WordPress APIs
 - Current CSS already has decent structure, needs evolution not replacement
 
+## Test Site
+
+After any testable changes, sync to the Local Sites test environment:
+```
+rsync -av --delete "/Users/lucas/Sites/admin-clean-up/" "/Users/lucas/Local Sites/testar-plugins/app/public/wp-content/plugins/admin-clean-up/" --exclude='.planning' --exclude='.git'
+```
+
 ## Constraints
 
 - **Tech stack**: PHP + CSS only, no JavaScript frameworks, no build tools — must work as a drop-in WordPress plugin
@@ -65,6 +72,7 @@ The settings page must feel premium and be immediately understandable — every 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Premium UI with toggles/cards over native form-tables | User wants modern, non-boring feel like ACF | — Pending |
+| Clean neutral colors + bold/premium layout | Grays/whites/subtle accents, darker sidebar, strong contrast, distinct sections | — Pending |
 | PYS notice hiding only for Free version | Pro version doesn't have the nag screens | — Pending |
 | English as base language | International best practice, Swedish as translation | — Pending |
 | Pure CSS for UI (no JS framework) | Keep plugin lightweight, no build step | — Pending |

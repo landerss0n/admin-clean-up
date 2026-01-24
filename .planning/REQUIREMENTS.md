@@ -52,7 +52,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CODE-01 | Phase 2 | Pending |
+| CODE-01 | Phase 2 | Complete |
 | CODE-02 | Phase 1 | Complete |
 | CODE-03 | Phase 1 | Complete |
 | CODE-04 | Phase 1 | Complete |
