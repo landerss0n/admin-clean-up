@@ -37,6 +37,11 @@ class WP_Clean_Up {
     private static $instance = null;
 
     /**
+     * Option key for storing plugin settings.
+     */
+    const OPTION_KEY = 'wp_clean_up_options';
+
+    /**
      * Get the singleton instance
      */
     public static function get_instance() {
@@ -110,6 +115,29 @@ class WP_Clean_Up {
     }
 
     /**
+     * Recursive version of wp_parse_args() for nested arrays.
+     *
+     * @param array $args     User-defined arguments.
+     * @param array $defaults Default parameters.
+     * @return array Merged array.
+     */
+    private static function parse_args_recursive( $args, $defaults ) {
+        $args     = (array) $args;
+        $defaults = (array) $defaults;
+        $result   = $defaults;
+
+        foreach ( $args as $key => $value ) {
+            if ( is_array( $value ) && isset( $result[ $key ] ) && is_array( $result[ $key ] ) ) {
+                $result[ $key ] = self::parse_args_recursive( $value, $result[ $key ] );
+            } else {
+                $result[ $key ] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Get plugin options with defaults
      */
     public static function get_options() {
@@ -179,9 +207,9 @@ class WP_Clean_Up {
             ],
         ];
 
-        $options = get_option( 'wp_clean_up_options', [] );
+        $options = get_option( self::OPTION_KEY, [] );
 
-        return wp_parse_args( $options, $defaults );
+        return self::parse_args_recursive( $options, $defaults );
     }
 }
 
@@ -200,16 +228,70 @@ add_action( 'plugins_loaded', 'wp_clean_up_init' );
  */
 function wp_clean_up_activate() {
     // Set default options on activation
-    if ( false === get_option( 'wp_clean_up_options' ) ) {
-        add_option( 'wp_clean_up_options', [
+    if ( false === get_option( WP_Clean_Up::OPTION_KEY ) ) {
+        add_option( WP_Clean_Up::OPTION_KEY, [
             'adminbar' => [
-                'remove_wp_logo'     => false,
-                'remove_site_menu'   => false,
-                'remove_new_content' => false,
-                'remove_search'      => false,
+                'remove_wp_logo'        => false,
+                'remove_site_menu'      => false,
+                'remove_new_content'    => false,
+                'remove_search'         => false,
+                'remove_howdy_frontend' => false,
             ],
             'comments' => [
                 'disable_comments' => false,
+            ],
+            'dashboard' => [
+                'remove_welcome_panel' => false,
+                'remove_at_a_glance'   => false,
+                'remove_activity'      => false,
+                'remove_quick_draft'   => false,
+                'remove_wp_events'     => false,
+                'remove_site_health'   => false,
+                'disable_site_health'  => false,
+            ],
+            'menus' => [
+                'remove_posts'          => false,
+                'remove_posts_for'      => 'non_admin',
+                'remove_media'          => false,
+                'remove_media_for'      => 'non_admin',
+                'remove_pages'          => false,
+                'remove_pages_for'      => 'non_admin',
+                'remove_appearance'     => false,
+                'remove_appearance_for' => 'non_admin',
+                'remove_plugins'        => false,
+                'remove_plugins_for'    => 'non_admin',
+                'remove_users'          => false,
+                'remove_users_for'      => 'non_admin',
+                'remove_tools'          => false,
+                'remove_tools_for'      => 'non_admin',
+                'remove_settings'       => false,
+                'remove_settings_for'   => 'non_admin',
+            ],
+            'footer' => [
+                'remove_footer_text'  => false,
+                'custom_footer_text'  => '',
+                'remove_version'      => false,
+                'custom_version_text' => '',
+            ],
+            'notices' => [
+                'hide_update_notices' => false,
+                'hide_all_notices'    => false,
+                'hide_screen_options' => false,
+                'hide_help_tab'       => false,
+            ],
+            'media' => [
+                'clean_filenames'       => false,
+                'clean_filenames_types' => 'all',
+            ],
+            'plugins' => [
+                'hide_pixelyoursite_notices' => false,
+            ],
+            'updates' => [
+                'core_updates'           => 'default',
+                'disable_plugin_updates' => false,
+                'disable_theme_updates'  => false,
+                'disable_update_emails'  => false,
+                'hide_update_nags'       => false,
             ],
         ] );
     }
