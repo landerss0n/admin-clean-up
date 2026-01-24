@@ -1,0 +1,167 @@
+<?php
+/**
+ * UI Component Render Library
+ *
+ * Provides reusable UI component render methods for Admin Clean Up premium settings interface.
+ * All methods use BEM naming convention matching the CSS design system.
+ *
+ * @package Admin_Clean_Up
+ */
+
+// Prevent direct access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Admin Clean Up UI Components
+ *
+ * Static methods for rendering card, toggle, and setting group components.
+ * All output uses BEM class names (acu-* namespace) and proper escaping.
+ */
+class WP_Clean_Up_Components {
+
+	/**
+	 * Render a card component
+	 *
+	 * @param array $args {
+	 *     Component parameters.
+	 *
+	 *     @type string $id          HTML id attribute (optional).
+	 *     @type string $title       Card header title (optional).
+	 *     @type string $description Subtitle text below title (optional).
+	 *     @type string $content     Pre-rendered HTML for card body (already escaped by caller).
+	 *     @type string $modifier    BEM modifier suffix (e.g., 'highlighted' becomes 'acu-card--highlighted').
+	 * }
+	 * @return void Outputs HTML directly.
+	 */
+	public static function render_card( $args = [] ) {
+		$defaults = [
+			'id'          => '',
+			'title'       => '',
+			'description' => '',
+			'content'     => '',
+			'modifier'    => '',
+		];
+		$args = wp_parse_args( $args, $defaults );
+
+		$classes = 'acu-card';
+		if ( ! empty( $args['modifier'] ) ) {
+			$classes .= ' acu-card--' . sanitize_html_class( $args['modifier'] );
+		}
+
+		?>
+		<div class="<?php echo esc_attr( $classes ); ?>"<?php if ( ! empty( $args['id'] ) ) : ?> id="<?php echo esc_attr( $args['id'] ); ?>"<?php endif; ?>>
+			<?php if ( ! empty( $args['title'] ) ) : ?>
+				<div class="acu-card__header">
+					<h3 class="acu-card__title"><?php echo esc_html( $args['title'] ); ?></h3>
+					<?php if ( ! empty( $args['description'] ) ) : ?>
+						<p class="acu-card__description"><?php echo esc_html( $args['description'] ); ?></p>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+			<div class="acu-card__body">
+				<?php echo $args['content']; // Content is caller's responsibility to escape ?>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render a toggle switch component
+	 *
+	 * CRITICAL: Hidden input appears BEFORE checkbox to ensure unchecked state submits '0'.
+	 * When checked, checkbox value overwrites hidden value. When unchecked, only hidden value submits.
+	 *
+	 * @param array $args {
+	 *     Component parameters.
+	 *
+	 *     @type string $name        Form field name attribute.
+	 *     @type string $value       Checkbox value when checked (default '1').
+	 *     @type bool   $checked     Initial checked state (default false).
+	 *     @type string $label       Setting label text.
+	 *     @type string $description Help text below label (optional).
+	 *     @type string $id          HTML id (auto-generated from name if empty).
+	 *     @type bool   $disabled    Disabled state (default false).
+	 * }
+	 * @return void Outputs HTML directly.
+	 */
+	public static function render_toggle( $args = [] ) {
+		$defaults = [
+			'name'        => '',
+			'value'       => '1',
+			'checked'     => false,
+			'label'       => '',
+			'description' => '',
+			'id'          => '',
+			'disabled'    => false,
+		];
+		$args = wp_parse_args( $args, $defaults );
+
+		// Auto-generate ID from name if not provided
+		if ( empty( $args['id'] ) ) {
+			$id_base = str_replace( [ '[', ']' ], [ '-', '' ], $args['name'] );
+			$args['id'] = 'toggle-' . sanitize_title( $id_base );
+		}
+
+		?>
+		<div class="acu-setting">
+			<input type="hidden" name="<?php echo esc_attr( $args['name'] ); ?>" value="0">
+			<input type="checkbox"
+			       id="<?php echo esc_attr( $args['id'] ); ?>"
+			       name="<?php echo esc_attr( $args['name'] ); ?>"
+			       value="<?php echo esc_attr( $args['value'] ); ?>"
+			       class="acu-toggle__input"
+			       <?php checked( $args['checked'] ); ?>
+			       <?php disabled( $args['disabled'] ); ?>>
+			<label for="<?php echo esc_attr( $args['id'] ); ?>" class="acu-toggle">
+				<span class="acu-toggle__track"></span>
+				<span class="acu-toggle__thumb"></span>
+			</label>
+			<div class="acu-setting__content">
+				<label for="<?php echo esc_attr( $args['id'] ); ?>" class="acu-setting__label">
+					<?php echo esc_html( $args['label'] ); ?>
+				</label>
+				<?php if ( ! empty( $args['description'] ) ) : ?>
+					<p class="acu-setting__description"><?php echo esc_html( $args['description'] ); ?></p>
+				<?php endif; ?>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render a setting group component
+	 *
+	 * Groups multiple setting toggles under an optional heading.
+	 * Each setting in the array is passed to render_toggle().
+	 *
+	 * @param array $args {
+	 *     Component parameters.
+	 *
+	 *     @type string $title    Group heading (optional, shown as uppercase label).
+	 *     @type array  $settings Array of setting definition arrays (each passed to render_toggle).
+	 * }
+	 * @return void Outputs HTML directly.
+	 */
+	public static function render_setting_group( $args = [] ) {
+		$defaults = [
+			'title'    => '',
+			'settings' => [],
+		];
+		$args = wp_parse_args( $args, $defaults );
+
+		?>
+		<div class="acu-setting-group">
+			<?php if ( ! empty( $args['title'] ) ) : ?>
+				<h4 class="acu-setting-group__title"><?php echo esc_html( $args['title'] ); ?></h4>
+			<?php endif; ?>
+			<div class="acu-setting-group__items">
+				<?php foreach ( $args['settings'] as $setting ) : ?>
+					<?php self::render_toggle( $setting ); ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<?php
+	}
+}
