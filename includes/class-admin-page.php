@@ -186,9 +186,10 @@ class WP_Clean_Up_Admin_Page {
     private function get_supported_plugins() {
         return [
             'pixelyoursite' => [
-                'name'   => 'PixelYourSite',
-                'check'  => 'pixelyoursite/facebook-pixel-master.php',
-                'option' => 'hide_pixelyoursite_notices',
+                'name'      => 'PixelYourSite',
+                'check'     => 'pixelyoursite/facebook-pixel-master.php',
+                'pro_check' => 'pixelyoursite-pro/pixelyoursite-pro.php',
+                'option'    => 'hide_pixelyoursite_notices',
             ],
             // Add more plugins here as needed:
             // 'plugin_key' => [
@@ -212,6 +213,10 @@ class WP_Clean_Up_Admin_Page {
 
         foreach ( $supported as $key => $plugin ) {
             if ( is_plugin_active( $plugin['check'] ) ) {
+                // If plugin has a pro version, exclude when pro is active
+                if ( ! empty( $plugin['pro_check'] ) && is_plugin_active( $plugin['pro_check'] ) ) {
+                    continue;
+                }
                 $installed[ $key ] = $plugin;
             }
         }

@@ -26,8 +26,10 @@ class WP_Clean_Up_Plugin_Notices {
         $this->options = WP_Clean_Up::get_options();
         $plugins_options = isset( $this->options['plugins'] ) ? $this->options['plugins'] : [];
 
-        // Hide PixelYourSite notices (only if plugin is active)
-        if ( ! empty( $plugins_options['hide_pixelyoursite_notices'] ) && $this->is_plugin_active( 'pixelyoursite/facebook-pixel-master.php' ) ) {
+        // Hide PixelYourSite notices (only if Free is active and Pro is NOT active)
+        if ( ! empty( $plugins_options['hide_pixelyoursite_notices'] )
+            && $this->is_plugin_active( 'pixelyoursite/facebook-pixel-master.php' )
+            && ! $this->is_plugin_active( 'pixelyoursite-pro/pixelyoursite-pro.php' ) ) {
             add_action( 'admin_head', [ $this, 'hide_pixelyoursite_notices' ] );
         }
     }
