@@ -61,12 +61,12 @@ Plans:
   3. The settings page is fully usable on mobile (782px breakpoint) with 44px minimum touch targets on interactive elements
   4. Visual hierarchy is immediately clear: section cards are visually grouped, toggle labels are readable, descriptions are subordinate, and status is obvious at a glance
   5. Keyboard navigation works through all toggles and controls (Tab to move, Space to toggle) with visible focus indicators
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: Tab migration (Admin Bar, Comments, Dashboard, Menus, Footer)
-- [ ] 03-02: Tab migration (Notices, Media, Plugins/PYS, Updates)
-- [ ] 03-03: Visual polish, responsive, and accessibility
+- [ ] 03-01-PLAN.md -- Dark theme CSS + page wrapper + new components (radio, text input, select)
+- [ ] 03-02-PLAN.md -- Tab migration: Admin Bar, Dashboard, Menus, Footer
+- [ ] 03-03-PLAN.md -- Tab migration: Notices, Media, Plugin Cleanup, Updates + visual verification
 
 ## Progress
 
