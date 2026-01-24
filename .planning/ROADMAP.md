@@ -28,11 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A fresh activation on a clean site produces an options array matching the current full structure (all keys present)
   4. With PixelYourSite Pro active (and Free inactive), the PYS tab functionality is completely dormant -- no hooks fire, no notices are hidden
   5. All user-facing strings render in English by default, and switching to sv_SE locale shows Swedish translations
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Deep merge, constant, and activation sync
-- [ ] 01-02: PYS Free-only condition and internationalization
+- [ ] 01-01-PLAN.md -- Deep merge, OPTION_KEY constant, and activation sync
+- [ ] 01-02-PLAN.md -- PYS Free-only condition and internationalization
 
 ### Phase 2: UI Architecture
 **Goal**: A complete, tested CSS design system and PHP component library exist, ready for tab migration
