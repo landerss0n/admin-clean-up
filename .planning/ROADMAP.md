@@ -44,11 +44,11 @@ Plans:
   3. Toggle switches visually reflect checkbox state without any JavaScript -- toggling works via CSS `:checked` only
   4. Each component (card, toggle, setting group) is rendered by a single PHP method call with parameters -- no duplicated HTML blocks
   5. Components use WordPress admin color scheme variables (`--wp-admin-theme-color`) so they adapt to user-selected color schemes
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: CSS design system (variables, card, toggle, setting group)
-- [ ] 02-02: PHP component render methods and hidden input pattern
+- [ ] 02-01-PLAN.md -- CSS design system (custom properties, card, toggle, setting, setting-group BEM components)
+- [ ] 02-02-PLAN.md -- PHP component render methods (WP_Clean_Up_Components class with hidden input pattern)
 
 ### Phase 3: Premium Settings Redesign
 **Goal**: Every settings tab uses the premium card/toggle UI, feels polished, and works reliably
