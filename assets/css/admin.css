@@ -1,0 +1,310 @@
+/**
+ * Admin Clean Up - Admin Styles
+ * Vertical sidebar navigation layout
+ */
+
+/* Settings page wrapper */
+.wp-clean-up-settings {
+    display: flex;
+    gap: 0;
+    max-width: 1200px;
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Hide default h1 margin */
+.wp-clean-up-settings-wrap > h1 {
+    margin-bottom: 20px;
+}
+
+/* Sidebar navigation */
+.wp-clean-up-sidebar {
+    width: 200px;
+    min-width: 200px;
+    background: #f6f7f7;
+    border-right: 1px solid #c3c4c7;
+    padding: 0;
+    margin: 0;
+}
+
+.wp-clean-up-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wp-clean-up-nav li {
+    margin: 0;
+    padding: 0;
+}
+
+.wp-clean-up-nav a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #1d2327;
+    font-size: 13px;
+    font-weight: 400;
+    border-left: 3px solid transparent;
+    border-bottom: 1px solid #e0e0e0;
+    transition: all 0.15s ease;
+}
+
+.wp-clean-up-nav a:hover {
+    background: #fff;
+    color: #2271b1;
+}
+
+.wp-clean-up-nav a.active {
+    background: #fff;
+    color: #1d2327;
+    font-weight: 600;
+    border-left-color: #2271b1;
+    margin-right: -1px;
+    border-right: 1px solid #fff;
+}
+
+.wp-clean-up-nav li:first-child a {
+    border-radius: 3px 0 0 0;
+}
+
+.wp-clean-up-nav li:last-child a {
+    border-bottom: none;
+}
+
+/* Disabled nav items */
+.wp-clean-up-nav a.disabled {
+    color: #a7aaad;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Coming soon badge */
+.wp-clean-up-nav .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: #dcdcde;
+    color: #646970;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* Main content area */
+.wp-clean-up-content {
+    flex: 1;
+    padding: 24px 30px;
+    min-height: 500px;
+}
+
+.wp-clean-up-content h2 {
+    margin: 0 0 8px 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.wp-clean-up-content > p.description {
+    margin: 0 0 24px 0;
+    color: #646970;
+    font-size: 13px;
+}
+
+/* Form table adjustments */
+.wp-clean-up-content .form-table {
+    margin-top: 0;
+}
+
+.wp-clean-up-content .form-table th {
+    width: 180px;
+    padding: 20px 10px 20px 0;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1d2327;
+    vertical-align: top;
+}
+
+.wp-clean-up-content .form-table td {
+    padding: 16px 10px;
+    vertical-align: top;
+}
+
+.wp-clean-up-content .form-table tr {
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.wp-clean-up-content .form-table tr:last-child {
+    border-bottom: none;
+}
+
+.wp-clean-up-content .form-table td label {
+    font-weight: 500;
+    color: #1d2327;
+}
+
+.wp-clean-up-content .form-table td .description {
+    margin-top: 6px;
+    color: #646970;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.wp-clean-up-content .form-table td ul.description {
+    margin-top: 8px;
+    margin-left: 18px;
+}
+
+.wp-clean-up-content .form-table td ul.description li {
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+
+/* Checkbox styling */
+.wp-clean-up-content input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* Menu settings alignment */
+.wp-clean-up-content .menu-item-row td {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.wp-clean-up-content .menu-item-row label {
+    display: inline-flex;
+    align-items: center;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.wp-clean-up-content .menu-item-row select {
+    width: 240px;
+}
+
+.wp-clean-up-content .menu-item-row .menu-warning {
+    width: 100%;
+    margin: 4px 0 0 0;
+    color: #d63638;
+}
+
+/* Radio button styling */
+.wp-clean-up-content fieldset label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.wp-clean-up-content fieldset label:last-child {
+    margin-bottom: 0;
+}
+
+.wp-clean-up-content input[type="radio"] {
+    margin-right: 6px;
+}
+
+/* Text input styling */
+.wp-clean-up-content input[type="text"].regular-text {
+    width: 100%;
+    max-width: 350px;
+}
+
+/* Warning text */
+.wp-clean-up-content .description[style*="color: #d63638"],
+.wp-clean-up-content .warning-text {
+    color: #d63638 !important;
+    font-weight: 500;
+}
+
+/* Code examples */
+.wp-clean-up-content code {
+    background: #f0f0f1;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+/* Submit button area */
+.wp-clean-up-content .submit {
+    margin: 24px 0 0 0;
+    padding: 20px 0 0 0;
+    border-top: 1px solid #f0f0f1;
+}
+
+.wp-clean-up-content .submit .button-primary {
+    padding: 6px 20px;
+    height: auto;
+    font-size: 13px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .wp-clean-up-settings {
+        flex-direction: column;
+    }
+
+    .wp-clean-up-sidebar {
+        width: 100%;
+        min-width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #c3c4c7;
+    }
+
+    .wp-clean-up-nav {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        gap: 6px;
+    }
+
+    .wp-clean-up-nav li {
+        flex: 0 0 auto;
+    }
+
+    .wp-clean-up-nav a {
+        padding: 8px 12px;
+        border: 1px solid #c3c4c7;
+        border-radius: 4px;
+        border-left-width: 1px;
+        font-size: 12px;
+    }
+
+    .wp-clean-up-nav a.active {
+        background: #2271b1;
+        color: #fff;
+        border-color: #2271b1;
+        margin-right: 0;
+    }
+
+    .wp-clean-up-nav a:hover {
+        background: #f0f0f1;
+        color: #1d2327;
+    }
+
+    .wp-clean-up-nav a.active:hover {
+        background: #2271b1;
+        color: #fff;
+    }
+
+    .wp-clean-up-content {
+        padding: 20px;
+    }
+
+    .wp-clean-up-content .form-table th {
+        width: 100%;
+        display: block;
+        padding-bottom: 8px;
+    }
+
+    .wp-clean-up-content .form-table td {
+        display: block;
+        padding-top: 0;
+    }
+}

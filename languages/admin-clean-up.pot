@@ -1,0 +1,638 @@
+# Copyright (C) 2024 Digiwise
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Admin Clean Up 1.0.0\n"
+"Report-Msgid-Bugs-To: https://developer.suspended.se/admin-clean-up\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-admin-page.php:31
+#: includes/class-admin-page.php:32
+msgid "Admin Clean Up"
+msgstr ""
+
+#: includes/class-admin-page.php:170
+msgid "Admin Bar"
+msgstr ""
+
+#: includes/class-admin-page.php:174
+msgid "Comments"
+msgstr ""
+
+#: includes/class-admin-page.php:178
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-admin-page.php:182
+msgid "Admin Menus"
+msgstr ""
+
+#: includes/class-admin-page.php:186
+msgid "Footer"
+msgstr ""
+
+#: includes/class-admin-page.php:190
+msgid "Notices"
+msgstr ""
+
+#: includes/class-admin-page.php:194
+msgid "Media"
+msgstr ""
+
+#: includes/class-admin-page.php:242
+msgid "Coming soon"
+msgstr ""
+
+#: includes/class-admin-page.php:250
+msgid "Soon"
+msgstr ""
+
+#: includes/class-admin-page.php:283
+msgid "Save Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:295
+msgid "Admin Bar Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:297
+msgid "Select which elements to remove from the admin bar."
+msgstr ""
+
+#: includes/class-admin-page.php:303
+msgid "WordPress Logo"
+msgstr ""
+
+#: includes/class-admin-page.php:310
+msgid "Remove WordPress logo"
+msgstr ""
+
+#: includes/class-admin-page.php:313
+msgid "Removes the WordPress logo and its submenu from the admin bar."
+msgstr ""
+
+#: includes/class-admin-page.php:318
+msgid "Site Name"
+msgstr ""
+
+#: includes/class-admin-page.php:325
+msgid "Remove submenus under site name"
+msgstr ""
+
+#: includes/class-admin-page.php:328
+msgid "Keeps the main link to the site but removes the submenu."
+msgstr ""
+
+#: includes/class-admin-page.php:333
+msgid "New Content"
+msgstr ""
+
+#: includes/class-admin-page.php:340
+msgid "Remove \"New\" (+New)"
+msgstr ""
+
+#: includes/class-admin-page.php:343
+msgid "Removes the \"+New\" button from the admin bar."
+msgstr ""
+
+#: includes/class-admin-page.php:348
+msgid "Search Field"
+msgstr ""
+
+#: includes/class-admin-page.php:355
+msgid "Remove search field"
+msgstr ""
+
+#: includes/class-admin-page.php:358
+msgid "Removes the search field from the admin bar."
+msgstr ""
+
+#: includes/class-admin-page.php:363
+msgid "Account Menu (Frontend)"
+msgstr ""
+
+#: includes/class-admin-page.php:370
+msgid "Hide \"Howdy, user\" on frontend"
+msgstr ""
+
+#: includes/class-admin-page.php:373
+msgid "Removes the account menu (\"Howdy, username\") from the admin bar on the frontend. Still visible in admin."
+msgstr ""
+
+#: includes/class-admin-page.php:388
+msgid "Comments Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:390
+msgid "Completely disable comments functionality on your website."
+msgstr ""
+
+#: includes/class-admin-page.php:396
+msgid "Disable Comments"
+msgstr ""
+
+#: includes/class-admin-page.php:403
+msgid "Disable comments completely"
+msgstr ""
+
+#: includes/class-admin-page.php:406
+msgid "This removes all comment functionality:"
+msgstr ""
+
+#: includes/class-admin-page.php:409
+msgid "Closes comments on all posts and pages"
+msgstr ""
+
+#: includes/class-admin-page.php:410
+msgid "Hides existing comments and returns 0 for count"
+msgstr ""
+
+#: includes/class-admin-page.php:411
+msgid "Removes Comments from admin menu"
+msgstr ""
+
+#: includes/class-admin-page.php:412
+msgid "Removes Discussion from Settings menu"
+msgstr ""
+
+#: includes/class-admin-page.php:413
+msgid "Removes comment icon from admin bar"
+msgstr ""
+
+#: includes/class-admin-page.php:414
+msgid "Removes discussion panel from Gutenberg and classic editor"
+msgstr ""
+
+#: includes/class-admin-page.php:415
+msgid "Hides comment options in Quick Edit"
+msgstr ""
+
+#: includes/class-admin-page.php:416
+msgid "Disables pingbacks and trackbacks"
+msgstr ""
+
+#: includes/class-admin-page.php:417
+msgid "Disables comments in REST API and XML-RPC"
+msgstr ""
+
+#: includes/class-admin-page.php:418
+msgid "Redirects comment feeds to homepage"
+msgstr ""
+
+#: includes/class-admin-page.php:419
+msgid "Removes comment-related rewrite rules"
+msgstr ""
+
+#: includes/class-admin-page.php:434
+msgid "Dashboard Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:436
+msgid "Select which dashboard widgets to remove."
+msgstr ""
+
+#: includes/class-admin-page.php:442
+msgid "Welcome Panel"
+msgstr ""
+
+#: includes/class-admin-page.php:449
+msgid "Remove Welcome Panel"
+msgstr ""
+
+#: includes/class-admin-page.php:454
+msgid "At a Glance"
+msgstr ""
+
+#: includes/class-admin-page.php:461
+msgid "Remove \"At a Glance\" widget"
+msgstr ""
+
+#: includes/class-admin-page.php:466
+msgid "Activity"
+msgstr ""
+
+#: includes/class-admin-page.php:473
+msgid "Remove \"Activity\" widget"
+msgstr ""
+
+#: includes/class-admin-page.php:478
+msgid "Quick Draft"
+msgstr ""
+
+#: includes/class-admin-page.php:485
+msgid "Remove \"Quick Draft\" widget"
+msgstr ""
+
+#: includes/class-admin-page.php:490
+msgid "WordPress News"
+msgstr ""
+
+#: includes/class-admin-page.php:497
+msgid "Remove \"WordPress Events and News\" widget"
+msgstr ""
+
+#: includes/class-admin-page.php:502
+msgid "Site Health"
+msgstr ""
+
+#: includes/class-admin-page.php:509
+msgid "Remove \"Site Health\" widget"
+msgstr ""
+
+#: includes/class-admin-page.php:514
+msgid "Disable Site Health"
+msgstr ""
+
+#: includes/class-admin-page.php:521
+msgid "Completely disable Site Health"
+msgstr ""
+
+#: includes/class-admin-page.php:524
+msgid "This completely disables Site Health functionality:"
+msgstr ""
+
+#: includes/class-admin-page.php:527
+msgid "Removes Site Health from Tools menu"
+msgstr ""
+
+#: includes/class-admin-page.php:528
+msgid "Removes Site Health dashboard widget"
+msgstr ""
+
+#: includes/class-admin-page.php:529
+msgid "Disables all site health tests"
+msgstr ""
+
+#: includes/class-admin-page.php:530
+msgid "Stops scheduled background checks (cron)"
+msgstr ""
+
+#: includes/class-admin-page.php:531
+msgid "Disables Site Health REST API endpoints"
+msgstr ""
+
+#: includes/class-admin-page.php:532
+msgid "Stops email reports about site health"
+msgstr ""
+
+#: includes/class-admin-page.php:547
+msgid "Admin Menu Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:549
+msgid "Select which admin menus to hide and for which user roles."
+msgstr ""
+
+#: includes/class-admin-page.php:580
+msgid "— Select who to hide from —"
+msgstr ""
+
+#: includes/class-admin-page.php:581
+msgid "All users"
+msgstr ""
+
+#: includes/class-admin-page.php:582
+msgid "All except administrators"
+msgstr ""
+
+#: includes/class-admin-page.php:583
+msgid "All except administrators & editors"
+msgstr ""
+
+#: includes/class-admin-page.php:620
+msgid "Warning: If you hide this for all users, you cannot access this plugin's settings via the menu."
+msgstr ""
+
+#: includes/class-admin-page.php:555
+msgid "Posts"
+msgstr ""
+
+#: includes/class-admin-page.php:562
+msgid "Hide \"Posts\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:567
+msgid "Hide \"Media\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:579
+msgid "Pages"
+msgstr ""
+
+#: includes/class-admin-page.php:586
+msgid "Hide \"Pages\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:591
+msgid "Appearance"
+msgstr ""
+
+#: includes/class-admin-page.php:598
+msgid "Hide \"Appearance\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:603
+msgid "Plugins"
+msgstr ""
+
+#: includes/class-admin-page.php:610
+msgid "Hide \"Plugins\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:615
+msgid "Users"
+msgstr ""
+
+#: includes/class-admin-page.php:622
+msgid "Hide \"Users\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:627
+msgid "Tools"
+msgstr ""
+
+#: includes/class-admin-page.php:634
+msgid "Hide \"Tools\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:639
+msgid "Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:646
+msgid "Hide \"Settings\" menu"
+msgstr ""
+
+#: includes/class-admin-page.php:649
+msgid "Warning: If you hide this menu, you will no longer be able to access this plugin's settings via the menu."
+msgstr ""
+
+#: includes/class-admin-page.php:664
+msgid "Footer Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:666
+msgid "Customize or remove the text in the admin footer."
+msgstr ""
+
+#: includes/class-admin-page.php:672
+msgid "Footer Text"
+msgstr ""
+
+#: includes/class-admin-page.php:679
+msgid "Remove footer text (\"Thank you for creating with WordPress\")"
+msgstr ""
+
+#: includes/class-admin-page.php:684
+msgid "Custom Footer Text"
+msgstr ""
+
+#: includes/class-admin-page.php:690
+msgid "E.g. Developed by Digiwise"
+msgstr ""
+
+#: includes/class-admin-page.php:692
+msgid "Leave empty to use WordPress default text, or enter custom text. Ignored if \"Remove footer text\" is enabled."
+msgstr ""
+
+#: includes/class-admin-page.php:697
+msgid "Version Number"
+msgstr ""
+
+#: includes/class-admin-page.php:704
+msgid "Remove WordPress version number"
+msgstr ""
+
+#: includes/class-admin-page.php:709
+msgid "Custom Version Text"
+msgstr ""
+
+#: includes/class-admin-page.php:715
+msgid "E.g. Version 2.0"
+msgstr ""
+
+#: includes/class-admin-page.php:717
+msgid "Leave empty to show WordPress version, or enter custom text. Ignored if \"Remove version number\" is enabled."
+msgstr ""
+
+#: includes/class-admin-page.php:732
+msgid "Notices Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:734
+msgid "Control which notices and elements are displayed in admin."
+msgstr ""
+
+#: includes/class-admin-page.php:740
+msgid "Update Notices"
+msgstr ""
+
+#: includes/class-admin-page.php:747
+msgid "Hide update notices"
+msgstr ""
+
+#: includes/class-admin-page.php:750
+msgid "Hides notices about WordPress, plugin and theme updates."
+msgstr ""
+
+#: includes/class-admin-page.php:755
+msgid "All Notices"
+msgstr ""
+
+#: includes/class-admin-page.php:762
+msgid "Hide all admin notices"
+msgstr ""
+
+#: includes/class-admin-page.php:765
+msgid "Warning: This hides ALL notices, including important error messages and warnings."
+msgstr ""
+
+#: includes/class-admin-page.php:770
+msgid "Screen Options"
+msgstr ""
+
+#: includes/class-admin-page.php:777
+msgid "Hide \"Screen Options\" tab"
+msgstr ""
+
+#: includes/class-admin-page.php:782
+msgid "Help Tab"
+msgstr ""
+
+#: includes/class-admin-page.php:789
+msgid "Hide \"Help\" tab"
+msgstr ""
+
+#: includes/class-admin-page.php:804
+msgid "Media Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:806
+msgid "Settings for the media library and file uploads."
+msgstr ""
+
+#: includes/class-admin-page.php:812
+msgid "Clean Filenames"
+msgstr ""
+
+#: includes/class-admin-page.php:819
+msgid "Clean filenames automatically on upload"
+msgstr ""
+
+#: includes/class-admin-page.php:822
+msgid "This automatically cleans filenames when files are uploaded:"
+msgstr ""
+
+#: includes/class-admin-page.php:825
+msgid "Converts special characters (å, ä, ö, etc.) to their ASCII equivalents"
+msgstr ""
+
+#: includes/class-admin-page.php:826
+msgid "Replaces spaces and underscores with dashes"
+msgstr ""
+
+#: includes/class-admin-page.php:827
+msgid "Removes special characters and accents"
+msgstr ""
+
+#: includes/class-admin-page.php:828
+msgid "Converts to lowercase"
+msgstr ""
+
+#: includes/class-admin-page.php:829
+msgid "Preserves the original title as the image title in the media library"
+msgstr ""
+
+#: includes/class-admin-page.php:832
+msgid "Example:"
+msgstr ""
+
+#: includes/class-admin-page.php:838
+msgid "File Types to Clean"
+msgstr ""
+
+#: includes/class-admin-page.php:846
+msgid "All file types"
+msgstr ""
+
+#: includes/class-admin-page.php:854
+msgid "Images only (JPG, PNG, GIF, WebP, etc.)"
+msgstr ""
+
+#: includes/class-admin-page.php:858
+msgid "Select which file types should have their filenames cleaned on upload."
+msgstr ""
+
+#: includes/class-admin-page.php:879
+msgid "Plugin Notices Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:881
+msgid "Hide annoying promotional notices and nag screens from specific plugins."
+msgstr ""
+
+#: includes/class-admin-page.php:888
+msgid "PixelYourSite"
+msgstr ""
+
+#: includes/class-admin-page.php:895
+msgid "Hide PixelYourSite promotional notices"
+msgstr ""
+
+#: includes/class-admin-page.php:898
+msgid "Hides the \"Free PIXELYOURSITE HACKS\" email signup, video tips, and other promotional notices from PixelYourSite plugin."
+msgstr ""
+
+#: includes/class-admin-page.php:213
+msgid "Updates"
+msgstr ""
+
+#: includes/class-admin-page.php:922
+msgid "Automatic Updates Settings"
+msgstr ""
+
+#: includes/class-admin-page.php:924
+msgid "Control automatic updates for WordPress core, plugins, and themes."
+msgstr ""
+
+#: includes/class-admin-page.php:930
+msgid "WordPress Core Updates"
+msgstr ""
+
+#: includes/class-admin-page.php:937
+msgid "WordPress default (minor updates only)"
+msgstr ""
+
+#: includes/class-admin-page.php:944
+msgid "Security updates only (minor releases)"
+msgstr ""
+
+#: includes/class-admin-page.php:951
+msgid "Minor updates only (e.g., 6.4.1 to 6.4.2)"
+msgstr ""
+
+#: includes/class-admin-page.php:958
+msgid "All updates (major + minor, e.g., 6.4 to 6.5)"
+msgstr ""
+
+#: includes/class-admin-page.php:965
+msgid "Disable all automatic core updates"
+msgstr ""
+
+#: includes/class-admin-page.php:970
+msgid "Note: Security updates are recommended to keep your site safe."
+msgstr ""
+
+#: includes/class-admin-page.php:975
+msgid "Plugin Auto-Updates"
+msgstr ""
+
+#: includes/class-admin-page.php:982
+msgid "Disable automatic plugin updates"
+msgstr ""
+
+#: includes/class-admin-page.php:985
+msgid "Prevents plugins from updating automatically. You can still update them manually."
+msgstr ""
+
+#: includes/class-admin-page.php:990
+msgid "Theme Auto-Updates"
+msgstr ""
+
+#: includes/class-admin-page.php:997
+msgid "Disable automatic theme updates"
+msgstr ""
+
+#: includes/class-admin-page.php:1000
+msgid "Prevents themes from updating automatically. You can still update them manually."
+msgstr ""
+
+#: includes/class-admin-page.php:1005
+msgid "Update Emails"
+msgstr ""
+
+#: includes/class-admin-page.php:1012
+msgid "Disable update notification emails"
+msgstr ""
+
+#: includes/class-admin-page.php:1015
+msgid "Stops WordPress from sending emails about automatic updates (core, plugins, themes)."
+msgstr ""
+
+#: includes/class-admin-page.php:1020
+msgid "Update Nags"
+msgstr ""
+
+#: includes/class-admin-page.php:1027
+msgid "Hide update nags in admin"
+msgstr ""
+
+#: includes/class-admin-page.php:1030
+msgid "Hides the \"WordPress X.X is available! Please update now\" message and update count badges."
+msgstr ""

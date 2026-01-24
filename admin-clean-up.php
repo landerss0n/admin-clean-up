@@ -1,0 +1,217 @@
+<?php
+/**
+ * Plugin Name: Admin Clean Up
+ * Plugin URI: https://developer.suspended.se/admin-clean-up
+ * Description: Clean up and simplify the WordPress admin interface by removing unnecessary elements.
+ * Version: 1.0.0
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
+ * Author: Digiwise
+ * Author URI: https://digiwise.se
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: admin-clean-up
+ * Domain Path: /languages
+ *
+ * @package Admin_Clean_Up
+ */
+
+// Prevent direct access
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// Define plugin constants
+define( 'ADMIN_CLEAN_UP_VERSION', '1.0.0' );
+define( 'ADMIN_CLEAN_UP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'ADMIN_CLEAN_UP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+/**
+ * Main plugin class
+ */
+class WP_Clean_Up {
+
+    /**
+     * Single instance of the class
+     */
+    private static $instance = null;
+
+    /**
+     * Get the singleton instance
+     */
+    public static function get_instance() {
+        if ( null === self::$instance ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Constructor
+     */
+    private function __construct() {
+        $this->load_dependencies();
+        $this->init_modules();
+    }
+
+    /**
+     * Load required files
+     */
+    private function load_dependencies() {
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-admin-page.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-admin-bar.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-comments.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-dashboard.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-admin-menus.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-footer.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-notices.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-site-health.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-clean-filenames.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-plugin-notices.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-updates.php';
+    }
+
+    /**
+     * Initialize all modules
+     */
+    private function init_modules() {
+        // Initialize admin page (settings)
+        new WP_Clean_Up_Admin_Page();
+
+        // Initialize admin bar cleanup
+        new WP_Clean_Up_Admin_Bar();
+
+        // Initialize comments cleanup
+        new WP_Clean_Up_Comments();
+
+        // Initialize dashboard cleanup
+        new WP_Clean_Up_Dashboard();
+
+        // Initialize admin menus cleanup
+        new WP_Clean_Up_Admin_Menus();
+
+        // Initialize footer customization
+        new WP_Clean_Up_Footer();
+
+        // Initialize notices cleanup
+        new WP_Clean_Up_Notices();
+
+        // Initialize site health disable
+        new WP_Clean_Up_Site_Health();
+
+        // Initialize clean filenames
+        new WP_Clean_Up_Clean_Filenames();
+
+        // Initialize plugin notices cleanup
+        new WP_Clean_Up_Plugin_Notices();
+
+        // Initialize updates control
+        new WP_Clean_Up_Updates();
+    }
+
+    /**
+     * Get plugin options with defaults
+     */
+    public static function get_options() {
+        $defaults = [
+            'adminbar' => [
+                'remove_wp_logo'        => false,
+                'remove_site_menu'      => false,
+                'remove_new_content'    => false,
+                'remove_search'         => false,
+                'remove_howdy_frontend' => false,
+            ],
+            'comments' => [
+                'disable_comments' => false,
+            ],
+            'dashboard' => [
+                'remove_welcome_panel' => false,
+                'remove_at_a_glance'   => false,
+                'remove_activity'      => false,
+                'remove_quick_draft'   => false,
+                'remove_wp_events'     => false,
+                'remove_site_health'   => false,
+                'disable_site_health'  => false,
+            ],
+            'menus' => [
+                'remove_posts'          => false,
+                'remove_posts_for'      => 'non_admin',
+                'remove_media'          => false,
+                'remove_media_for'      => 'non_admin',
+                'remove_pages'          => false,
+                'remove_pages_for'      => 'non_admin',
+                'remove_appearance'     => false,
+                'remove_appearance_for' => 'non_admin',
+                'remove_plugins'        => false,
+                'remove_plugins_for'    => 'non_admin',
+                'remove_users'          => false,
+                'remove_users_for'      => 'non_admin',
+                'remove_tools'          => false,
+                'remove_tools_for'      => 'non_admin',
+                'remove_settings'       => false,
+                'remove_settings_for'   => 'non_admin',
+            ],
+            'footer' => [
+                'remove_footer_text'  => false,
+                'custom_footer_text'  => '',
+                'remove_version'      => false,
+                'custom_version_text' => '',
+            ],
+            'notices' => [
+                'hide_update_notices' => false,
+                'hide_all_notices'    => false,
+                'hide_screen_options' => false,
+                'hide_help_tab'       => false,
+            ],
+            'media' => [
+                'clean_filenames'       => false,
+                'clean_filenames_types' => 'all',
+            ],
+            'plugins' => [
+                'hide_pixelyoursite_notices' => false,
+            ],
+            'updates' => [
+                'core_updates'           => 'default',
+                'disable_plugin_updates' => false,
+                'disable_theme_updates'  => false,
+                'disable_update_emails'  => false,
+                'hide_update_nags'       => false,
+            ],
+        ];
+
+        $options = get_option( 'wp_clean_up_options', [] );
+
+        return wp_parse_args( $options, $defaults );
+    }
+}
+
+/**
+ * Initialize the plugin
+ */
+function wp_clean_up_init() {
+    return WP_Clean_Up::get_instance();
+}
+
+// Start the plugin
+add_action( 'plugins_loaded', 'wp_clean_up_init' );
+
+/**
+ * Activation hook
+ */
+function wp_clean_up_activate() {
+    // Set default options on activation
+    if ( false === get_option( 'wp_clean_up_options' ) ) {
+        add_option( 'wp_clean_up_options', [
+            'adminbar' => [
+                'remove_wp_logo'     => false,
+                'remove_site_menu'   => false,
+                'remove_new_content' => false,
+                'remove_search'      => false,
+            ],
+            'comments' => [
+                'disable_comments' => false,
+            ],
+        ] );
+    }
+}
+register_activation_hook( __FILE__, 'wp_clean_up_activate' );
