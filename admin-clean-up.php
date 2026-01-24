@@ -75,6 +75,8 @@ class WP_Clean_Up {
      * Load required files
      */
     private function load_dependencies() {
+        // UI components for premium settings
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-components.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-admin-page.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-admin-bar.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-comments.php';
