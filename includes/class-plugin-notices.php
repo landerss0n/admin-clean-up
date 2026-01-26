@@ -67,7 +67,10 @@ class WP_Clean_Up_Plugin_Notices {
         // Remove Complianz HTML comments from frontend
         if ( ! empty( $plugins_options['hide_complianz_comments'] )
             && $this->is_plugin_active( 'complianz-gdpr/complianz-gpdr.php' ) ) {
-            add_action( 'template_redirect', [ $this, 'start_complianz_output_buffer' ], 1 );
+            // Use Complianz's own filter (more efficient than full output buffering)
+            add_filter( 'cmplz_cookie_blocker_output', [ $this, 'remove_complianz_comments' ] );
+            // Fallback: catch any comments outside cookie blocker output
+            add_filter( 'cmplz_banner_html', [ $this, 'remove_complianz_comments' ] );
         }
 
         // Clean up Yoast SEO admin
@@ -600,14 +603,9 @@ class WP_Clean_Up_Plugin_Notices {
     }
 
     /**
-     * Start output buffering to remove Complianz HTML comments
-     */
-    public function start_complianz_output_buffer() {
-        ob_start( [ $this, 'remove_complianz_comments' ] );
-    }
-
-    /**
      * Remove Complianz HTML comments from output
+     *
+     * Uses Complianz's own filters instead of full output buffering for better performance.
      *
      * @param string $html The HTML output.
      * @return string The filtered HTML.
