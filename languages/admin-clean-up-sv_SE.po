@@ -481,3 +481,11 @@ msgstr "Rensa WooCommerce"
 #: includes/class-admin-page.php
 msgid "Removes WooCommerce generator meta tag, HTML comments from frontend source code, and disables usage tracking."
 msgstr "Tar bort WooCommerce generator-metataggen, HTML-kommentarer från frontend-källkoden och inaktiverar användarspårning."
+
+#: includes/class-admin-page.php
+msgid "Leave empty for WordPress default."
+msgstr "Lämna tomt för WordPress-standard."
+
+#: includes/class-admin-page.php
+msgid "Leave empty to show WordPress version."
+msgstr "Lämna tomt för att visa WordPress-version."

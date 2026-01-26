@@ -270,40 +270,40 @@ class WP_Clean_Up_Admin_Page {
     private function get_tabs() {
         $tabs = [
             'adminbar' => [
-                'title'    => __( 'Admin Bar', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Admin Bar', 'admin-clean-up' ),
+                'icon'  => 'dashicons-admin-links',
             ],
             'comments' => [
-                'title'    => __( 'Comments', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Comments', 'admin-clean-up' ),
+                'icon'  => 'dashicons-admin-comments',
             ],
             'dashboard' => [
-                'title'    => __( 'Dashboard', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Dashboard', 'admin-clean-up' ),
+                'icon'  => 'dashicons-dashboard',
             ],
             'menus' => [
-                'title'    => __( 'Admin Menus', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Admin Menus', 'admin-clean-up' ),
+                'icon'  => 'dashicons-menu',
             ],
             'footer' => [
-                'title'    => __( 'Footer', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Footer', 'admin-clean-up' ),
+                'icon'  => 'dashicons-editor-insertmore',
             ],
             'notices' => [
-                'title'    => __( 'Notices', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Notices', 'admin-clean-up' ),
+                'icon'  => 'dashicons-bell',
             ],
             'media' => [
-                'title'    => __( 'Media', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Media', 'admin-clean-up' ),
+                'icon'  => 'dashicons-admin-media',
             ],
             'updates' => [
-                'title'    => __( 'Updates', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Updates', 'admin-clean-up' ),
+                'icon'  => 'dashicons-update',
             ],
             'frontend' => [
-                'title'    => __( 'Frontend', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Frontend', 'admin-clean-up' ),
+                'icon'  => 'dashicons-admin-site-alt3',
             ],
         ];
 
@@ -311,8 +311,8 @@ class WP_Clean_Up_Admin_Page {
         $installed_plugins = $this->get_installed_supported_plugins();
         if ( ! empty( $installed_plugins ) ) {
             $tabs['plugins'] = [
-                'title'    => __( 'Plugins', 'admin-clean-up' ),
-                'active'   => true,
+                'title' => __( 'Plugins', 'admin-clean-up' ),
+                'icon'  => 'dashicons-admin-plugins',
             ];
         }
 
@@ -332,31 +332,42 @@ class WP_Clean_Up_Admin_Page {
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Tab parameter is for display only and validated against allowed values.
         $current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'adminbar';
 
-        // Only allow active tabs
-        if ( ! isset( $tabs[ $current_tab ] ) || ! $tabs[ $current_tab ]['active'] ) {
+        // Only allow valid tabs
+        if ( ! isset( $tabs[ $current_tab ] ) ) {
             $current_tab = 'adminbar';
         }
 
         $options = WP_Clean_Up::get_options();
+        $current_tab_data = $tabs[ $current_tab ];
         ?>
         <div class="wrap acu-settings-wrap">
             <div class="acu-settings">
                 <nav class="acu-sidebar">
+                    <div class="acu-sidebar__logo">
+                        <img src="<?php echo esc_url( ADMIN_CLEAN_UP_PLUGIN_URL . 'assets/images/acu-logo.png' ); ?>" alt="Admin Clean Up">
+                    </div>
                     <ul class="acu-sidebar__nav">
                         <?php foreach ( $tabs as $tab_id => $tab ) : ?>
-                            <?php if ( $tab['active'] ) : ?>
-                                <li>
-                                    <a href="<?php echo esc_url( add_query_arg( 'tab', $tab_id, admin_url( 'options-general.php?page=admin-clean-up' ) ) ); ?>"
-                                       class="acu-sidebar__link<?php echo $current_tab === $tab_id ? ' acu-sidebar__link--active' : ''; ?>">
-                                        <?php echo esc_html( $tab['title'] ); ?>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
+                            <li>
+                                <a href="<?php echo esc_url( add_query_arg( 'tab', $tab_id, admin_url( 'options-general.php?page=admin-clean-up' ) ) ); ?>"
+                                   class="acu-sidebar__link<?php echo $current_tab === $tab_id ? ' acu-sidebar__link--active' : ''; ?>">
+                                    <span class="dashicons <?php echo esc_attr( $tab['icon'] ); ?>"></span>
+                                    <?php echo esc_html( $tab['title'] ); ?>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </nav>
 
                 <div class="acu-content">
+                    <header class="acu-content__header">
+                        <h1 class="acu-content__title">
+                            <span class="dashicons <?php echo esc_attr( $current_tab_data['icon'] ); ?>"></span>
+                            <?php echo esc_html( $current_tab_data['title'] ); ?>
+                        </h1>
+                        <span class="acu-content__version">Version <?php echo esc_html( ADMIN_CLEAN_UP_VERSION ); ?></span>
+                    </header>
+                    <div class="acu-content__body">
                     <form method="post" action="options.php">
                         <?php settings_fields( 'wp_clean_up_options_group' ); ?>
                         <input type="hidden" name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[_current_tab]" value="<?php echo esc_attr( $current_tab ); ?>">
@@ -403,6 +414,7 @@ class WP_Clean_Up_Admin_Page {
                             <button type="submit" class="acu-button-primary"><?php esc_html_e( 'Save Settings', 'admin-clean-up' ); ?></button>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -631,13 +643,15 @@ class WP_Clean_Up_Admin_Page {
             'checked'     => ! empty( $footer['remove_footer_text'] ),
             'label'       => __( 'Remove Footer Text', 'admin-clean-up' ),
             'description' => __( 'Removes "Thank you for creating with WordPress" from the admin footer.', 'admin-clean-up' ),
+            'id'          => 'acu-remove-footer-text',
         ] );
         WP_Clean_Up_Components::render_text_input( [
             'name'        => WP_Clean_Up::OPTION_KEY . '[footer][custom_footer_text]',
             'value'       => $footer['custom_footer_text'] ?? '',
             'label'       => __( 'Custom Footer Text', 'admin-clean-up' ),
             'placeholder' => __( 'E.g. Developed by Digiwise', 'admin-clean-up' ),
-            'description' => __( 'Leave empty for WordPress default. Ignored if "Remove Footer Text" is enabled.', 'admin-clean-up' ),
+            'description' => __( 'Leave empty for WordPress default.', 'admin-clean-up' ),
+            'id'          => 'acu-custom-footer-text',
         ] );
         $content1 = ob_get_clean();
 
@@ -653,15 +667,44 @@ class WP_Clean_Up_Admin_Page {
             'checked'     => ! empty( $footer['remove_version'] ),
             'label'       => __( 'Remove Version Number', 'admin-clean-up' ),
             'description' => __( 'Removes the WordPress version number from the admin footer.', 'admin-clean-up' ),
+            'id'          => 'acu-remove-version',
         ] );
         WP_Clean_Up_Components::render_text_input( [
             'name'        => WP_Clean_Up::OPTION_KEY . '[footer][custom_version_text]',
             'value'       => $footer['custom_version_text'] ?? '',
             'label'       => __( 'Custom Version Text', 'admin-clean-up' ),
             'placeholder' => __( 'E.g. Version 2.0', 'admin-clean-up' ),
-            'description' => __( 'Leave empty to show WordPress version. Ignored if "Remove Version Number" is enabled.', 'admin-clean-up' ),
+            'description' => __( 'Leave empty to show WordPress version.', 'admin-clean-up' ),
+            'id'          => 'acu-custom-version-text',
         ] );
         $content2 = ob_get_clean();
+
+        // JavaScript for conditional visibility
+        ?>
+        <script>
+        jQuery(document).ready(function($) {
+            function toggleCustomField(toggleId, fieldId) {
+                var $toggle = $('#' + toggleId);
+                var $field = $('#' + fieldId).closest('.acu-setting--text');
+                if ($toggle.is(':checked')) {
+                    $field.hide();
+                } else {
+                    $field.show();
+                }
+            }
+            // Initial state
+            toggleCustomField('acu-remove-footer-text', 'acu-custom-footer-text');
+            toggleCustomField('acu-remove-version', 'acu-custom-version-text');
+            // On change
+            $('#acu-remove-footer-text').on('change', function() {
+                toggleCustomField('acu-remove-footer-text', 'acu-custom-footer-text');
+            });
+            $('#acu-remove-version').on('change', function() {
+                toggleCustomField('acu-remove-version', 'acu-custom-version-text');
+            });
+        });
+        </script>
+        <?php
 
         WP_Clean_Up_Components::render_card( [
             'title'   => __( 'Version Number', 'admin-clean-up' ),
