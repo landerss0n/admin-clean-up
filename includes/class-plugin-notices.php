@@ -110,6 +110,9 @@ class WP_Clean_Up_Plugin_Notices {
 
             // Hide Yoast upsells in Elementor editor
             add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'hide_yoast_elementor_upsells' ] );
+
+            // Remove Yoast admin columns and filters
+            add_action( 'admin_init', [ $this, 'remove_yoast_admin_columns_and_filters' ] );
         }
     }
 
@@ -417,6 +420,9 @@ class WP_Clean_Up_Plugin_Notices {
             .yoast-badge.yoast-premium-badge,
             /* Hide AI Brand Insights gradient button in submenu */
             .yoast-brand-insights-gradient-border,
+            /* Hide help beacon/support widget */
+            #yoast-helpscout-beacon,
+            .yoast-help-center__button,
             /* Hide premium sidebar and upsell boxes */
             #sidebar-container,
             .yoast_premium_upsell,
@@ -605,6 +611,48 @@ class WP_Clean_Up_Plugin_Notices {
             }
         ';
         wp_add_inline_style( 'yoast-seo-elementor', $css );
+    }
+
+    /**
+     * Remove Yoast admin columns and filters from post lists
+     */
+    public function remove_yoast_admin_columns_and_filters() {
+        // Remove SEO/Readability columns from all post types
+        $post_types = get_post_types( [ 'public' => true ], 'names' );
+        foreach ( $post_types as $post_type ) {
+            add_filter( 'manage_edit-' . $post_type . '_columns', [ $this, 'remove_yoast_columns' ], 99 );
+        }
+
+        // Remove filter dropdowns - use load-edit.php hook to ensure Yoast has registered them
+        add_action( 'load-edit.php', [ $this, 'remove_yoast_filter_dropdowns' ] );
+    }
+
+    /**
+     * Remove Yoast filter dropdowns from post list
+     */
+    public function remove_yoast_filter_dropdowns() {
+        global $wpseo_meta_columns;
+        if ( $wpseo_meta_columns && is_object( $wpseo_meta_columns ) ) {
+            remove_action( 'restrict_manage_posts', [ $wpseo_meta_columns, 'posts_filter_dropdown' ] );
+            remove_action( 'restrict_manage_posts', [ $wpseo_meta_columns, 'posts_filter_dropdown_readability' ] );
+        }
+    }
+
+    /**
+     * Remove Yoast columns from post list
+     *
+     * @param array $columns The columns array.
+     * @return array
+     */
+    public function remove_yoast_columns( $columns ) {
+        unset( $columns['wpseo-score'] );
+        unset( $columns['wpseo-score-readability'] );
+        unset( $columns['wpseo-title'] );
+        unset( $columns['wpseo-metadesc'] );
+        unset( $columns['wpseo-focuskw'] );
+        unset( $columns['wpseo-links'] );
+        unset( $columns['wpseo-linked'] );
+        return $columns;
     }
 
     /**
