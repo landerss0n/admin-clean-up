@@ -165,6 +165,7 @@ class WP_Clean_Up_Admin_Page {
                 'hide_elementor_notices'     => ! empty( $plugins['hide_elementor_notices'] ),
                 'hide_yoast_notices'         => ! empty( $plugins['hide_yoast_notices'] ),
                 'hide_complianz_comments'    => ! empty( $plugins['hide_complianz_comments'] ),
+                'hide_gtm4wp_comments'       => ! empty( $plugins['hide_gtm4wp_comments'] ),
             ];
         }
 
@@ -208,6 +209,11 @@ class WP_Clean_Up_Admin_Page {
                 'name'   => 'Complianz',
                 'check'  => [ 'complianz-gdpr/complianz-gpdr.php', 'complianz-gdpr-premium/complianz-gpdr-premium.php' ],
                 'option' => 'hide_complianz_comments',
+            ],
+            'gtm4wp' => [
+                'name'   => 'GTM4WP',
+                'check'  => 'duracelltomi-google-tag-manager/duracelltomi-google-tag-manager-for-wordpress.php',
+                'option' => 'hide_gtm4wp_comments',
             ],
         ];
     }
@@ -734,6 +740,7 @@ class WP_Clean_Up_Admin_Page {
             'elementor'     => __( 'Hides promotional notices, dashboard widget, "What\'s New" and "Get Help" icons, and replaces the Home screen with Settings.', 'admin-clean-up' ),
             'yoast'         => __( 'Hides premium upsell pages, promotional notices, dashboard widget, notification badges, and disables usage tracking.', 'admin-clean-up' ),
             'complianz'     => __( 'Removes Complianz HTML comments from the frontend source code, such as "Consent Management powered by Complianz".', 'admin-clean-up' ),
+            'gtm4wp'        => __( 'Removes GTM4WP HTML comments from the frontend source code, such as "Google Tag Manager for WordPress by gtm4wp.com".', 'admin-clean-up' ),
         ];
 
         $plugin_labels = [
@@ -741,6 +748,7 @@ class WP_Clean_Up_Admin_Page {
             'elementor'     => __( 'Clean Up Elementor Admin', 'admin-clean-up' ),
             'yoast'         => __( 'Clean Up Yoast SEO Admin', 'admin-clean-up' ),
             'complianz'     => __( 'Remove Complianz HTML Comments', 'admin-clean-up' ),
+            'gtm4wp'        => __( 'Remove GTM4WP HTML Comments', 'admin-clean-up' ),
         ];
 
         ob_start();

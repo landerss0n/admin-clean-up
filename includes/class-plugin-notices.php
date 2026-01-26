@@ -74,6 +74,13 @@ class WP_Clean_Up_Plugin_Notices {
             add_filter( 'cmplz_banner_html', [ $this, 'remove_complianz_comments' ] );
         }
 
+        // Remove GTM4WP HTML comments from frontend
+        if ( ! empty( $plugins_options['hide_gtm4wp_comments'] )
+            && $this->is_plugin_active( 'duracelltomi-google-tag-manager/duracelltomi-google-tag-manager-for-wordpress.php' ) ) {
+            // Use output buffering since GTM4WP has no filters for comments
+            add_action( 'template_redirect', [ $this, 'start_gtm4wp_output_buffer' ] );
+        }
+
         // Clean up Yoast SEO admin
         if ( ! empty( $plugins_options['hide_yoast_notices'] )
             && $this->is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
@@ -615,6 +622,27 @@ class WP_Clean_Up_Plugin_Notices {
         // Matches: <!-- Complianz ... -->
         // Matches: <!-- Statistics script Complianz GDPR/CCPA -->
         $pattern = '/<!--\s*(?:Consent Management powered by Complianz|End Complianz|Complianz|Statistics script Complianz)[^>]*-->/i';
+        return preg_replace( $pattern, '', $html );
+    }
+
+    /**
+     * Start output buffering for GTM4WP comment removal
+     */
+    public function start_gtm4wp_output_buffer() {
+        ob_start( [ $this, 'remove_gtm4wp_comments' ] );
+    }
+
+    /**
+     * Remove GTM4WP HTML comments from output
+     *
+     * @param string $html The HTML output.
+     * @return string The filtered HTML.
+     */
+    public function remove_gtm4wp_comments( $html ) {
+        // Remove GTM4WP HTML comments
+        // Matches: <!-- Google Tag Manager for WordPress by gtm4wp.com -->
+        // Matches: <!-- End Google Tag Manager for WordPress by gtm4wp.com -->
+        $pattern = '/<!--\s*(?:End )?Google Tag Manager for WordPress by gtm4wp\.com\s*-->/i';
         return preg_replace( $pattern, '', $html );
     }
 
