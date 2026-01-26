@@ -252,12 +252,9 @@ class WP_Clean_Up_Plugin_Notices {
      * Clean up Elementor admin menu items
      */
     public function clean_elementor_admin_menu() {
-        global $submenu;
-
-        // Remove "Hem" (Home) submenu - Elementor sets it directly on $submenu at index 0.
-        if ( isset( $submenu['elementor-home'][0] ) ) {
-            unset( $submenu['elementor-home'][0] );
-        }
+        // Note: We keep "Hem" (Home) submenu - removing it breaks the parent menu link
+        // with Elementor Pro (goes to Theme Builder instead). The redirect_elementor_home_to_settings()
+        // function handles redirecting users to Settings when they click on Home.
 
         // Remove "Snabbstart" (Quick start / Editor) submenu
         remove_submenu_page( 'elementor-home', 'elementor' );
