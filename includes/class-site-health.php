@@ -104,10 +104,6 @@ class WP_Clean_Up_Site_Health {
         // Remove async Site Health update
         remove_action( 'wp_site_health_scheduled_check', 'wp_site_health_scheduled_check' );
 
-        // Disable the background updates test
-        remove_action( 'admin_init', '_maybe_update_core' );
-        remove_action( 'admin_init', '_maybe_update_plugins' );
-        remove_action( 'admin_init', '_maybe_update_themes' );
     }
 
     /**
