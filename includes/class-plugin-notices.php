@@ -64,9 +64,10 @@ class WP_Clean_Up_Plugin_Notices {
             add_action( 'admin_enqueue_scripts', [ $this, 'disable_elementor_feedback' ], 999 );
         }
 
-        // Remove Complianz HTML comments from frontend
+        // Remove Complianz HTML comments from frontend (supports both free and premium)
         if ( ! empty( $plugins_options['hide_complianz_comments'] )
-            && $this->is_plugin_active( 'complianz-gdpr/complianz-gpdr.php' ) ) {
+            && ( $this->is_plugin_active( 'complianz-gdpr/complianz-gpdr.php' )
+                || $this->is_plugin_active( 'complianz-gdpr-premium/complianz-gpdr-premium.php' ) ) ) {
             // Use Complianz's own filter (more efficient than full output buffering)
             add_filter( 'cmplz_cookie_blocker_output', [ $this, 'remove_complianz_comments' ] );
             // Fallback: catch any comments outside cookie blocker output

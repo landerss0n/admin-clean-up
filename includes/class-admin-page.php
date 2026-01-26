@@ -206,7 +206,7 @@ class WP_Clean_Up_Admin_Page {
             ],
             'complianz' => [
                 'name'   => 'Complianz',
-                'check'  => 'complianz-gdpr/complianz-gpdr.php',
+                'check'  => [ 'complianz-gdpr/complianz-gpdr.php', 'complianz-gdpr-premium/complianz-gpdr-premium.php' ],
                 'option' => 'hide_complianz_comments',
             ],
         ];
@@ -224,7 +224,16 @@ class WP_Clean_Up_Admin_Page {
         $installed = [];
 
         foreach ( $supported as $key => $plugin ) {
-            if ( is_plugin_active( $plugin['check'] ) ) {
+            // Support both single string and array of plugin paths
+            $checks = (array) $plugin['check'];
+            $is_active = false;
+            foreach ( $checks as $check ) {
+                if ( is_plugin_active( $check ) ) {
+                    $is_active = true;
+                    break;
+                }
+            }
+            if ( $is_active ) {
                 // If plugin has a pro version, exclude when pro is active
                 if ( ! empty( $plugin['pro_check'] ) && is_plugin_active( $plugin['pro_check'] ) ) {
                     continue;
