@@ -77,11 +77,8 @@ class WP_Clean_Up_Plugin_Notices {
         // Remove GTM4WP HTML comments from frontend
         if ( ! empty( $plugins_options['hide_gtm4wp_comments'] )
             && $this->is_plugin_active( 'duracelltomi-google-tag-manager/duracelltomi-google-tag-manager-for-wordpress.php' ) ) {
-            // Wrap only GTM4WP hooks with output buffering (more efficient than full page buffering)
-            add_action( 'wp_head', [ $this, 'start_gtm4wp_output_buffer' ], 0 );
-            add_action( 'wp_head', [ $this, 'end_gtm4wp_output_buffer' ], 2 );
-            add_action( 'wp_body_open', [ $this, 'start_gtm4wp_output_buffer' ], -1 );
-            add_action( 'wp_body_open', [ $this, 'end_gtm4wp_output_buffer' ], 1 );
+            // Use output buffering with callback - captures and filters all output
+            add_action( 'template_redirect', [ $this, 'start_gtm4wp_output_buffer' ] );
         }
 
         // Clean up Yoast SEO admin
@@ -632,23 +629,24 @@ class WP_Clean_Up_Plugin_Notices {
      * Start output buffering for GTM4WP comment removal
      */
     public function start_gtm4wp_output_buffer() {
-        ob_start();
+        ob_start( [ $this, 'filter_gtm4wp_comments' ] );
     }
 
     /**
-     * End output buffering and filter GTM4WP comments
+     * Filter GTM4WP HTML comments from output
+     *
+     * @param string $html The HTML output.
+     * @return string The filtered HTML.
      */
-    public function end_gtm4wp_output_buffer() {
-        $output = ob_get_clean();
+    public function filter_gtm4wp_comments( $html ) {
         // Remove GTM4WP HTML comments
         // Matches: <!-- Google Tag Manager for WordPress by gtm4wp.com -->
         // Matches: <!-- End Google Tag Manager for WordPress by gtm4wp.com -->
         // Matches: <!-- GTM Container placement set to ... -->
         // Matches: <!-- Google Tag Manager (noscript) -->
         // Matches: <!-- End Google Tag Manager (noscript) -->
-        $pattern = '/<!--\s*(?:End )?(?:Google Tag Manager(?: \(noscript\))?(?:for WordPress)? by gtm4wp\.com|GTM Container placement set to[^>]*|Google Tag Manager \(noscript\))\s*-->/i';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is from GTM4WP, already escaped by that plugin
-        echo preg_replace( $pattern, '', $output );
+        $pattern = '/<!--\s*(?:End )?(?:Google Tag Manager(?: \(noscript\))?(?: for WordPress by gtm4wp\.com)?|GTM Container placement set to[^>]*)\s*-->/i';
+        return preg_replace( $pattern, '', $html );
     }
 
 }

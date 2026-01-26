@@ -3,7 +3,7 @@
  * Plugin Name: Admin Clean Up
  * Plugin URI: https://developer.suspended.se/admin-clean-up
  * Description: Clean up and simplify the WordPress admin interface by removing unnecessary elements.
- * Version: 1.1.2
+ * Version: 1.2.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Digiwise
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'ADMIN_CLEAN_UP_VERSION', '1.1.2' );
+define( 'ADMIN_CLEAN_UP_VERSION', '1.2.0' );
 define( 'ADMIN_CLEAN_UP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ADMIN_CLEAN_UP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -76,6 +76,7 @@ class WP_Clean_Up {
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-clean-filenames.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-plugin-notices.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-updates.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-frontend.php';
     }
 
     /**
@@ -114,6 +115,9 @@ class WP_Clean_Up {
 
         // Initialize updates control
         new WP_Clean_Up_Updates();
+
+        // Initialize frontend cleanup
+        new WP_Clean_Up_Frontend();
     }
 
     /**
@@ -211,6 +215,9 @@ class WP_Clean_Up {
                 'disable_update_emails'  => false,
                 'hide_update_nags'       => false,
             ],
+            'frontend' => [
+                'hide_jquery_migrate_notice' => false,
+            ],
         ];
 
         $options = get_option( self::OPTION_KEY, [] );
@@ -302,6 +309,9 @@ function wp_clean_up_activate() {
                 'disable_theme_updates'  => false,
                 'disable_update_emails'  => false,
                 'hide_update_nags'       => false,
+            ],
+            'frontend' => [
+                'hide_jquery_migrate_notice' => false,
             ],
         ] );
     }

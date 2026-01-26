@@ -181,6 +181,13 @@ class WP_Clean_Up_Admin_Page {
             ];
         }
 
+        if ( 'frontend' === $current_tab ) {
+            $frontend = isset( $input['frontend'] ) && is_array( $input['frontend'] ) ? $input['frontend'] : [];
+            $sanitized['frontend'] = [
+                'hide_jquery_migrate_notice' => ! empty( $frontend['hide_jquery_migrate_notice'] ),
+            ];
+        }
+
         return $sanitized;
     }
 
@@ -288,6 +295,10 @@ class WP_Clean_Up_Admin_Page {
                 'title'    => __( 'Updates', 'admin-clean-up' ),
                 'active'   => true,
             ],
+            'frontend' => [
+                'title'    => __( 'Frontend', 'admin-clean-up' ),
+                'active'   => true,
+            ],
         ];
 
         // Only show Plugins tab if any supported plugins are installed
@@ -372,6 +383,9 @@ class WP_Clean_Up_Admin_Page {
                                 break;
                             case 'updates':
                                 $this->render_updates_tab( $options );
+                                break;
+                            case 'frontend':
+                                $this->render_frontend_tab( $options );
                                 break;
                             default:
                                 $this->render_adminbar_tab( $options );
@@ -724,6 +738,32 @@ class WP_Clean_Up_Admin_Page {
         WP_Clean_Up_Components::render_card( [
             'title'       => __( 'Media Library', 'admin-clean-up' ),
             'description' => __( 'Settings for file uploads and the media library.', 'admin-clean-up' ),
+            'content'     => $content,
+        ] );
+    }
+
+    /**
+     * Render Frontend tab content
+     */
+    private function render_frontend_tab( $options ) {
+        $frontend = isset( $options['frontend'] ) ? $options['frontend'] : [];
+
+        ob_start();
+        WP_Clean_Up_Components::render_setting_group( [
+            'settings' => [
+                [
+                    'name'        => WP_Clean_Up::OPTION_KEY . '[frontend][hide_jquery_migrate_notice]',
+                    'checked'     => ! empty( $frontend['hide_jquery_migrate_notice'] ),
+                    'label'       => __( 'Hide jQuery Migrate Console Message', 'admin-clean-up' ),
+                    'description' => __( 'Removes the "JQMIGRATE: Migrate is installed" message from the browser console.', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        $content = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Console Messages', 'admin-clean-up' ),
+            'description' => __( 'Control messages logged to the browser console.', 'admin-clean-up' ),
             'content'     => $content,
         ] );
     }
