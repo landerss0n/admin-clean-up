@@ -61,7 +61,7 @@ class WP_Clean_Up_Components {
 				</div>
 			<?php endif; ?>
 			<div class="acu-card__body">
-				<?php echo $args['content']; // Content is caller's responsibility to escape ?>
+				<?php echo $args['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content escaped by caller ?>
 			</div>
 		</div>
 		<?php

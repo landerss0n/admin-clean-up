@@ -55,20 +55,8 @@ class WP_Clean_Up {
      * Constructor
      */
     private function __construct() {
-        add_action( 'init', [ $this, 'load_textdomain' ] );
         $this->load_dependencies();
         $this->init_modules();
-    }
-
-    /**
-     * Load plugin text domain for translations.
-     */
-    public function load_textdomain() {
-        load_plugin_textdomain(
-            'admin-clean-up',
-            false,
-            dirname( plugin_basename( __FILE__ ) ) . '/languages'
-        );
     }
 
     /**
@@ -211,6 +199,9 @@ class WP_Clean_Up {
             ],
             'plugins' => [
                 'hide_pixelyoursite_notices' => false,
+                'hide_elementor_notices'     => false,
+                'hide_yoast_notices'         => false,
+                'hide_complianz_comments'    => false,
             ],
             'updates' => [
                 'core_updates'           => 'default',
@@ -299,6 +290,9 @@ function wp_clean_up_activate() {
             ],
             'plugins' => [
                 'hide_pixelyoursite_notices' => false,
+                'hide_elementor_notices'     => false,
+                'hide_yoast_notices'         => false,
+                'hide_complianz_comments'    => false,
             ],
             'updates' => [
                 'core_updates'           => 'default',

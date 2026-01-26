@@ -162,6 +162,9 @@ class WP_Clean_Up_Admin_Page {
             $plugins = isset( $input['plugins'] ) && is_array( $input['plugins'] ) ? $input['plugins'] : [];
             $sanitized['plugins'] = [
                 'hide_pixelyoursite_notices' => ! empty( $plugins['hide_pixelyoursite_notices'] ),
+                'hide_elementor_notices'     => ! empty( $plugins['hide_elementor_notices'] ),
+                'hide_yoast_notices'         => ! empty( $plugins['hide_yoast_notices'] ),
+                'hide_complianz_comments'    => ! empty( $plugins['hide_complianz_comments'] ),
             ];
         }
 
@@ -191,12 +194,21 @@ class WP_Clean_Up_Admin_Page {
                 'pro_check' => 'pixelyoursite-pro/pixelyoursite-pro.php',
                 'option'    => 'hide_pixelyoursite_notices',
             ],
-            // Add more plugins here as needed:
-            // 'plugin_key' => [
-            //     'name'   => 'Plugin Name',
-            //     'check'  => 'plugin-folder/plugin-file.php',
-            //     'option' => 'hide_pluginname_notices',
-            // ],
+            'elementor' => [
+                'name'   => 'Elementor',
+                'check'  => 'elementor/elementor.php',
+                'option' => 'hide_elementor_notices',
+            ],
+            'yoast' => [
+                'name'   => 'Yoast SEO',
+                'check'  => 'wordpress-seo/wp-seo.php',
+                'option' => 'hide_yoast_notices',
+            ],
+            'complianz' => [
+                'name'   => 'Complianz',
+                'check'  => 'complianz-gdpr/complianz-gpdr.php',
+                'option' => 'hide_complianz_comments',
+            ],
         ];
     }
 
@@ -267,7 +279,7 @@ class WP_Clean_Up_Admin_Page {
         $installed_plugins = $this->get_installed_supported_plugins();
         if ( ! empty( $installed_plugins ) ) {
             $tabs['plugins'] = [
-                'title'    => __( 'Plugin Cleanup', 'admin-clean-up' ),
+                'title'    => __( 'Plugins', 'admin-clean-up' ),
                 'active'   => true,
             ];
         }
@@ -533,6 +545,7 @@ class WP_Clean_Up_Admin_Page {
             WP_Clean_Up_Components::render_toggle( [
                 'name'    => WP_Clean_Up::OPTION_KEY . '[menus][remove_' . $key . ']',
                 'checked' => $is_hidden,
+                /* translators: %s: menu item name (e.g., "Posts", "Media") */
                 'label'   => sprintf( __( 'Hide "%s" menu', 'admin-clean-up' ), $label ),
             ] );
             WP_Clean_Up_Components::render_select( [
@@ -709,10 +722,16 @@ class WP_Clean_Up_Admin_Page {
 
         $plugin_descriptions = [
             'pixelyoursite' => __( 'Hides the "Free PIXELYOURSITE HACKS" email signup, video tips, and other promotional notices.', 'admin-clean-up' ),
+            'elementor'     => __( 'Hides promotional notices, dashboard widget, "What\'s New" and "Get Help" icons, and replaces the Home screen with Settings.', 'admin-clean-up' ),
+            'yoast'         => __( 'Hides premium upsell pages, promotional notices, dashboard widget, notification badges, and disables usage tracking.', 'admin-clean-up' ),
+            'complianz'     => __( 'Removes Complianz HTML comments from the frontend source code, such as "Consent Management powered by Complianz".', 'admin-clean-up' ),
         ];
 
         $plugin_labels = [
             'pixelyoursite' => __( 'Hide PixelYourSite Promotional Notices', 'admin-clean-up' ),
+            'elementor'     => __( 'Clean Up Elementor Admin', 'admin-clean-up' ),
+            'yoast'         => __( 'Clean Up Yoast SEO Admin', 'admin-clean-up' ),
+            'complianz'     => __( 'Remove Complianz HTML Comments', 'admin-clean-up' ),
         ];
 
         ob_start();
@@ -720,6 +739,7 @@ class WP_Clean_Up_Admin_Page {
             WP_Clean_Up_Components::render_toggle( [
                 'name'        => WP_Clean_Up::OPTION_KEY . '[plugins][' . $plugin['option'] . ']',
                 'checked'     => ! empty( $plugins[ $plugin['option'] ] ),
+                /* translators: %s: plugin name */
                 'label'       => $plugin_labels[ $key ] ?? sprintf( __( 'Hide %s notices', 'admin-clean-up' ), $plugin['name'] ),
                 'description' => $plugin_descriptions[ $key ] ?? '',
             ] );
@@ -727,7 +747,7 @@ class WP_Clean_Up_Admin_Page {
         $content = ob_get_clean();
 
         WP_Clean_Up_Components::render_card( [
-            'title'       => __( 'Plugin Cleanup', 'admin-clean-up' ),
+            'title'       => __( 'Plugins', 'admin-clean-up' ),
             'description' => __( 'Hide promotional notices and nag screens from specific plugins.', 'admin-clean-up' ),
             'content'     => $content,
         ] );

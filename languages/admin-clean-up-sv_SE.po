@@ -7,645 +7,409 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-01 00:00+0000\n"
-"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"POT-Creation-Date: 2026-01-24 00:00+0000\n"
+"PO-Revision-Date: 2026-01-24 00:00+0000\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. Plugin Name of the plugin
-#: admin-clean-up.php
-#: includes/class-admin-page.php:31
-#: includes/class-admin-page.php:32
+#. Plugin Name
 msgid "Admin Clean Up"
 msgstr "Admin Clean Up"
 
-#: includes/class-admin-page.php:233
+#: includes/class-admin-page.php
 msgid "Admin Bar"
-msgstr "Admin Bar"
+msgstr "Adminbar"
 
-#: includes/class-admin-page.php:237
+#: includes/class-admin-page.php
 msgid "Comments"
 msgstr "Kommentarer"
 
-#: includes/class-admin-page.php:241
+#: includes/class-admin-page.php
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Kontrollpanel"
 
-#: includes/class-admin-page.php:245
+#: includes/class-admin-page.php
 msgid "Admin Menus"
-msgstr "Admin-menyer"
+msgstr "Adminmenyer"
 
-#: includes/class-admin-page.php:249
+#: includes/class-admin-page.php
 msgid "Footer"
-msgstr "Footer"
+msgstr "Sidfot"
 
-#: includes/class-admin-page.php:253
+#: includes/class-admin-page.php
 msgid "Notices"
 msgstr "Meddelanden"
 
-#: includes/class-admin-page.php:257
-#: includes/class-admin-page.php:640
+#: includes/class-admin-page.php
 msgid "Media"
 msgstr "Media"
 
-#: includes/class-admin-page.php:323
-msgid "Soon"
-msgstr "Snart"
-
-#: includes/class-admin-page.php:371
-msgid "Save Settings"
-msgstr "Spara inställningar"
-
-#: includes/class-admin-page.php:385
-msgid "Admin Bar Settings"
-msgstr "Admin Bar-inställningar"
-
-#: includes/class-admin-page.php:387
-msgid "Select which elements to remove from the admin bar."
-msgstr "Välj vilka element som ska tas bort från adminbaren."
-
-#: includes/class-admin-page.php:393
-msgid "WordPress Logo"
-msgstr "WordPress-logotyp"
-
-#: includes/class-admin-page.php:400
-msgid "Remove WordPress logo"
-msgstr "Ta bort WordPress-logotypen"
-
-#: includes/class-admin-page.php:403
-msgid "Removes the WordPress logo and its submenu from the admin bar."
-msgstr "Tar bort WordPress-logotypen och dess undermeny från adminbaren."
-
-#: includes/class-admin-page.php:408
-msgid "Site Name"
-msgstr "Webbplatsnamn"
-
-#: includes/class-admin-page.php:415
-msgid "Remove submenus under site name"
-msgstr "Ta bort undermenyer under webbplatsnamn"
-
-#: includes/class-admin-page.php:418
-msgid "Keeps the main link to the site but removes the submenu."
-msgstr "Behåller huvudlänken till webbplatsen men tar bort undermenyn."
-
-#: includes/class-admin-page.php:423
-msgid "New Content"
-msgstr "Skapa nytt"
-
-#: includes/class-admin-page.php:430
-msgid "Remove \"New\" (+New)"
-msgstr "Ta bort \"Skapa nytt\" (+Nytt)"
-
-#: includes/class-admin-page.php:433
-msgid "Removes the \"+New\" button from the admin bar."
-msgstr "Tar bort \"+Nytt\"-knappen från adminbaren."
-
-#: includes/class-admin-page.php:438
-msgid "Search Field"
-msgstr "Sökfält"
-
-#: includes/class-admin-page.php:445
-msgid "Remove search field"
-msgstr "Ta bort sökfältet"
-
-#: includes/class-admin-page.php:448
-msgid "Removes the search field from the admin bar."
-msgstr "Tar bort sökfältet från adminbaren."
-
-#: includes/class-admin-page.php:453
-msgid "Account Menu (Frontend)"
-msgstr "Kontomeny (frontend)"
-
-#: includes/class-admin-page.php:460
-msgid "Hide \"Howdy, user\" on frontend"
-msgstr "Dölj \"Hej, användare\" på frontend"
-
-#: includes/class-admin-page.php:463
-msgid "Removes the account menu (\"Howdy, username\") from the admin bar on the frontend. Still visible in admin."
-msgstr "Tar bort kontomenyn (\"Hej, användarnamn\") från adminbaren på frontenden. Visas fortfarande i admin."
-
-#: includes/class-admin-page.php:478
-msgid "Comments Settings"
-msgstr "Kommentarsinställningar"
-
-#: includes/class-admin-page.php:480
-msgid "Completely disable comments functionality on your website."
-msgstr "Stäng av kommentarsfunktionen helt på webbplatsen."
-
-#: includes/class-admin-page.php:486
-msgid "Disable Comments"
-msgstr "Inaktivera kommentarer"
-
-#: includes/class-admin-page.php:493
-msgid "Disable comments completely"
-msgstr "Stäng av kommentarer helt"
-
-#: includes/class-admin-page.php:496
-msgid "This removes all comment functionality:"
-msgstr "Detta tar bort alla kommentarsfunktioner:"
-
-#: includes/class-admin-page.php:499
-msgid "Closes comments on all posts and pages"
-msgstr "Stänger kommentarer på alla inlägg och sidor"
-
-#: includes/class-admin-page.php:500
-msgid "Hides existing comments and returns 0 for count"
-msgstr "Döljer befintliga kommentarer och returnerar 0 för antal"
-
-#: includes/class-admin-page.php:501
-msgid "Removes Comments from admin menu"
-msgstr "Tar bort Kommentarer från admin-menyn"
-
-#: includes/class-admin-page.php:502
-msgid "Removes Discussion from Settings menu"
-msgstr "Tar bort Diskussion från Inställningar-menyn"
-
-#: includes/class-admin-page.php:503
-msgid "Removes comment icon from admin bar"
-msgstr "Tar bort kommentarikonen från adminbaren"
-
-#: includes/class-admin-page.php:504
-msgid "Removes discussion panel from Gutenberg and classic editor"
-msgstr "Tar bort diskussions-panel från Gutenberg och klassisk redigerare"
-
-#: includes/class-admin-page.php:505
-msgid "Hides comment options in Quick Edit"
-msgstr "Döljer kommentarsalternativ i Quick Edit"
-
-#: includes/class-admin-page.php:506
-msgid "Disables pingbacks and trackbacks"
-msgstr "Inaktiverar pingbacks och trackbacks"
-
-#: includes/class-admin-page.php:507
-msgid "Disables comments in REST API and XML-RPC"
-msgstr "Inaktiverar kommentarer i REST API och XML-RPC"
-
-#: includes/class-admin-page.php:508
-msgid "Redirects comment feeds to homepage"
-msgstr "Omdirigerar kommentars-feeds till startsidan"
-
-#: includes/class-admin-page.php:509
-msgid "Removes comment-related rewrite rules"
-msgstr "Tar bort kommentars-relaterade rewrite-regler"
-
-#: includes/class-admin-page.php:524
-msgid "Dashboard Settings"
-msgstr "Dashboard-inställningar"
-
-#: includes/class-admin-page.php:526
-msgid "Select which dashboard widgets to remove."
-msgstr "Välj vilka dashboard-widgets som ska tas bort."
-
-#: includes/class-admin-page.php:532
-msgid "Welcome Panel"
-msgstr "Välkomstpanel"
-
-#: includes/class-admin-page.php:539
-msgid "Remove Welcome Panel"
-msgstr "Ta bort välkomstpanelen"
-
-#: includes/class-admin-page.php:544
-msgid "At a Glance"
-msgstr "Snabböversikt"
-
-#: includes/class-admin-page.php:551
-msgid "Remove \"At a Glance\" widget"
-msgstr "Ta bort \"Snabböversikt\"-widgeten"
-
-#: includes/class-admin-page.php:556
-msgid "Activity"
-msgstr "Aktivitet"
-
-#: includes/class-admin-page.php:563
-msgid "Remove \"Activity\" widget"
-msgstr "Ta bort \"Aktivitet\"-widgeten"
-
-#: includes/class-admin-page.php:568
-msgid "Quick Draft"
-msgstr "Snabbutkast"
-
-#: includes/class-admin-page.php:575
-msgid "Remove \"Quick Draft\" widget"
-msgstr "Ta bort \"Snabbutkast\"-widgeten"
-
-#: includes/class-admin-page.php:580
-msgid "WordPress News"
-msgstr "WordPress-nyheter"
-
-#: includes/class-admin-page.php:587
-msgid "Remove \"WordPress Events and News\" widget"
-msgstr "Ta bort \"WordPress Events and News\"-widgeten"
-
-#: includes/class-admin-page.php:592
-msgid "Site Health"
-msgstr "Webbplatshälsa"
-
-#: includes/class-admin-page.php:599
-msgid "Remove \"Site Health\" widget"
-msgstr "Ta bort \"Webbplatshälsa\"-widgeten"
-
-#: includes/class-admin-page.php:604
-msgid "Disable Site Health"
-msgstr "Inaktivera Hälsokontroll"
-
-#: includes/class-admin-page.php:611
-msgid "Completely disable Site Health"
-msgstr "Inaktivera Hälsokontroll för webbplatser helt"
-
-#: includes/class-admin-page.php:614
-msgid "This completely disables Site Health functionality:"
-msgstr "Detta inaktiverar hela Hälsokontroll-funktionen:"
-
-#: includes/class-admin-page.php:617
-msgid "Removes Site Health from Tools menu"
-msgstr "Tar bort Hälsokontroll från Verktyg-menyn"
-
-#: includes/class-admin-page.php:618
-msgid "Removes Site Health dashboard widget"
-msgstr "Tar bort Hälsokontroll dashboard-widget"
-
-#: includes/class-admin-page.php:619
-msgid "Disables all site health tests"
-msgstr "Inaktiverar alla hälsokontrolltester"
-
-#: includes/class-admin-page.php:620
-msgid "Stops scheduled background checks (cron)"
-msgstr "Stoppar schemalagda bakgrundskontroller (cron)"
-
-#: includes/class-admin-page.php:621
-msgid "Disables Site Health REST API endpoints"
-msgstr "Inaktiverar Hälsokontroll REST API-endpoints"
-
-#: includes/class-admin-page.php:622
-msgid "Stops email reports about site health"
-msgstr "Stoppar e-postrapporter om webbplatshälsa"
-
-#: includes/class-admin-page.php:656
-msgid "Admin Menu Settings"
-msgstr "Admin-menyinställningar"
-
-#: includes/class-admin-page.php:658
-msgid "Select which admin menus to hide and for which user roles."
-msgstr "Välj vilka admin-menyer som ska döljas och för vilka användarroller."
-
-#: includes/class-admin-page.php:653
-msgid "All users"
-msgstr "Alla användare"
-
-#: includes/class-admin-page.php:651
-msgid "All except administrators"
-msgstr "Alla utom administratörer"
-
-#: includes/class-admin-page.php:652
-msgid "All except administrators & editors"
-msgstr "Alla utom administratörer och redaktörer"
-
-#: includes/class-admin-page.php:692
-msgid "Warning: If you hide this for all users, you cannot access this plugin's settings via the menu."
-msgstr "Varning: Om du döljer detta för alla användare kan du inte nå pluginets inställningar via menyn."
-
-#: includes/class-admin-page.php:639
-msgid "Posts"
-msgstr "Inlägg"
-
-#: includes/class-admin-page.php:639
-msgid "Hide \"Posts\" menu"
-msgstr "Dölj \"Inlägg\"-menyn"
-
-#: includes/class-admin-page.php:640
-msgid "Hide \"Media\" menu"
-msgstr "Dölj \"Media\"-menyn"
-
-#: includes/class-admin-page.php:641
-msgid "Pages"
-msgstr "Sidor"
-
-#: includes/class-admin-page.php:641
-msgid "Hide \"Pages\" menu"
-msgstr "Dölj \"Sidor\"-menyn"
-
-#: includes/class-admin-page.php:642
-msgid "Appearance"
-msgstr "Utseende"
-
-#: includes/class-admin-page.php:642
-msgid "Hide \"Appearance\" menu"
-msgstr "Dölj \"Utseende\"-menyn"
-
-#: includes/class-admin-page.php:270
-#: includes/class-admin-page.php:643
-msgid "Plugins"
-msgstr "Tillägg"
-
-#: includes/class-admin-page.php:643
-msgid "Hide \"Plugins\" menu"
-msgstr "Dölj \"Tillägg\"-menyn"
-
-#: includes/class-admin-page.php:644
-msgid "Users"
-msgstr "Användare"
-
-#: includes/class-admin-page.php:644
-msgid "Hide \"Users\" menu"
-msgstr "Dölj \"Användare\"-menyn"
-
-#: includes/class-admin-page.php:645
-msgid "Tools"
-msgstr "Verktyg"
-
-#: includes/class-admin-page.php:645
-msgid "Hide \"Tools\" menu"
-msgstr "Dölj \"Verktyg\"-menyn"
-
-#: includes/class-admin-page.php:646
-msgid "Settings"
-msgstr "Inställningar"
-
-#: includes/class-admin-page.php:646
-msgid "Hide \"Settings\" menu"
-msgstr "Dölj \"Inställningar\"-menyn"
-
-#: includes/class-admin-page.php:719
-msgid "Footer Settings"
-msgstr "Footer-inställningar"
-
-#: includes/class-admin-page.php:721
-msgid "Customize or remove the text in the admin footer."
-msgstr "Anpassa eller ta bort texten i admin-footern."
-
-#: includes/class-admin-page.php:727
-msgid "Footer Text"
-msgstr "Footer-text"
-
-#: includes/class-admin-page.php:734
-msgid "Remove footer text (\"Thank you for creating with WordPress\")"
-msgstr "Ta bort footer-texten (\"Tack för att du skapar med WordPress\")"
-
-#: includes/class-admin-page.php:739
-msgid "Custom Footer Text"
-msgstr "Egen footer-text"
-
-#: includes/class-admin-page.php:745
-msgid "E.g. Developed by Digiwise"
-msgstr "T.ex. Utvecklad av Digiwise"
-
-#: includes/class-admin-page.php:747
-msgid "Leave empty to use WordPress default text, or enter custom text. Ignored if \"Remove footer text\" is enabled."
-msgstr "Lämna tomt för att använda WordPress standardtext, eller ange egen text. Ignoreras om \"Ta bort footer-texten\" är aktiverat."
-
-#: includes/class-admin-page.php:752
-msgid "Version Number"
-msgstr "Versionsnummer"
-
-#: includes/class-admin-page.php:759
-msgid "Remove WordPress version number"
-msgstr "Ta bort WordPress-versionsnumret"
-
-#: includes/class-admin-page.php:764
-msgid "Custom Version Text"
-msgstr "Egen versionstext"
-
-#: includes/class-admin-page.php:770
-msgid "E.g. Version 2.0"
-msgstr "T.ex. Version 2.0"
-
-#: includes/class-admin-page.php:772
-msgid "Leave empty to show WordPress version, or enter custom text. Ignored if \"Remove version number\" is enabled."
-msgstr "Lämna tomt för att visa WordPress-versionen, eller ange egen text. Ignoreras om \"Ta bort versionsnumret\" är aktiverat."
-
-#: includes/class-admin-page.php:787
-msgid "Notices Settings"
-msgstr "Meddelandeinställningar"
-
-#: includes/class-admin-page.php:789
-msgid "Control which notices and elements are displayed in admin."
-msgstr "Kontrollera vilka meddelanden och element som visas i admin."
-
-#: includes/class-admin-page.php:795
-msgid "Update Notices"
-msgstr "Uppdateringsmeddelanden"
-
-#: includes/class-admin-page.php:802
-msgid "Hide update notices"
-msgstr "Dölj uppdateringsmeddelanden"
-
-#: includes/class-admin-page.php:805
-msgid "Hides notices about WordPress, plugin and theme updates."
-msgstr "Döljer meddelanden om WordPress-, plugin- och temauppdateringar."
-
-#: includes/class-admin-page.php:810
-msgid "All Notices"
-msgstr "Alla meddelanden"
-
-#: includes/class-admin-page.php:817
-msgid "Hide all admin notices"
-msgstr "Dölj alla admin-meddelanden"
-
-#: includes/class-admin-page.php:820
-msgid "Warning: This hides ALL notices, including important error messages and warnings."
-msgstr "Varning: Detta döljer ALLA meddelanden, inklusive viktiga felmeddelanden och varningar."
-
-#: includes/class-admin-page.php:825
-msgid "Screen Options"
-msgstr "Skärmalternativ"
-
-#: includes/class-admin-page.php:832
-msgid "Hide \"Screen Options\" tab"
-msgstr "Dölj \"Skärmalternativ\"-fliken"
-
-#: includes/class-admin-page.php:837
-msgid "Help Tab"
-msgstr "Hjälp-flik"
-
-#: includes/class-admin-page.php:844
-msgid "Hide \"Help\" tab"
-msgstr "Dölj \"Hjälp\"-fliken"
-
-#: includes/class-admin-page.php:859
-msgid "Media Settings"
-msgstr "Mediainställningar"
-
-#: includes/class-admin-page.php:861
-msgid "Settings for the media library and file uploads."
-msgstr "Inställningar för mediabiblioteket och filuppladdningar."
-
-#: includes/class-admin-page.php:867
-msgid "Clean Filenames"
-msgstr "Rensa filnamn"
-
-#: includes/class-admin-page.php:874
-msgid "Clean filenames automatically on upload"
-msgstr "Rensa filnamn automatiskt vid uppladdning"
-
-#: includes/class-admin-page.php:877
-msgid "This automatically cleans filenames when files are uploaded:"
-msgstr "Detta rensar filnamn automatiskt när filer laddas upp:"
-
-#: includes/class-admin-page.php:880
-msgid "Converts special characters (å, ä, ö, etc.) to their ASCII equivalents"
-msgstr "Konverterar svenska tecken (å, ä, ö) till a, a, o"
-
-#: includes/class-admin-page.php:881
-msgid "Replaces spaces and underscores with dashes"
-msgstr "Ersätter mellanslag och understreck med bindestreck"
-
-#: includes/class-admin-page.php:882
-msgid "Removes special characters and accents"
-msgstr "Tar bort specialtecken och accenter"
-
-#: includes/class-admin-page.php:883
-msgid "Converts to lowercase"
-msgstr "Konverterar till gemener (lowercase)"
-
-#: includes/class-admin-page.php:884
-msgid "Preserves the original title as the image title in the media library"
-msgstr "Bevarar originaltiteln som bildens titel i mediabiblioteket"
-
-#: includes/class-admin-page.php:887
-msgid "Example:"
-msgstr "Exempel:"
-
-#: includes/class-admin-page.php:893
-msgid "File Types to Clean"
-msgstr "Filtyper att rensa"
-
-#: includes/class-admin-page.php:901
-msgid "All file types"
-msgstr "Alla filtyper"
-
-#: includes/class-admin-page.php:909
-msgid "Images only (JPG, PNG, GIF, WebP, etc.)"
-msgstr "Endast bilder (JPG, PNG, GIF, WebP, etc.)"
-
-#: includes/class-admin-page.php:913
-msgid "Select which file types should have their filenames cleaned on upload."
-msgstr "Välj vilka filtyper som ska få sina filnamn rensade vid uppladdning."
-
-#: includes/class-admin-page.php:939
-msgid "Plugin Notices Settings"
-msgstr "Inställningar för plugin-meddelanden"
-
-#: includes/class-admin-page.php:941
-msgid "Hide annoying promotional notices and nag screens from specific plugins."
-msgstr "Dölj irriterande reklammeddelanden och tjatskärmar från specifika plugins."
-
-#: includes/class-admin-page.php:936
-msgid "Hide PixelYourSite promotional notices"
-msgstr "Dölj PixelYourSite reklammeddelanden"
-
-#: includes/class-admin-page.php:931
-msgid "Hides the \"Free PIXELYOURSITE HACKS\" email signup, video tips, and other promotional notices from PixelYourSite plugin."
-msgstr "Döljer \"Free PIXELYOURSITE HACKS\" e-postregistrering, videotips och andra reklammeddelanden från PixelYourSite-pluginet."
-
-#: includes/class-admin-page.php:261
+#: includes/class-admin-page.php
 msgid "Updates"
 msgstr "Uppdateringar"
 
-#: includes/class-admin-page.php:976
-msgid "Automatic Updates Settings"
-msgstr "Inställningar för automatiska uppdateringar"
+#: includes/class-admin-page.php
+msgid "Plugins"
+msgstr "Tillägg"
 
-#: includes/class-admin-page.php:978
-msgid "Control automatic updates for WordPress core, plugins, and themes."
-msgstr "Kontrollera automatiska uppdateringar för WordPress-kärnan, plugins och teman."
+#: includes/class-admin-page.php
+msgid "Save Settings"
+msgstr "Spara inställningar"
 
-#: includes/class-admin-page.php:984
-msgid "WordPress Core Updates"
-msgstr "WordPress kärnuppdateringar"
+#: includes/class-admin-page.php
+msgid "Admin Bar Elements"
+msgstr "Adminbar-element"
 
-#: includes/class-admin-page.php:992
-msgid "WordPress default (minor updates only)"
-msgstr "WordPress standard (endast mindre uppdateringar)"
+#: includes/class-admin-page.php
+msgid "Select which elements to remove from the admin bar."
+msgstr "Välj vilka element som ska tas bort från adminbaren."
 
-#: includes/class-admin-page.php:1000
-msgid "Security updates only (minor releases)"
-msgstr "Endast säkerhetsuppdateringar (mindre versioner)"
+#: includes/class-admin-page.php
+msgid "WordPress Logo"
+msgstr "WordPress-logotyp"
 
-#: includes/class-admin-page.php:1008
-msgid "Minor updates only (e.g., 6.4.1 to 6.4.2)"
-msgstr "Endast mindre uppdateringar (t.ex. 6.4.1 till 6.4.2)"
+#: includes/class-admin-page.php
+msgid "Removes the WordPress logo and its submenu from the admin bar."
+msgstr "Tar bort WordPress-logotypen och dess undermeny från adminbaren."
 
-#: includes/class-admin-page.php:1016
-msgid "All updates (major + minor, e.g., 6.4 to 6.5)"
-msgstr "Alla uppdateringar (stora + små, t.ex. 6.4 till 6.5)"
+#: includes/class-admin-page.php
+msgid "Site Name Submenu"
+msgstr "Undermeny för webbplatsnamn"
 
-#: includes/class-admin-page.php:1024
-msgid "Disable all automatic core updates"
-msgstr "Inaktivera alla automatiska kärnuppdateringar"
+#: includes/class-admin-page.php
+msgid "Keeps the main link to the site but removes the submenu."
+msgstr "Behåller huvudlänken till webbplatsen men tar bort undermenyn."
 
-#: includes/class-admin-page.php:1028
-msgid "Note: Security updates are recommended to keep your site safe."
-msgstr "Obs: Säkerhetsuppdateringar rekommenderas för att hålla din webbplats säker."
+#: includes/class-admin-page.php
+msgid "New Content Button"
+msgstr "Knappen Skapa nytt"
 
-#: includes/class-admin-page.php:1033
-msgid "Plugin Auto-Updates"
-msgstr "Automatiska plugin-uppdateringar"
+#: includes/class-admin-page.php
+msgid "Removes the \"+New\" button from the admin bar."
+msgstr "Tar bort \"+Nytt\"-knappen från adminbaren."
 
-#: includes/class-admin-page.php:1040
-msgid "Disable automatic plugin updates"
-msgstr "Inaktivera automatiska plugin-uppdateringar"
+#: includes/class-admin-page.php
+msgid "Search Field"
+msgstr "Sökfält"
 
-#: includes/class-admin-page.php:1043
-msgid "Prevents plugins from updating automatically. You can still update them manually."
-msgstr "Förhindrar att plugins uppdateras automatiskt. Du kan fortfarande uppdatera dem manuellt."
+#: includes/class-admin-page.php
+msgid "Removes the search field from the admin bar."
+msgstr "Tar bort sökfältet från adminbaren."
 
-#: includes/class-admin-page.php:1048
-msgid "Theme Auto-Updates"
-msgstr "Automatiska temauppdateringar"
+#: includes/class-admin-page.php
+msgid "Account Menu on Frontend"
+msgstr "Kontomeny på frontend"
 
-#: includes/class-admin-page.php:1055
-msgid "Disable automatic theme updates"
-msgstr "Inaktivera automatiska temauppdateringar"
+#: includes/class-admin-page.php
+msgid "Hides the \"Howdy, username\" menu from the admin bar on the frontend. Still visible in admin."
+msgstr "Döljer menyn \"Hej, användarnamn\" från adminbaren på frontend. Visas fortfarande i admin."
 
-#: includes/class-admin-page.php:1058
-msgid "Prevents themes from updating automatically. You can still update them manually."
-msgstr "Förhindrar att teman uppdateras automatiskt. Du kan fortfarande uppdatera dem manuellt."
+#: includes/class-admin-page.php
+msgid "Disable comments completely"
+msgstr "Inaktivera kommentarer helt"
 
-#: includes/class-admin-page.php:1063
-msgid "Update Emails"
-msgstr "Uppdateringsmail"
+#: includes/class-admin-page.php
+msgid "Removes all comment functionality: closes comments on all posts, hides existing comments, removes Comments and Discussion from admin menus, disables pingbacks, trackbacks, REST API comments, and XML-RPC comment methods."
+msgstr "Tar bort all kommentarsfunktionalitet: stänger kommentarer på alla inlägg, döljer befintliga kommentarer, tar bort Kommentarer och Diskussion från adminmenyer, inaktiverar pingbacks, trackbacks, REST API-kommentarer och XML-RPC-kommentarsmetoder."
 
-#: includes/class-admin-page.php:1070
-msgid "Disable update notification emails"
-msgstr "Inaktivera notifikationsmail för uppdateringar"
+#: includes/class-admin-page.php
+msgid "Completely disable comments functionality on your website."
+msgstr "Inaktivera kommentarsfunktionen helt på din webbplats."
 
-#: includes/class-admin-page.php:1073
-msgid "Stops WordPress from sending emails about automatic updates (core, plugins, themes)."
-msgstr "Stoppar WordPress från att skicka e-post om automatiska uppdateringar (kärna, plugins, teman)."
+#: includes/class-admin-page.php
+msgid "Widgets"
+msgstr "Widgetar"
 
-#: includes/class-admin-page.php:1078
-msgid "Update Nags"
-msgstr "Uppdateringspåminnelser"
+#: includes/class-admin-page.php
+msgid "Welcome Panel"
+msgstr "Välkomstpanel"
 
-#: includes/class-admin-page.php:1085
-msgid "Hide update nags in admin"
-msgstr "Dölj uppdateringspåminnelser i admin"
+#: includes/class-admin-page.php
+msgid "At a Glance"
+msgstr "Snabböversikt"
 
-#: includes/class-admin-page.php:1088
-msgid "Hides the \"WordPress X.X is available! Please update now\" message and update count badges."
-msgstr "Döljer meddelandet \"WordPress X.X är tillgänglig! Uppdatera nu\" och uppdateringsräknare."
+#: includes/class-admin-page.php
+msgid "Activity"
+msgstr "Aktivitet"
 
-#. Plugin URI of the plugin
-#: admin-clean-up.php
-msgid "https://developer.suspended.se/admin-clean-up"
-msgstr ""
+#: includes/class-admin-page.php
+msgid "Quick Draft"
+msgstr "Snabbutkast"
 
-#. Description of the plugin
-#: admin-clean-up.php
-msgid "Clean up and simplify the WordPress admin interface by removing unnecessary elements."
-msgstr ""
+#: includes/class-admin-page.php
+msgid "WordPress Events and News"
+msgstr "WordPress-evenemang och nyheter"
 
-#. Author of the plugin
-#: admin-clean-up.php
-msgid "Digiwise"
-msgstr ""
+#: includes/class-admin-page.php
+msgid "Site Health"
+msgstr "Webbplatshälsa"
 
-#. Author URI of the plugin
-#: admin-clean-up.php
-msgid "https://digiwise.se"
-msgstr ""
+#: includes/class-admin-page.php
+msgid "Remove Site Health Widget"
+msgstr "Ta bort widgeten Webbplatshälsa"
 
-#: includes/class-admin-page.php:955
+#: includes/class-admin-page.php
+msgid "Removes the Site Health Status widget from the dashboard."
+msgstr "Tar bort widgeten Webbplatshälsa från kontrollpanelen."
+
+#: includes/class-admin-page.php
+msgid "Disable Site Health Completely"
+msgstr "Inaktivera Webbplatshälsa helt"
+
+#: includes/class-admin-page.php
+msgid "Removes Site Health from Tools menu, disables all tests, stops scheduled background checks, disables REST API endpoints, and stops email reports."
+msgstr "Tar bort Webbplatshälsa från Verktyg-menyn, inaktiverar alla tester, stoppar schemalagda bakgrundskontroller, inaktiverar REST API-endpoints och stoppar e-postrapporter."
+
+#: includes/class-admin-page.php
+msgid "Select which dashboard widgets to remove."
+msgstr "Välj vilka kontrollpanelwidgetar som ska tas bort."
+
+#: includes/class-admin-page.php
+msgid "Posts"
+msgstr "Inlägg"
+
+#: includes/class-admin-page.php
+msgid "Pages"
+msgstr "Sidor"
+
+#: includes/class-admin-page.php
+msgid "Appearance"
+msgstr "Utseende"
+
+#: includes/class-admin-page.php
+msgid "Users"
+msgstr "Användare"
+
+#: includes/class-admin-page.php
+msgid "Tools"
+msgstr "Verktyg"
+
+#: includes/class-admin-page.php
+msgid "Settings"
+msgstr "Inställningar"
+
+#: includes/class-admin-page.php
+msgid "All except administrators"
+msgstr "Alla utom administratörer"
+
+#: includes/class-admin-page.php
+msgid "All except administrators & editors"
+msgstr "Alla utom administratörer och redaktörer"
+
+#: includes/class-admin-page.php
+msgid "All users"
+msgstr "Alla användare"
+
+#: includes/class-admin-page.php
+msgid "Select which admin menus to hide and for which user roles."
+msgstr "Välj vilka adminmenyer som ska döljas och för vilka användarroller."
+
+#: includes/class-admin-page.php
+#, php-format
+msgid "Hide \"%s\" menu"
+msgstr "Dölj menyn \"%s\""
+
+#: includes/class-admin-page.php
+msgid "Warning: If you hide this for all users, you cannot access this plugin's settings via the menu."
+msgstr "Varning: Om du döljer detta för alla användare kan du inte nå pluginets inställningar via menyn."
+
+#: includes/class-admin-page.php
+msgid "Remove Footer Text"
+msgstr "Ta bort sidfotstext"
+
+#: includes/class-admin-page.php
+msgid "Removes \"Thank you for creating with WordPress\" from the admin footer."
+msgstr "Tar bort \"Tack för att du skapar med WordPress\" från admin-sidfoten."
+
+#: includes/class-admin-page.php
+msgid "Custom Footer Text"
+msgstr "Egen sidfotstext"
+
+#: includes/class-admin-page.php
+msgid "E.g. Developed by Digiwise"
+msgstr "T.ex. Utvecklad av Digiwise"
+
+#: includes/class-admin-page.php
+msgid "Leave empty for WordPress default. Ignored if \"Remove Footer Text\" is enabled."
+msgstr "Lämna tomt för WordPress-standard. Ignoreras om \"Ta bort sidfotstext\" är aktiverat."
+
+#: includes/class-admin-page.php
+msgid "Footer Text"
+msgstr "Sidfotstext"
+
+#: includes/class-admin-page.php
+msgid "Remove Version Number"
+msgstr "Ta bort versionsnummer"
+
+#: includes/class-admin-page.php
+msgid "Removes the WordPress version number from the admin footer."
+msgstr "Tar bort WordPress-versionsnumret från admin-sidfoten."
+
+#: includes/class-admin-page.php
+msgid "Custom Version Text"
+msgstr "Egen versionstext"
+
+#: includes/class-admin-page.php
+msgid "E.g. Version 2.0"
+msgstr "T.ex. Version 2.0"
+
+#: includes/class-admin-page.php
+msgid "Leave empty to show WordPress version. Ignored if \"Remove Version Number\" is enabled."
+msgstr "Lämna tomt för att visa WordPress-version. Ignoreras om \"Ta bort versionsnummer\" är aktiverat."
+
+#: includes/class-admin-page.php
+msgid "Version Number"
+msgstr "Versionsnummer"
+
+#: includes/class-admin-page.php
+msgid "Notices & UI Elements"
+msgstr "Meddelanden och gränssnittselement"
+
+#: includes/class-admin-page.php
+msgid "Control which notices and interface elements are displayed in admin."
+msgstr "Kontrollera vilka meddelanden och gränssnittselement som visas i admin."
+
+#: includes/class-admin-page.php
+msgid "Hide Update Notices"
+msgstr "Dölj uppdateringsmeddelanden"
+
+#: includes/class-admin-page.php
+msgid "Hides notices about WordPress, plugin and theme updates."
+msgstr "Döljer meddelanden om WordPress-, tilläggs- och temauppdateringar."
+
+#: includes/class-admin-page.php
+msgid "Hide All Admin Notices"
+msgstr "Dölj alla adminmeddelanden"
+
+#: includes/class-admin-page.php
+msgid "Warning: This hides ALL notices, including important error messages and warnings."
+msgstr "Varning: Detta döljer ALLA meddelanden, inklusive viktiga felmeddelanden och varningar."
+
+#: includes/class-admin-page.php
+msgid "Hide Screen Options Tab"
+msgstr "Dölj fliken Skärmalternativ"
+
+#: includes/class-admin-page.php
+msgid "Hide Help Tab"
+msgstr "Dölj fliken Hjälp"
+
+#: includes/class-admin-page.php
+msgid "Media Library"
+msgstr "Mediabibliotek"
+
+#: includes/class-admin-page.php
+msgid "Settings for file uploads and the media library."
+msgstr "Inställningar för filuppladdningar och mediabiblioteket."
+
+#: includes/class-admin-page.php
+msgid "Clean Filenames on Upload"
+msgstr "Rensa filnamn vid uppladdning"
+
+#: includes/class-admin-page.php
+msgid "Converts special characters to ASCII, replaces spaces with dashes, removes accents, and converts to lowercase. Original title preserved in media library."
+msgstr "Konverterar specialtecken till ASCII, ersätter mellanslag med bindestreck, tar bort accenter och konverterar till gemener. Originaltiteln bevaras i mediabiblioteket."
+
+#: includes/class-admin-page.php
+msgid "All file types"
+msgstr "Alla filtyper"
+
+#: includes/class-admin-page.php
+msgid "Images only"
+msgstr "Endast bilder"
+
+#: includes/class-admin-page.php
+msgid "JPG, PNG, GIF, WebP, etc."
+msgstr "JPG, PNG, GIF, WebP, etc."
+
+#: includes/class-admin-page.php
+msgid "Hide PixelYourSite Promotional Notices"
+msgstr "Dölj PixelYourSite-reklam"
+
+#: includes/class-admin-page.php
+msgid "Hides the \"Free PIXELYOURSITE HACKS\" email signup, video tips, and other promotional notices."
+msgstr "Döljer \"Free PIXELYOURSITE HACKS\" e-postregistrering, videotips och andra reklammeddelanden."
+
+#: includes/class-admin-page.php
+msgid "Hide promotional notices and nag screens from specific plugins."
+msgstr "Dölj reklammeddelanden och tjatskärmar från specifika tillägg."
+
+#: includes/class-admin-page.php
 #, php-format
 msgid "Hide %s notices"
-msgstr ""
+msgstr "Dölj %s-meddelanden"
+
+#: includes/class-admin-page.php
+msgid "WordPress Core Updates"
+msgstr "WordPress-kärnuppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Control automatic update behavior for WordPress core."
+msgstr "Kontrollera automatiska uppdateringar för WordPress-kärnan."
+
+#: includes/class-admin-page.php
+msgid "WordPress Default"
+msgstr "WordPress-standard"
+
+#: includes/class-admin-page.php
+msgid "Minor updates only (recommended)"
+msgstr "Endast mindre uppdateringar (rekommenderas)"
+
+#: includes/class-admin-page.php
+msgid "Security Updates Only"
+msgstr "Endast säkerhetsuppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Minor Updates Only"
+msgstr "Endast mindre uppdateringar"
+
+#: includes/class-admin-page.php
+msgid "E.g., 6.4.1 to 6.4.2"
+msgstr "T.ex. 6.4.1 till 6.4.2"
+
+#: includes/class-admin-page.php
+msgid "All Updates"
+msgstr "Alla uppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Major + minor (e.g., 6.4 to 6.5)"
+msgstr "Stora + små (t.ex. 6.4 till 6.5)"
+
+#: includes/class-admin-page.php
+msgid "Disable All Core Updates"
+msgstr "Inaktivera alla kärnuppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Auto-Update Controls"
+msgstr "Kontroller för automatiska uppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Disable Plugin Auto-Updates"
+msgstr "Inaktivera automatiska tilläggsuppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Prevents plugins from updating automatically. Manual updates still available."
+msgstr "Förhindrar att tillägg uppdateras automatiskt. Manuella uppdateringar fungerar fortfarande."
+
+#: includes/class-admin-page.php
+msgid "Disable Theme Auto-Updates"
+msgstr "Inaktivera automatiska temauppdateringar"
+
+#: includes/class-admin-page.php
+msgid "Prevents themes from updating automatically. Manual updates still available."
+msgstr "Förhindrar att teman uppdateras automatiskt. Manuella uppdateringar fungerar fortfarande."
+
+#: includes/class-admin-page.php
+msgid "Disable Update Emails"
+msgstr "Inaktivera uppdateringsmail"
+
+#: includes/class-admin-page.php
+msgid "Stops WordPress from sending emails about automatic updates."
+msgstr "Stoppar WordPress från att skicka e-post om automatiska uppdateringar."
+
+#: includes/class-admin-page.php
+msgid "Hide Update Nags"
+msgstr "Dölj uppdateringspåminnelser"
+
+#: includes/class-admin-page.php
+msgid "Hides \"WordPress X.X is available!\" messages and update count badges."
+msgstr "Döljer \"WordPress X.X är tillgänglig!\"-meddelanden och uppdateringsräknare."

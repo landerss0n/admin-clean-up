@@ -32,6 +32,74 @@ class WP_Clean_Up_Plugin_Notices {
             && ! $this->is_plugin_active( 'pixelyoursite-pro/pixelyoursite-pro.php' ) ) {
             add_action( 'admin_head', [ $this, 'hide_pixelyoursite_notices' ] );
         }
+
+        // Clean up Elementor admin
+        if ( ! empty( $plugins_options['hide_elementor_notices'] )
+            && $this->is_plugin_active( 'elementor/elementor.php' ) ) {
+            add_action( 'wp_dashboard_setup', [ $this, 'remove_elementor_dashboard_widget' ], 40 );
+            add_action( 'admin_head', [ $this, 'hide_elementor_admin_clutter' ] );
+            add_action( 'admin_menu', [ $this, 'clean_elementor_admin_menu' ], 999 );
+            add_action( 'admin_enqueue_scripts', [ $this, 'override_elementor_sidebar_upgrade' ], 999 );
+            add_action( 'admin_init', [ $this, 'block_elementor_redirect' ], 1 );
+            add_action( 'admin_init', [ $this, 'redirect_elementor_home_to_settings' ] );
+            add_filter( 'elementor/admin-top-bar/is-active', '__return_false' );
+            add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'hide_elementor_editor_clutter' ] );
+            add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'disable_elementor_ai' ], 999 );
+            add_action( 'elementor/editor/v2/scripts/enqueue', [ $this, 'disable_elementor_ai' ], 999 );
+
+            // Hide pro widget promotions
+            add_filter( 'elementor/editor/panel/get_pro_details', '__return_empty_array' );
+            add_filter( 'elementor/editor/panel/get_pro_details-sticky', '__return_empty_array' );
+
+            // Disable generator meta tag
+            add_filter( 'pre_option_elementor_meta_generator_tag', function () { return '1'; } );
+
+            // Disable data sharing / usage tracking
+            add_filter( 'pre_option_elementor_allow_tracking', function () { return 'no'; } );
+
+            // Remove "Get Elementor Pro" plugin action link
+            add_filter( 'plugin_action_links_elementor/elementor.php', [ $this, 'remove_elementor_go_pro_link' ], 999 );
+
+            // Disable deactivation feedback dialog
+            add_action( 'admin_enqueue_scripts', [ $this, 'disable_elementor_feedback' ], 999 );
+        }
+
+        // Remove Complianz HTML comments from frontend
+        if ( ! empty( $plugins_options['hide_complianz_comments'] )
+            && $this->is_plugin_active( 'complianz-gdpr/complianz-gpdr.php' ) ) {
+            add_action( 'template_redirect', [ $this, 'start_complianz_output_buffer' ], 1 );
+        }
+
+        // Clean up Yoast SEO admin
+        if ( ! empty( $plugins_options['hide_yoast_notices'] )
+            && $this->is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
+            add_action( 'wp_dashboard_setup', [ $this, 'remove_yoast_dashboard_widget' ], 40 );
+            add_action( 'admin_head', [ $this, 'hide_yoast_admin_clutter' ] );
+            add_action( 'admin_menu', [ $this, 'clean_yoast_admin_menu' ], 999 );
+            add_action( 'admin_init', [ $this, 'block_yoast_redirect' ], 1 );
+            add_action( 'wp_before_admin_bar_render', [ $this, 'remove_yoast_admin_bar' ] );
+
+            // Disable usage tracking
+            add_filter( 'wpseo_enable_tracking', '__return_false' );
+
+            // Remove Yoast HTML comments from frontend
+            add_filter( 'wpseo_debug_markers', '__return_false' );
+
+            // Remove premium upsell submenus via filter
+            add_filter( 'wpseo_submenu_pages', [ $this, 'filter_yoast_submenu_pages' ], 9999 );
+
+            // Block promotional alerts from being registered
+            add_filter( 'wpseo_allowed_dismissable_alerts', '__return_empty_array' );
+
+            // Override Yoast React dashboard data (hide upsells and alerts)
+            add_action( 'admin_enqueue_scripts', [ $this, 'override_yoast_dashboard_data' ], 9999 );
+
+            // Dismiss promotional notifications on page load
+            add_action( 'admin_init', [ $this, 'dismiss_yoast_promotional_notifications' ], 20 );
+
+            // Hide Yoast upsells in Elementor editor
+            add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'hide_yoast_elementor_upsells' ] );
+        }
     }
 
     /**
@@ -126,4 +194,431 @@ class WP_Clean_Up_Plugin_Notices {
         </style>
         <?php
     }
+
+    /**
+     * Remove Elementor dashboard widget
+     */
+    public function remove_elementor_dashboard_widget() {
+        remove_meta_box( 'e-dashboard-overview', 'dashboard', 'normal' );
+    }
+
+    /**
+     * Hide Elementor promotional elements via CSS
+     */
+    public function hide_elementor_admin_clutter() {
+        // Remove "Uppgradera" submenu (added by Elementor at PHP_INT_MAX priority, so we remove in admin_head).
+        remove_submenu_page( 'elementor-home', 'elementor-one-upgrade' );
+        ?>
+        <style>
+            /* Hide Elementor admin notices */
+            .e-notice,
+            .e-notice--dismissible,
+            .notice[data-notice_id*="elementor"],
+            #message[data-notice_id*="elementor"],
+            .elementor-message,
+            .elementor-notice,
+            /* Hide old Elementor top bar promotional elements */
+            .e-admin-top-bar__bar-button.accent,
+            .e-admin-top-bar__bar-button:has(.crown-icon),
+            .e-admin-top-bar__bar-button:has(.eicon-speakerphone),
+            .e-admin-top-bar__bar-button:has(.eicon-user-circle-o),
+            /* Hide editor-one top bar: What's New (notification badge) */
+            #editor-one-top-bar .MuiBadge-root,
+            #editor-one-top-bar button:has(.MuiBadge-badge),
+            #elementor-home-app-top-bar .MuiBadge-root,
+            #elementor-home-app-top-bar button:has(.MuiBadge-badge),
+            /* Hide editor-one top bar: Help button */
+            #editor-one-top-bar a[href*="elementor.com/help"],
+            #elementor-home-app-top-bar a[href*="elementor.com/help"],
+            /* Hide editor-one top bar: Upgrade / Go Pro buttons */
+            #editor-one-top-bar a[href*="go.elementor.com"],
+            #elementor-home-app-top-bar a[href*="go.elementor.com"],
+            /* Hide "Uppgradera" in WP admin sidebar */
+            #adminmenu a[href*="elementor-one-upgrade"],
+            #adminmenu li a[href*="go.elementor.com/go-pro"],
+            /* Hide "Uppgradera paket" in Elementor internal sidebar */
+            .e-sidebar-upgrade,
+            a[href*="go.elementor.com/go-pro-upgrade"][class*="upgrade"] {
+                display: none !important;
+            }
+        </style>
+        <?php
+    }
+
+    /**
+     * Clean up Elementor admin menu items
+     */
+    public function clean_elementor_admin_menu() {
+        global $submenu;
+
+        // Remove "Hem" (Home) submenu - Elementor sets it directly on $submenu at index 0.
+        if ( isset( $submenu['elementor-home'][0] ) ) {
+            unset( $submenu['elementor-home'][0] );
+        }
+
+        // Remove "Snabbstart" (Quick start / Editor) submenu
+        remove_submenu_page( 'elementor-home', 'elementor' );
+
+        // Remove "Get Help" submenu
+        remove_submenu_page( 'elementor', 'go_knowledge_base_site' );
+        remove_submenu_page( 'elementor-home', 'go_knowledge_base_site' );
+    }
+
+    /**
+     * Block Elementor activation redirect to onboarding
+     */
+    public function block_elementor_redirect() {
+        delete_transient( 'elementor_activation_redirect' );
+    }
+
+    /**
+     * Redirect Elementor Home page to Settings page
+     */
+    public function redirect_elementor_home_to_settings() {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of page parameter for redirect.
+        if ( isset( $_GET['page'] ) && in_array( $_GET['page'], [ 'elementor', 'elementor-home' ], true ) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=elementor-settings' ) );
+            exit;
+        }
+    }
+
+    /**
+     * Hide clutter in the Elementor editor
+     */
+    public function hide_elementor_editor_clutter() {
+        $css = '
+            /* Hide Pro widget panel promotions */
+            #elementor-panel-get-pro-elements,
+            #elementor-panel-get-pro-elements-sticky,
+            .elementor-panel-heading-promotion,
+            .elementor-nerd-box,
+            /* Hide Pro category and upgrade crown */
+            #elementor-panel-category-pro-elements,
+            .eicon-upgrade-crown,
+            /* Hide "Go Pro" buttons in editor */
+            .e-promotion-go-pro,
+            .elementor-clickable.e-promotion-go-pro,
+            /* Hide promotion controls (switchers with lock) */
+            .e-control-promotion__wrapper,
+            .e-promotion-react-wrapper,
+            /* Hide AI buttons and controls */
+            .e-ai-button,
+            .e-btn--ai,
+            [class*="elementor-control-ai_"],
+            [class*="elementor-control-ai-"],
+            /* Hide promotional hints/notices in widget panels (Ally, etc.) */
+            .elementor-control-notice,
+            /* Hide What\'s New (speakerphone) in app bar */
+            #app-bar-menu-item-whats-new,
+            [data-testid="app-bar-menu-item-whats-new"],
+            .e-has-notification .eicon-speakerphone,
+            /* Hide notification badge in panel menu */
+            #elementor-panel-header-menu-button .eicon-speakerphone {
+                display: none !important;
+            }
+        ';
+
+        wp_add_inline_style( 'elementor-editor', $css );
+    }
+
+    /**
+     * Override Elementor sidebar config to hide upgrade button
+     */
+    public function override_elementor_sidebar_upgrade() {
+        $js  = 'if(typeof editorOneSidebarConfig!=="undefined"){';
+        $js .= 'editorOneSidebarConfig.hasPro=true;';
+        $js .= 'if(editorOneSidebarConfig.menuItems){';
+        $js .= 'editorOneSidebarConfig.menuItems=editorOneSidebarConfig.menuItems.filter(function(item){return item.slug!=="elementor";});';
+        $js .= '}}';
+        wp_add_inline_script( 'editor-one-sidebar-navigation', $js, 'before' );
+    }
+
+    /**
+     * Disable Elementor AI and notifications in the editor
+     */
+    public function disable_elementor_ai() {
+        // Remove AI
+        wp_dequeue_script( 'elementor-ai' );
+        wp_deregister_script( 'elementor-ai' );
+        wp_register_script( 'elementor-ai', false ); // Prevent re-enqueue.
+        wp_dequeue_style( 'elementor-ai-editor' );
+        wp_dequeue_style( 'elementor-ai-layout-preview' );
+
+        // Remove What's New / notifications
+        wp_dequeue_script( 'e-editor-notifications' );
+        wp_deregister_script( 'e-editor-notifications' );
+        wp_register_script( 'e-editor-notifications', false ); // Prevent re-enqueue.
+
+        // Block What's New from registering in the app bar (patch registerLink after app bar loads).
+        $js = 'if(typeof elementorV2!=="undefined"&&elementorV2.editorAppBar&&elementorV2.editorAppBar.utilitiesMenu){';
+        $js .= 'var _oRL=elementorV2.editorAppBar.utilitiesMenu.registerLink;';
+        $js .= 'elementorV2.editorAppBar.utilitiesMenu.registerLink=function(c){';
+        $js .= 'if(c&&c.id==="app-bar-menu-item-whats-new")return;';
+        $js .= 'return _oRL.apply(this,arguments);};';
+        $js .= '}';
+        wp_add_inline_script( 'elementor-v2-editor-app-bar', $js, 'after' );
+    }
+
+    /**
+     * Remove "Get Elementor Pro" link from plugin action links
+     *
+     * @param array $links Plugin action links.
+     * @return array
+     */
+    public function remove_elementor_go_pro_link( $links ) {
+        unset( $links['go_pro'] );
+        return $links;
+    }
+
+    /**
+     * Disable Elementor deactivation feedback dialog
+     */
+    public function disable_elementor_feedback() {
+        wp_dequeue_script( 'elementor-admin-feedback' );
+    }
+
+    /**
+     * Remove Yoast SEO dashboard widget (Wincher)
+     */
+    public function remove_yoast_dashboard_widget() {
+        remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
+        remove_meta_box( 'wpseo-wincher-dashboard-overview', 'dashboard', 'normal' );
+    }
+
+    /**
+     * Hide Yoast SEO promotional elements via CSS
+     */
+    public function hide_yoast_admin_clutter() {
+        ?>
+        <style>
+            /* Hide Yoast admin notices */
+            .yoast-notice,
+            .notice[id*="wpseo-"],
+            .notice[class*="yoast"],
+            .yoast-issue-added,
+            /* Hide first-time configuration notice */
+            #wpseo-first-time-configuration-notice,
+            /* Hide premium deactivated notice */
+            .notice.yoast-premium-deactivated,
+            /* Hide notification counter in admin menu */
+            #toplevel_page_wpseo_dashboard .update-plugins,
+            #toplevel_page_wpseo_dashboard .awaiting-mod,
+            /* Hide notification counter badge in admin bar */
+            #wpadminbar .yoast-issue-counter,
+            /* Hide premium badges in submenu items */
+            .yoast-badge.yoast-premium-badge,
+            /* Hide AI Brand Insights gradient button in submenu */
+            .yoast-brand-insights-gradient-border,
+            /* Hide premium sidebar and upsell boxes */
+            #sidebar-container,
+            .yoast_premium_upsell,
+            /* Hide webinar promo notification */
+            #webinar-promo-notification,
+            /* Hide upgrade banner at bottom of Yoast pages */
+            .wpseo-premium-upsell,
+            [class*="UpsellCard"],
+            .yoast-upsell,
+            /* Hide promotional elements on Yoast pages */
+            .wpseo-tab-video-container,
+            .yoast-sidebar__section--buy-premium,
+            /* Hide promotional alerts on Yoast pages (keep errors like noindex) */
+            .yoast-alert--info,
+            .yoast-alert--warning,
+            /* Hide alerts inside Yoast React dashboard */
+            #yoast-seo-general [class*="alert-"],
+            #yoast-seo-general [class*="Alert"],
+            /* Hide "Aviseringar" sidebar item on Yoast dashboard */
+            #yoast-seo-general nav a[href*="alert"],
+            /* Hide promotional alerts in Yoast editor sidebar */
+            .yoast-alert,
+            .components-panel .yoast-notification,
+            [class*="yoast"] .notice,
+            .wpseo-metabox-sidebar .yoast-alert,
+            #yoast-seo-sidebar .yoast-alert,
+            /* Hide upsell buttons in editor and metabox */
+            .yoast-button-upsell,
+            .yoast-button-upsell__caret,
+            /* Hide FeatureUpsell card overlays (social preview, etc.) */
+            .yst-feature-upsell--card,
+            /* Hide premium upsell sections in Yoast metabox */
+            #wpseo-metabox-root [class*="UpsellCard"],
+            /* Hide premium lock badges */
+            .yst-badge--upsell {
+                display: none !important;
+            }
+            /* Keep error alerts visible (noindex warnings, etc.) */
+            .yoast-alert--error {
+                display: flex !important;
+            }
+        </style>
+        <?php
+    }
+
+    /**
+     * Clean up Yoast SEO admin menu items
+     */
+    public function clean_yoast_admin_menu() {
+        // Remove premium-only submenu pages
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_redirects' );
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_workouts' );
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_brand_insights' );
+
+        // Remove Academy, Paket (licenses), Support, and Upgrade submenus
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_page_academy' );
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_licenses' );
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_page_support' );
+        remove_submenu_page( 'wpseo_dashboard', 'wpseo_upgrade_sidebar' );
+    }
+
+    /**
+     * Filter out premium upsell submenu pages from Yoast
+     *
+     * @param array $submenu_pages The submenu pages.
+     * @return array
+     */
+    public function filter_yoast_submenu_pages( $submenu_pages ) {
+        $remove_slugs = [
+            'wpseo_redirects',
+            'wpseo_workouts',
+            'wpseo_brand_insights',
+            'wpseo_page_academy',
+            'wpseo_licenses',
+            'wpseo_page_support',
+            'wpseo_upgrade_sidebar',
+        ];
+
+        return array_filter( $submenu_pages, function ( $page ) use ( $remove_slugs ) {
+            return ! isset( $page[4] ) || ! in_array( $page[4], $remove_slugs, true );
+        } );
+    }
+
+    /**
+     * Block Yoast SEO activation redirect
+     */
+    public function block_yoast_redirect() {
+        if ( ! function_exists( 'YoastSEO' ) ) {
+            return;
+        }
+        $options = get_option( 'wpseo', [] );
+        if ( ! empty( $options['should_redirect_after_install_free'] ) ) {
+            $options['should_redirect_after_install_free'] = false;
+            update_option( 'wpseo', $options );
+        }
+    }
+
+    /**
+     * Dismiss promotional Yoast notifications (keep errors like noindex warnings)
+     */
+    public function dismiss_yoast_promotional_notifications() {
+        if ( ! class_exists( 'Yoast_Notification_Center' ) ) {
+            return;
+        }
+        $center = Yoast_Notification_Center::get();
+        $notifications = $center->get_notifications();
+
+        foreach ( $notifications as $notification ) {
+            $type = $notification->get_type();
+            // Keep error notifications (important ones like noindex warnings)
+            if ( 'error' === $type ) {
+                continue;
+            }
+            // Dismiss all non-error notifications (info, warning = promotional)
+            $center->remove_notification( $notification );
+        }
+    }
+
+    /**
+     * Override Yoast React data to hide upsells, alerts, and premium locks
+     */
+    public function override_yoast_dashboard_data() {
+        // Set isPremium=true and define wpseoPremiumMetaboxData to disable all upsell gates
+        // - isPremium=true: hides isPremium-gated elements in React components
+        // - wpseoPremiumMetaboxData: makes shouldUpsell=false (hides locks, upsell panels, related keyphrase)
+        $js  = 'if(typeof wpseoScriptData!=="undefined"){';
+        $js .= 'if(wpseoScriptData.preferences)wpseoScriptData.preferences.isPremium=true;';
+        $js .= 'if(wpseoScriptData.metabox)wpseoScriptData.metabox.isPremium=true;';
+        $js .= 'if("alerts" in wpseoScriptData)wpseoScriptData.alerts=[];';
+        $js .= 'if("currentPromotions" in wpseoScriptData)wpseoScriptData.currentPromotions=[];';
+        $js .= '}';
+        $js .= 'window.wpseoPremiumMetaboxData=window.wpseoPremiumMetaboxData||{};';
+        wp_add_inline_script( 'yoast-seo-general-page', $js, 'before' );
+        wp_add_inline_script( 'yoast-seo-new-settings', $js, 'before' );
+        wp_add_inline_script( 'yoast-seo-post-edit', $js, 'before' );
+        wp_add_inline_script( 'yoast-seo-post-edit-classic', $js, 'before' );
+        wp_add_inline_script( 'yoast-seo-elementor', $js, 'before' );
+        wp_add_inline_script( 'yoast-seo-indexation', $js, 'before' );
+
+        // Fix editor sidebar title: isPremium causes "Yoast SEO Premium" title and labels
+        $fix  = 'setInterval(function(){';
+        $fix .= 'document.querySelectorAll("strong,.components-menu-item__item,.yoast-analysis-check span").forEach(function(el){';
+        $fix .= 'if(el.textContent.indexOf("Yoast SEO Premium")!==-1)el.textContent=el.textContent.replace("Yoast SEO Premium","Yoast SEO");';
+        $fix .= 'if(el.textContent.indexOf("Premium SEO")!==-1)el.textContent=el.textContent.replace("Premium SEO","SEO");';
+        $fix .= '});';
+        $fix .= '},500);';
+        wp_add_inline_script( 'yoast-seo-post-edit', $fix, 'after' );
+        wp_add_inline_script( 'yoast-seo-post-edit-classic', $fix, 'after' );
+        wp_add_inline_script( 'yoast-seo-elementor', $fix, 'after' );
+
+        // Add CSS for Elementor editor (social preview upsell has hardcoded shouldUpsell:true)
+        $elementor_css  = '.yst-feature-upsell--card,';
+        $elementor_css .= '[class*="webinar-promo"],';
+        $elementor_css .= '.yoast-notification.yoast-alert--info,';
+        $elementor_css .= '.yoast-button-upsell,';
+        $elementor_css .= '.yst-badge--upsell{display:none!important;}';
+        wp_add_inline_script(
+            'yoast-seo-elementor',
+            'document.head.insertAdjacentHTML("beforeend","<style>' . $elementor_css . '</style>");',
+            'after'
+        );
+    }
+
+    /**
+     * Remove Yoast SEO admin bar menu
+     */
+    public function remove_yoast_admin_bar() {
+        global $wp_admin_bar;
+        $wp_admin_bar->remove_node( 'wpseo-menu' );
+    }
+
+    /**
+     * Hide Yoast upsells in Elementor editor via CSS
+     */
+    public function hide_yoast_elementor_upsells() {
+        $css = '
+            /* Hide social preview upsell overlay */
+            .yst-feature-upsell--card,
+            /* Hide webinar promo notification */
+            [class*="webinar-promo"],
+            .yoast-notification.yoast-alert--info,
+            /* Hide upsell buttons and badges */
+            .yoast-button-upsell,
+            .yst-badge--upsell {
+                display: none !important;
+            }
+        ';
+        wp_add_inline_style( 'yoast-seo-elementor', $css );
+    }
+
+    /**
+     * Start output buffering to remove Complianz HTML comments
+     */
+    public function start_complianz_output_buffer() {
+        ob_start( [ $this, 'remove_complianz_comments' ] );
+    }
+
+    /**
+     * Remove Complianz HTML comments from output
+     *
+     * @param string $html The HTML output.
+     * @return string The filtered HTML.
+     */
+    public function remove_complianz_comments( $html ) {
+        // Remove Complianz HTML comments (case-insensitive)
+        // Matches: <!-- Consent Management powered by Complianz ... -->
+        // Matches: <!-- End Complianz ... -->
+        // Matches: <!-- Complianz ... -->
+        $pattern = '/<!--\s*(?:Consent Management powered by Complianz|End Complianz|Complianz)[^>]*-->/i';
+        return preg_replace( $pattern, '', $html );
+    }
+
 }

@@ -1,8 +1,8 @@
 === Admin Clean Up ===
 Contributors: digiwise
-Tags: admin, cleanup, admin bar, dashboard, disable comments, hide menus
+Tags: admin, cleanup, admin bar, dashboard, disable comments
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 6.9
 Stable tag: 1.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
