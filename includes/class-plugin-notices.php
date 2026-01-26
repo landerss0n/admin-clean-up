@@ -613,7 +613,8 @@ class WP_Clean_Up_Plugin_Notices {
         // Matches: <!-- Consent Management powered by Complianz ... -->
         // Matches: <!-- End Complianz ... -->
         // Matches: <!-- Complianz ... -->
-        $pattern = '/<!--\s*(?:Consent Management powered by Complianz|End Complianz|Complianz)[^>]*-->/i';
+        // Matches: <!-- Statistics script Complianz GDPR/CCPA -->
+        $pattern = '/<!--\s*(?:Consent Management powered by Complianz|End Complianz|Complianz|Statistics script Complianz)[^>]*-->/i';
         return preg_replace( $pattern, '', $html );
     }
 
