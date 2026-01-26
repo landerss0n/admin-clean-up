@@ -81,6 +81,20 @@ class WP_Clean_Up_Plugin_Notices {
             add_action( 'template_redirect', [ $this, 'start_gtm4wp_output_buffer' ] );
         }
 
+        // Clean up WooCommerce
+        if ( ! empty( $plugins_options['hide_woocommerce_clutter'] )
+            && $this->is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+            // Remove generator meta tag
+            remove_filter( 'get_the_generator_html', 'wc_generator_tag', 10 );
+            remove_filter( 'get_the_generator_xhtml', 'wc_generator_tag', 10 );
+
+            // Disable usage tracking
+            add_filter( 'woocommerce_allow_tracking', '__return_false' );
+
+            // Remove HTML comments from frontend
+            add_action( 'template_redirect', [ $this, 'start_woocommerce_output_buffer' ] );
+        }
+
         // Clean up Yoast SEO admin
         if ( ! empty( $plugins_options['hide_yoast_notices'] )
             && $this->is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
@@ -694,6 +708,27 @@ class WP_Clean_Up_Plugin_Notices {
         // Matches: <!-- Google Tag Manager (noscript) -->
         // Matches: <!-- End Google Tag Manager (noscript) -->
         $pattern = '/<!--\s*(?:End )?(?:Google Tag Manager(?: \(noscript\))?(?: for WordPress by gtm4wp\.com)?|GTM Container placement set to[^>]*)\s*-->/i';
+        return preg_replace( $pattern, '', $html );
+    }
+
+    /**
+     * Start output buffering for WooCommerce comment removal
+     */
+    public function start_woocommerce_output_buffer() {
+        ob_start( [ $this, 'filter_woocommerce_comments' ] );
+    }
+
+    /**
+     * Filter WooCommerce HTML comments from output
+     *
+     * @param string $html The HTML output.
+     * @return string The filtered HTML.
+     */
+    public function filter_woocommerce_comments( $html ) {
+        // Remove WooCommerce HTML comments
+        // Matches: <!-- WooCommerce ... -->
+        // Matches: <!-- End WooCommerce ... -->
+        $pattern = '/<!--\s*(?:End )?WooCommerce[^>]*-->/i';
         return preg_replace( $pattern, '', $html );
     }
 

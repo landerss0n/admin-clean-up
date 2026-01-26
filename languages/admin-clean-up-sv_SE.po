@@ -473,3 +473,11 @@ msgstr "Tar bort GTM4WP HTML-kommentarer från frontend-källkoden, som \"Google
 #: includes/class-admin-page.php
 msgid "Plugin Cleanup"
 msgstr "Tilläggsrensning"
+
+#: includes/class-admin-page.php
+msgid "Clean Up WooCommerce"
+msgstr "Rensa WooCommerce"
+
+#: includes/class-admin-page.php
+msgid "Removes WooCommerce generator meta tag, HTML comments from frontend source code, and disables usage tracking."
+msgstr "Tar bort WooCommerce generator-metataggen, HTML-kommentarer från frontend-källkoden och inaktiverar användarspårning."

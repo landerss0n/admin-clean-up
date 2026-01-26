@@ -166,6 +166,7 @@ class WP_Clean_Up_Admin_Page {
                 'hide_yoast_notices'         => ! empty( $plugins['hide_yoast_notices'] ),
                 'hide_complianz_comments'    => ! empty( $plugins['hide_complianz_comments'] ),
                 'hide_gtm4wp_comments'       => ! empty( $plugins['hide_gtm4wp_comments'] ),
+                'hide_woocommerce_clutter'   => ! empty( $plugins['hide_woocommerce_clutter'] ),
             ];
         }
 
@@ -221,6 +222,11 @@ class WP_Clean_Up_Admin_Page {
                 'name'   => 'GTM4WP',
                 'check'  => 'duracelltomi-google-tag-manager/duracelltomi-google-tag-manager-for-wordpress.php',
                 'option' => 'hide_gtm4wp_comments',
+            ],
+            'woocommerce' => [
+                'name'   => 'WooCommerce',
+                'check'  => 'woocommerce/woocommerce.php',
+                'option' => 'hide_woocommerce_clutter',
             ],
         ];
     }
@@ -781,6 +787,7 @@ class WP_Clean_Up_Admin_Page {
             'yoast'         => __( 'Hides premium upsell pages, promotional notices, dashboard widget, notification badges, and disables usage tracking.', 'admin-clean-up' ),
             'complianz'     => __( 'Removes Complianz HTML comments from the frontend source code, such as "Consent Management powered by Complianz".', 'admin-clean-up' ),
             'gtm4wp'        => __( 'Removes GTM4WP HTML comments from the frontend source code, such as "Google Tag Manager for WordPress by gtm4wp.com".', 'admin-clean-up' ),
+            'woocommerce'   => __( 'Removes WooCommerce generator meta tag, HTML comments from frontend source code, and disables usage tracking.', 'admin-clean-up' ),
         ];
 
         $plugin_labels = [
@@ -789,6 +796,7 @@ class WP_Clean_Up_Admin_Page {
             'yoast'         => __( 'Clean Up Yoast SEO Admin', 'admin-clean-up' ),
             'complianz'     => __( 'Remove Complianz HTML Comments', 'admin-clean-up' ),
             'gtm4wp'        => __( 'Remove GTM4WP HTML Comments', 'admin-clean-up' ),
+            'woocommerce'   => __( 'Clean Up WooCommerce', 'admin-clean-up' ),
         ];
 
         ob_start();
