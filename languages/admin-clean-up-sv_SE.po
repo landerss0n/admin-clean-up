@@ -413,3 +413,63 @@ msgstr "Dölj uppdateringspåminnelser"
 #: includes/class-admin-page.php
 msgid "Hides \"WordPress X.X is available!\" messages and update count badges."
 msgstr "Döljer \"WordPress X.X är tillgänglig!\"-meddelanden och uppdateringsräknare."
+
+#: includes/class-admin-page.php
+msgid "Frontend"
+msgstr "Frontend"
+
+#: includes/class-admin-page.php
+msgid "Console Messages"
+msgstr "Konsolmeddelanden"
+
+#: includes/class-admin-page.php
+msgid "Control messages logged to the browser console."
+msgstr "Kontrollera meddelanden som loggas till webbläsarens konsol."
+
+#: includes/class-admin-page.php
+msgid "Hide jQuery Migrate Console Message"
+msgstr "Dölj jQuery Migrate-konsolmeddelande"
+
+#: includes/class-admin-page.php
+msgid "Removes the \"JQMIGRATE: Migrate is installed\" message from the browser console."
+msgstr "Tar bort meddelandet \"JQMIGRATE: Migrate is installed\" från webbläsarens konsol."
+
+#: admin-clean-up.php
+msgid "Inställningar"
+msgstr "Inställningar"
+
+#: includes/class-admin-page.php
+msgid "Clean Up Elementor Admin"
+msgstr "Rensa Elementor Admin"
+
+#: includes/class-admin-page.php
+msgid "Hides promotional notices, dashboard widget, \"What's New\" and \"Get Help\" icons, and replaces the Home screen with Settings."
+msgstr "Döljer reklammeddelanden, kontrollpanelwidget, \"Nyheter\" och \"Hjälp\"-ikoner, och ersätter startsidan med Inställningar."
+
+#: includes/class-admin-page.php
+msgid "Clean Up Yoast SEO Admin"
+msgstr "Rensa Yoast SEO Admin"
+
+#: includes/class-admin-page.php
+msgid "Hides premium upsell pages, promotional notices, dashboard widget, notification badges, and disables usage tracking."
+msgstr "Döljer premium-försäljningssidor, reklammeddelanden, kontrollpanelwidget, aviseringsbrickor och inaktiverar användarspårning."
+
+#: includes/class-admin-page.php
+msgid "Remove Complianz HTML Comments"
+msgstr "Ta bort Complianz HTML-kommentarer"
+
+#: includes/class-admin-page.php
+msgid "Removes Complianz HTML comments from the frontend source code, such as \"Consent Management powered by Complianz\"."
+msgstr "Tar bort Complianz HTML-kommentarer från frontend-källkoden, som \"Consent Management powered by Complianz\"."
+
+#: includes/class-admin-page.php
+msgid "Remove GTM4WP HTML Comments"
+msgstr "Ta bort GTM4WP HTML-kommentarer"
+
+#: includes/class-admin-page.php
+msgid "Removes GTM4WP HTML comments from the frontend source code, such as \"Google Tag Manager for WordPress by gtm4wp.com\"."
+msgstr "Tar bort GTM4WP HTML-kommentarer från frontend-källkoden, som \"Google Tag Manager for WordPress by gtm4wp.com\"."
+
+#: includes/class-admin-page.php
+msgid "Plugin Cleanup"
+msgstr "Tilläggsrensning"

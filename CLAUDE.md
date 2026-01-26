@@ -1,13 +1,13 @@
 # Admin Clean Up
 
-WordPress plugin that cleans up and simplifies the admin interface. Settings page with 9 tabs controlling various admin elements.
+WordPress plugin that cleans up and simplifies the admin interface. Settings page with 10 tabs controlling various admin elements.
 
 ## Architecture
 
 ```
 admin-clean-up.php          Main plugin class (WP_Clean_Up singleton, OPTION_KEY constant, module loading)
 includes/
-  class-admin-page.php      Settings page UI (9 tab render methods, sidebar nav, form handling)
+  class-admin-page.php      Settings page UI (10 tab render methods, sidebar nav, form handling)
   class-components.php      UI component library (static methods: render_card, render_toggle, render_setting_group, render_radio_group, render_text_input, render_select)
   class-admin-bar.php       Removes admin bar elements (logo, site menu, +New, search, howdy)
   class-admin-menus.php     Hides admin menu items per role (non_admin, non_editor, all)
@@ -16,9 +16,10 @@ includes/
   class-footer.php          Removes/customizes admin footer text and version
   class-notices.php         Hides update notices, all notices, screen options, help tab
   class-clean-filenames.php Cleans uploaded filenames (special chars, spaces, lowercase)
-  class-plugin-notices.php  Hides plugin-specific nag screens (PixelYourSite)
+  class-plugin-notices.php  Hides plugin-specific nag screens (PixelYourSite, Elementor, Yoast, Complianz, GTM4WP)
   class-site-health.php     Removes/disables Site Health entirely
   class-updates.php         Controls auto-updates (core, plugins, themes, emails, nags)
+  class-frontend.php        Frontend cleanup (jQuery Migrate console message)
 assets/css/admin.css        Settings page styles (WordPress-native colors, BEM components)
 languages/                  Swedish translation (sv_SE.po/.mo)
 ```
@@ -63,3 +64,22 @@ rsync -av --delete "/Users/lucas/Sites/admin-clean-up/" "/Users/lucas/Local Site
 - `phpcs:ignore` with explanation when intentionally skipping escaping (e.g., pre-escaped component content)
 - Translators comments above `sprintf(__(...))` calls with placeholders
 - No `load_plugin_textdomain()` — WordPress auto-loads since 4.6
+
+## Swedish Translations (REQUIRED)
+
+**All new user-facing strings MUST be translated to Swedish.** After adding new features:
+
+1. Wrap all strings in `__( 'String', 'admin-clean-up' )` or `esc_html_e( 'String', 'admin-clean-up' )`
+2. Add entries to `languages/admin-clean-up-sv_SE.po`:
+   ```
+   #: includes/class-file.php
+   msgid "English string"
+   msgstr "Svensk översättning"
+   ```
+3. Compile to .mo: `msgfmt -o languages/admin-clean-up-sv_SE.mo languages/admin-clean-up-sv_SE.po`
+
+### Translation Guidelines
+- Use formal Swedish ("du" not "ni")
+- Keep technical terms when appropriate (e.g., "frontend", "dashboard")
+- Match WordPress Swedish admin terminology where possible
+- Keep brand names unchanged (Yoast, Complianz, etc.)
