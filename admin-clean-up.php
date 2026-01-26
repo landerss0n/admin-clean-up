@@ -3,7 +3,7 @@
  * Plugin Name: Admin Clean Up
  * Plugin URI: https://developer.suspended.se/admin-clean-up
  * Description: Clean up and simplify the WordPress admin interface by removing unnecessary elements.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Digiwise
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'ADMIN_CLEAN_UP_VERSION', '1.0.2' );
+define( 'ADMIN_CLEAN_UP_VERSION', '1.0.3' );
 define( 'ADMIN_CLEAN_UP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ADMIN_CLEAN_UP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -305,3 +305,30 @@ function wp_clean_up_activate() {
     }
 }
 register_activation_hook( __FILE__, 'wp_clean_up_activate' );
+
+/**
+ * Initialize plugin update checker for GitHub releases
+ */
+function wp_clean_up_update_checker() {
+    // Load the update checker library
+    require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/plugin-update-checker/plugin-update-checker.php';
+
+    $update_checker = YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+        'https://github.com/landerss0n/admin-clean-up/',
+        __FILE__,
+        'admin-clean-up'
+    );
+
+    // Set the branch that contains the stable release
+    $update_checker->setBranch( 'main' );
+
+    // Enable release assets (downloads the zip from GitHub releases)
+    $update_checker->getVcsApi()->enableReleaseAssets();
+
+    // If the repo is private, use a GitHub token
+    // Define ADMIN_CLEAN_UP_GITHUB_TOKEN in wp-config.php
+    if ( defined( 'ADMIN_CLEAN_UP_GITHUB_TOKEN' ) && ADMIN_CLEAN_UP_GITHUB_TOKEN ) {
+        $update_checker->setAuthentication( ADMIN_CLEAN_UP_GITHUB_TOKEN );
+    }
+}
+add_action( 'init', 'wp_clean_up_update_checker' );

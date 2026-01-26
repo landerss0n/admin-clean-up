@@ -27,7 +27,10 @@ jobs:
             -x ".planning/*" \
             -x "CLAUDE.md" \
             -x ".DS_Store" \
-            -x "*.zip"
+            -x "*.zip" \
+            -x "includes/plugin-update-checker/README.md" \
+            -x "includes/plugin-update-checker/composer.json" \
+            -x "includes/plugin-update-checker/license.txt"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
