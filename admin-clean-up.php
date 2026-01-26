@@ -3,7 +3,7 @@
  * Plugin Name: Admin Clean Up
  * Plugin URI: https://developer.suspended.se/admin-clean-up
  * Description: Clean up and simplify the WordPress admin interface by removing unnecessary elements.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Digiwise
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'ADMIN_CLEAN_UP_VERSION', '1.0.4' );
+define( 'ADMIN_CLEAN_UP_VERSION', '1.0.5' );
 define( 'ADMIN_CLEAN_UP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ADMIN_CLEAN_UP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -332,3 +332,16 @@ function wp_clean_up_update_checker() {
     }
 }
 add_action( 'init', 'wp_clean_up_update_checker' );
+
+/**
+ * Add settings link to plugin action links
+ *
+ * @param array $links Plugin action links.
+ * @return array
+ */
+function wp_clean_up_plugin_action_links( $links ) {
+    $settings_link = '<a href="' . admin_url( 'options-general.php?page=admin-clean-up' ) . '">' . __( 'Inställningar', 'admin-clean-up' ) . '</a>';
+    array_unshift( $links, $settings_link );
+    return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wp_clean_up_plugin_action_links' );
