@@ -186,6 +186,7 @@ class WP_Clean_Up_Admin_Page {
             $frontend = isset( $input['frontend'] ) && is_array( $input['frontend'] ) ? $input['frontend'] : [];
             $sanitized['frontend'] = [
                 'hide_jquery_migrate_notice' => ! empty( $frontend['hide_jquery_migrate_notice'] ),
+                'use_site_logo_on_login'     => ! empty( $frontend['use_site_logo_on_login'] ),
             ];
         }
 
@@ -797,6 +798,26 @@ class WP_Clean_Up_Admin_Page {
     private function render_frontend_tab( $options ) {
         $frontend = isset( $options['frontend'] ) ? $options['frontend'] : [];
 
+        // Card 1: Login Page
+        $has_site_logo = (bool) get_theme_mod( 'custom_logo' );
+        ob_start();
+        WP_Clean_Up_Components::render_toggle( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[frontend][use_site_logo_on_login]',
+            'checked'     => ! empty( $frontend['use_site_logo_on_login'] ),
+            'label'       => __( 'Use Site Logo on Login Page', 'admin-clean-up' ),
+            'description' => $has_site_logo
+                ? __( 'Replaces the WordPress logo on the login page with your site logo from the Customizer. Also changes the logo link to your homepage.', 'admin-clean-up' )
+                : __( 'Replaces the WordPress logo on the login page with your site logo from the Customizer. Also changes the logo link to your homepage.', 'admin-clean-up' ) . ' <strong>' . __( 'Note: No site logo is currently set.', 'admin-clean-up' ) . '</strong> <a href="' . esc_url( admin_url( 'customize.php?autofocus[control]=custom_logo' ) ) . '">' . __( 'Set site logo', 'admin-clean-up' ) . '</a>',
+        ] );
+        $content1 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Login Page', 'admin-clean-up' ),
+            'description' => __( 'Customize the WordPress login page appearance.', 'admin-clean-up' ),
+            'content'     => $content1,
+        ] );
+
+        // Card 2: Console Messages
         ob_start();
         WP_Clean_Up_Components::render_setting_group( [
             'settings' => [
@@ -808,12 +829,12 @@ class WP_Clean_Up_Admin_Page {
                 ],
             ],
         ] );
-        $content = ob_get_clean();
+        $content2 = ob_get_clean();
 
         WP_Clean_Up_Components::render_card( [
             'title'       => __( 'Console Messages', 'admin-clean-up' ),
             'description' => __( 'Control messages logged to the browser console.', 'admin-clean-up' ),
-            'content'     => $content,
+            'content'     => $content2,
         ] );
     }
 

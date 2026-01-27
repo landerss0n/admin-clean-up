@@ -489,3 +489,27 @@ msgstr "Lämna tomt för WordPress-standard."
 #: includes/class-admin-page.php
 msgid "Leave empty to show WordPress version."
 msgstr "Lämna tomt för att visa WordPress-version."
+
+#: includes/class-admin-page.php
+msgid "Login Page"
+msgstr "Inloggningssida"
+
+#: includes/class-admin-page.php
+msgid "Customize the WordPress login page appearance."
+msgstr "Anpassa utseendet på WordPress inloggningssida."
+
+#: includes/class-admin-page.php
+msgid "Use Site Logo on Login Page"
+msgstr "Använd webbplatslogotyp på inloggningssidan"
+
+#: includes/class-admin-page.php
+msgid "Replaces the WordPress logo on the login page with your site logo from the Customizer. Also changes the logo link to your homepage."
+msgstr "Ersätter WordPress-logotypen på inloggningssidan med din webbplatslogotyp från Utseende. Ändrar även logotyplänken till din startsida."
+
+#: includes/class-admin-page.php
+msgid "Note: No site logo is currently set."
+msgstr "Obs: Ingen webbplatslogotyp är inställd."
+
+#: includes/class-admin-page.php
+msgid "Set site logo"
+msgstr "Ange webbplatslogotyp"
