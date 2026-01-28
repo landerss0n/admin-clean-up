@@ -223,6 +223,7 @@ class WP_Clean_Up {
             'frontend' => [
                 'hide_jquery_migrate_notice' => false,
                 'use_site_logo_on_login'     => false,
+                'custom_login_logo'          => 0,
             ],
         ];
 
@@ -320,6 +321,7 @@ function wp_clean_up_activate() {
             'frontend' => [
                 'hide_jquery_migrate_notice' => false,
                 'use_site_logo_on_login'     => false,
+                'custom_login_logo'          => 0,
             ],
         ] );
     }

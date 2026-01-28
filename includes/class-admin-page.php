@@ -52,7 +52,7 @@ class WP_Clean_Up_Admin_Page {
     }
 
     /**
-     * Enqueue admin styles
+     * Enqueue admin styles and scripts
      */
     public function enqueue_admin_styles( $hook ) {
         if ( 'settings_page_admin-clean-up' !== $hook ) {
@@ -64,6 +64,24 @@ class WP_Clean_Up_Admin_Page {
             ADMIN_CLEAN_UP_PLUGIN_URL . 'assets/css/admin.css',
             [],
             ADMIN_CLEAN_UP_VERSION
+        );
+
+        // Enqueue media uploader for frontend tab
+        wp_enqueue_media();
+        wp_enqueue_script(
+            'admin-clean-up-admin',
+            ADMIN_CLEAN_UP_PLUGIN_URL . 'assets/js/admin.js',
+            [ 'jquery' ],
+            ADMIN_CLEAN_UP_VERSION,
+            true
+        );
+        wp_localize_script(
+            'admin-clean-up-admin',
+            'acuAdmin',
+            [
+                'selectImage' => __( 'Select Logo', 'admin-clean-up' ),
+                'useImage'    => __( 'Use as Logo', 'admin-clean-up' ),
+            ]
         );
     }
 
@@ -187,6 +205,7 @@ class WP_Clean_Up_Admin_Page {
             $sanitized['frontend'] = [
                 'hide_jquery_migrate_notice' => ! empty( $frontend['hide_jquery_migrate_notice'] ),
                 'use_site_logo_on_login'     => ! empty( $frontend['use_site_logo_on_login'] ),
+                'custom_login_logo'          => ! empty( $frontend['custom_login_logo'] ) ? absint( $frontend['custom_login_logo'] ) : 0,
             ];
         }
 
@@ -342,6 +361,7 @@ class WP_Clean_Up_Admin_Page {
         $current_tab_data = $tabs[ $current_tab ];
         ?>
         <div class="wrap acu-settings-wrap">
+            <h1 class="screen-reader-text"><?php esc_html_e( 'Admin Clean Up', 'admin-clean-up' ); ?></h1>
             <div class="acu-settings">
                 <nav class="acu-sidebar">
                     <div class="acu-sidebar__logo">
@@ -799,16 +819,54 @@ class WP_Clean_Up_Admin_Page {
         $frontend = isset( $options['frontend'] ) ? $options['frontend'] : [];
 
         // Card 1: Login Page
-        $has_site_logo = (bool) get_theme_mod( 'custom_logo' );
+        $has_site_logo     = (bool) get_theme_mod( 'custom_logo' );
+        $custom_login_logo = ! empty( $frontend['custom_login_logo'] ) ? absint( $frontend['custom_login_logo'] ) : 0;
+        $logo_url          = $custom_login_logo ? wp_get_attachment_image_url( $custom_login_logo, 'medium' ) : '';
+
         ob_start();
+
+        // Toggle for enabling custom login logo
         WP_Clean_Up_Components::render_toggle( [
             'name'        => WP_Clean_Up::OPTION_KEY . '[frontend][use_site_logo_on_login]',
             'checked'     => ! empty( $frontend['use_site_logo_on_login'] ),
-            'label'       => __( 'Use Site Logo on Login Page', 'admin-clean-up' ),
-            'description' => $has_site_logo
-                ? __( 'Replaces the WordPress logo on the login page with your site logo from the Customizer. Also changes the logo link to your homepage.', 'admin-clean-up' )
-                : __( 'Replaces the WordPress logo on the login page with your site logo from the Customizer. Also changes the logo link to your homepage.', 'admin-clean-up' ) . ' <strong>' . __( 'Note: No site logo is currently set.', 'admin-clean-up' ) . '</strong> <a href="' . esc_url( admin_url( 'customize.php?autofocus[control]=custom_logo' ) ) . '">' . __( 'Set site logo', 'admin-clean-up' ) . '</a>',
+            'label'       => __( 'Custom Login Logo', 'admin-clean-up' ),
+            'description' => __( 'Replaces the WordPress logo on the login page. Also changes the logo link to your homepage.', 'admin-clean-up' ),
         ] );
+
+        // Image uploader
+        ?>
+        <div class="acu-image-upload" id="acu-login-logo-upload">
+            <input type="hidden"
+                   name="<?php echo esc_attr( WP_Clean_Up::OPTION_KEY ); ?>[frontend][custom_login_logo]"
+                   id="acu-custom-login-logo"
+                   value="<?php echo esc_attr( $custom_login_logo ); ?>">
+            <div class="acu-image-upload__preview" id="acu-login-logo-preview"<?php echo $logo_url ? '' : ' style="display:none;"'; ?>>
+                <?php if ( $logo_url ) : ?>
+                    <img src="<?php echo esc_url( $logo_url ); ?>" alt="">
+                <?php endif; ?>
+            </div>
+            <div class="acu-image-upload__buttons">
+                <button type="button" class="button acu-image-upload__select" id="acu-select-login-logo">
+                    <?php echo $logo_url ? esc_html__( 'Change Logo', 'admin-clean-up' ) : esc_html__( 'Select Logo', 'admin-clean-up' ); ?>
+                </button>
+                <button type="button" class="button acu-image-upload__remove" id="acu-remove-login-logo"<?php echo $logo_url ? '' : ' style="display:none;"'; ?>>
+                    <?php esc_html_e( 'Remove', 'admin-clean-up' ); ?>
+                </button>
+            </div>
+            <p class="acu-image-upload__hint">
+                <?php
+                if ( $has_site_logo ) {
+                    esc_html_e( 'Upload a custom logo or leave empty to use your site logo from the Customizer.', 'admin-clean-up' );
+                } else {
+                    esc_html_e( 'Upload a logo for the login page.', 'admin-clean-up' );
+                    echo ' <a href="' . esc_url( admin_url( 'customize.php?autofocus[control]=custom_logo' ) ) . '">';
+                    esc_html_e( 'Or set a site logo in the Customizer', 'admin-clean-up' );
+                    echo '</a>';
+                }
+                ?>
+            </p>
+        </div>
+        <?php
         $content1 = ob_get_clean();
 
         WP_Clean_Up_Components::render_card( [

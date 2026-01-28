@@ -513,3 +513,39 @@ msgstr "Obs: Ingen webbplatslogotyp är inställd."
 #: includes/class-admin-page.php
 msgid "Set site logo"
 msgstr "Ange webbplatslogotyp"
+
+#: includes/class-admin-page.php
+msgid "Custom Login Logo"
+msgstr "Egen inloggningslogotyp"
+
+#: includes/class-admin-page.php
+msgid "Replaces the WordPress logo on the login page. Also changes the logo link to your homepage."
+msgstr "Ersätter WordPress-logotypen på inloggningssidan. Ändrar även logotyplänken till din startsida."
+
+#: includes/class-admin-page.php
+msgid "Select Logo"
+msgstr "Välj logotyp"
+
+#: includes/class-admin-page.php
+msgid "Use as Logo"
+msgstr "Använd som logotyp"
+
+#: includes/class-admin-page.php
+msgid "Change Logo"
+msgstr "Byt logotyp"
+
+#: includes/class-admin-page.php
+msgid "Remove"
+msgstr "Ta bort"
+
+#: includes/class-admin-page.php
+msgid "Upload a custom logo or leave empty to use your site logo from the Customizer."
+msgstr "Ladda upp en egen logotyp eller lämna tomt för att använda din webbplatslogotyp från Utseende."
+
+#: includes/class-admin-page.php
+msgid "Upload a logo for the login page."
+msgstr "Ladda upp en logotyp för inloggningssidan."
+
+#: includes/class-admin-page.php
+msgid "Or set a site logo in the Customizer"
+msgstr "Eller ange en webbplatslogotyp i Utseende"

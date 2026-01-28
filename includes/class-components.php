@@ -123,7 +123,7 @@ class WP_Clean_Up_Components {
 					<?php echo esc_html( $args['label'] ); ?>
 				</label>
 				<?php if ( ! empty( $args['description'] ) ) : ?>
-					<p class="acu-setting__description"><?php echo esc_html( $args['description'] ); ?></p>
+					<p class="acu-setting__description"><?php echo wp_kses_post( $args['description'] ); ?></p>
 				<?php endif; ?>
 			</div>
 		</div>

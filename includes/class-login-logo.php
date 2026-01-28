@@ -32,16 +32,27 @@ class WP_Clean_Up_Login_Logo {
 	/**
 	 * Get the custom logo URL and dimensions
 	 *
+	 * Checks for custom login logo first, then falls back to site logo from Customizer.
+	 *
 	 * @return array|false Logo data array or false if no logo set
 	 */
 	private function get_logo_data() {
-		$custom_logo_id = get_theme_mod( 'custom_logo' );
+		$options  = WP_Clean_Up::get_options();
+		$frontend = isset( $options['frontend'] ) ? $options['frontend'] : [];
 
-		if ( ! $custom_logo_id ) {
+		// Check for custom login logo first
+		$logo_id = ! empty( $frontend['custom_login_logo'] ) ? absint( $frontend['custom_login_logo'] ) : 0;
+
+		// Fall back to site logo from Customizer
+		if ( ! $logo_id ) {
+			$logo_id = get_theme_mod( 'custom_logo' );
+		}
+
+		if ( ! $logo_id ) {
 			return false;
 		}
 
-		$logo_image = wp_get_attachment_image_src( $custom_logo_id, 'full' );
+		$logo_image = wp_get_attachment_image_src( $logo_id, 'full' );
 
 		if ( ! $logo_image ) {
 			return false;

@@ -58,6 +58,27 @@
 	display: none;
 }
 
+/* WordPress settings-updated notice on our settings page */
+body.settings_page_admin-clean-up #setting-error-settings_updated,
+body.settings_page_admin-clean-up #wpbody-content > .notice.settings-error {
+	max-width: 1200px;
+	margin: 20px 0 16px 0;
+	box-sizing: border-box;
+}
+
+/* Hide any notices that appear inside the settings container or header */
+.acu-settings .notice,
+.acu-settings .updated,
+.acu-settings .error,
+.acu-content .notice,
+.acu-content .updated,
+.acu-content .error,
+.acu-content__header .notice,
+.acu-content__header .updated,
+.acu-content__header .error {
+	display: none !important;
+}
+
 .acu-settings {
 	display: flex;
 	min-height: 600px;
@@ -692,6 +713,50 @@
 	.acu-text-input {
 		max-width: 100%;
 	}
+}
+
+/* ============================================ */
+/* Image Upload Component                       */
+/* ============================================ */
+
+.acu-image-upload {
+	padding: 16px 0 8px 0;
+	margin-left: 60px;
+}
+
+.acu-image-upload__preview {
+	margin-bottom: 12px;
+	max-width: 200px;
+}
+
+.acu-image-upload__preview img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border-radius: 6px;
+	border: 1px solid var(--acu-border);
+}
+
+.acu-image-upload__buttons {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.acu-image-upload__hint {
+	margin: 0;
+	font-size: 12px;
+	color: var(--acu-text-secondary);
+	line-height: 1.5;
+}
+
+.acu-image-upload__hint a {
+	color: var(--acu-accent);
+	text-decoration: none;
+}
+
+.acu-image-upload__hint a:hover {
+	text-decoration: underline;
 }
 
 /* ============================================ */
