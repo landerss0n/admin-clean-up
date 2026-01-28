@@ -25,9 +25,20 @@ jobs:
             -x ".git/*" \
             -x ".github/*" \
             -x ".planning/*" \
+            -x ".claude/*" \
             -x "CLAUDE.md" \
             -x ".DS_Store" \
             -x "*.zip" \
+            -x "tests/*" \
+            -x "vendor/*" \
+            -x "coverage/*" \
+            -x "phpunit.xml" \
+            -x "phpunit-integration.xml" \
+            -x "composer.json" \
+            -x "composer.lock" \
+            -x ".gitignore" \
+            -x ".distignore" \
+            -x ".phpunit.result.cache" \
             -x "includes/plugin-update-checker/README.md" \
             -x "includes/plugin-update-checker/composer.json" \
             -x "includes/plugin-update-checker/license.txt"
