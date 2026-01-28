@@ -1,0 +1,29 @@
+# Development files - excluded from distribution
+/.git
+/.gitignore
+/.distignore
+
+# Testing
+/tests
+/phpunit.xml
+/phpunit-integration.xml
+/coverage
+/.phpunit.result.cache
+
+# Dependencies & Build
+/composer.json
+/composer.lock
+/vendor
+/node_modules
+
+# IDE & OS
+/.idea
+/.vscode
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Documentation
+/CLAUDE.md
+/.claude
+/.planning

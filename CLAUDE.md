@@ -51,6 +51,31 @@ languages/                  Swedish translation (sv_SE.po/.mo)
 5. Load and init in main plugin class
 6. Add translations to `.po` file, recompile `.mo`
 
+## Testing
+
+```bash
+# Install dependencies (first time)
+composer install
+
+# Run all tests
+composer test
+
+# Run only unit tests
+composer test:unit
+
+# Run with coverage report (requires Xdebug)
+composer test:coverage
+```
+
+### Test Structure
+```
+tests/
+  Unit/
+    CleanFilenamesTest.php    # Filename sanitization logic
+    ParseArgsRecursiveTest.php # Options merging logic
+  Integration/                 # (Future: WordPress integration tests)
+```
+
 ## Test Site Sync
 
 ```bash
