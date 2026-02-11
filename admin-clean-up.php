@@ -78,6 +78,7 @@ class WP_Clean_Up {
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-updates.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-frontend.php';
         require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-login-logo.php';
+        require_once ADMIN_CLEAN_UP_PLUGIN_DIR . 'includes/class-image-optimization.php';
     }
 
     /**
@@ -122,6 +123,9 @@ class WP_Clean_Up {
 
         // Initialize login logo customization
         new WP_Clean_Up_Login_Logo();
+
+        // Initialize image optimization
+        new WP_Clean_Up_Image_Optimization();
     }
 
     /**
@@ -204,6 +208,12 @@ class WP_Clean_Up {
             'media' => [
                 'clean_filenames'       => false,
                 'clean_filenames_types' => 'all',
+                'resize_on_upload'      => false,
+                'resize_max_width'      => 2560,
+                'resize_max_height'     => 2560,
+                'convert_on_upload'     => false,
+                'convert_format'        => 'webp',
+                'convert_quality'       => 82,
             ],
             'plugins' => [
                 'hide_pixelyoursite_notices' => false,
@@ -302,6 +312,12 @@ function wp_clean_up_activate() {
             'media' => [
                 'clean_filenames'       => false,
                 'clean_filenames_types' => 'all',
+                'resize_on_upload'      => false,
+                'resize_max_width'      => 2560,
+                'resize_max_height'     => 2560,
+                'convert_on_upload'     => false,
+                'convert_format'        => 'webp',
+                'convert_quality'       => 82,
             ],
             'plugins' => [
                 'hide_pixelyoursite_notices' => false,

@@ -169,9 +169,27 @@ class WP_Clean_Up_Admin_Page {
         // Sanitize media options
         if ( 'media' === $current_tab ) {
             $media = isset( $input['media'] ) && is_array( $input['media'] ) ? $input['media'] : [];
+
+            $resize_max_width  = isset( $media['resize_max_width'] ) ? absint( $media['resize_max_width'] ) : 2560;
+            $resize_max_width  = max( 100, min( 10000, $resize_max_width ) );
+
+            $resize_max_height = isset( $media['resize_max_height'] ) ? absint( $media['resize_max_height'] ) : 2560;
+            $resize_max_height = max( 100, min( 10000, $resize_max_height ) );
+
+            $convert_quality = isset( $media['convert_quality'] ) ? absint( $media['convert_quality'] ) : 82;
+            $convert_quality = max( 1, min( 100, $convert_quality ) );
+
+            $convert_format = isset( $media['convert_format'] ) && in_array( $media['convert_format'], [ 'webp', 'avif' ], true ) ? $media['convert_format'] : 'webp';
+
             $sanitized['media'] = [
                 'clean_filenames'       => ! empty( $media['clean_filenames'] ),
                 'clean_filenames_types' => isset( $media['clean_filenames_types'] ) && in_array( $media['clean_filenames_types'], [ 'all', 'images' ], true ) ? $media['clean_filenames_types'] : 'all',
+                'resize_on_upload'      => ! empty( $media['resize_on_upload'] ),
+                'resize_max_width'      => $resize_max_width,
+                'resize_max_height'     => $resize_max_height,
+                'convert_on_upload'     => ! empty( $media['convert_on_upload'] ),
+                'convert_format'        => $convert_format,
+                'convert_quality'       => $convert_quality,
             ];
         }
 
@@ -781,6 +799,7 @@ class WP_Clean_Up_Admin_Page {
     private function render_media_tab( $options ) {
         $media = isset( $options['media'] ) ? $options['media'] : [];
 
+        // Card 1: Clean Filenames
         ob_start();
         WP_Clean_Up_Components::render_toggle( [
             'name'        => WP_Clean_Up::OPTION_KEY . '[media][clean_filenames]',
@@ -809,6 +828,99 @@ class WP_Clean_Up_Admin_Page {
             'title'       => __( 'Media Library', 'admin-clean-up' ),
             'description' => __( 'Settings for file uploads and the media library.', 'admin-clean-up' ),
             'content'     => $content,
+        ] );
+
+        // Card 2: Image Resize
+        ob_start();
+        WP_Clean_Up_Components::render_toggle( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[media][resize_on_upload]',
+            'checked'     => ! empty( $media['resize_on_upload'] ),
+            'label'       => __( 'Resize Large Images on Upload', 'admin-clean-up' ),
+            'description' => __( 'Automatically downsizes images that exceed the maximum dimensions. Aspect ratio is preserved.', 'admin-clean-up' ),
+        ] );
+        WP_Clean_Up_Components::render_text_input( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[media][resize_max_width]',
+            'value'       => $media['resize_max_width'] ?? 2560,
+            'label'       => __( 'Max Width (px)', 'admin-clean-up' ),
+            'placeholder' => '2560',
+        ] );
+        WP_Clean_Up_Components::render_text_input( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[media][resize_max_height]',
+            'value'       => $media['resize_max_height'] ?? 2560,
+            'label'       => __( 'Max Height (px)', 'admin-clean-up' ),
+            'placeholder' => '2560',
+        ] );
+        $content2 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Image Resize', 'admin-clean-up' ),
+            'description' => __( 'Resize oversized images automatically when they are uploaded.', 'admin-clean-up' ),
+            'content'     => $content2,
+        ] );
+
+        // Card 3: Image Conversion
+        $format_support = WP_Clean_Up_Image_Optimization::get_server_format_support();
+
+        ob_start();
+        WP_Clean_Up_Components::render_toggle( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[media][convert_on_upload]',
+            'checked'     => ! empty( $media['convert_on_upload'] ),
+            'label'       => __( 'Convert Images on Upload', 'admin-clean-up' ),
+            'description' => __( 'Converts JPG and PNG images to a modern format for smaller file sizes. GIF and SVG files are not converted.', 'admin-clean-up' ),
+        ] );
+
+        $webp_label = 'WebP';
+        if ( $format_support['webp'] ) {
+            /* translators: %s: format name (e.g., "WebP") */
+            $webp_label .= ' — ' . sprintf( __( '%s is supported on this server', 'admin-clean-up' ), 'WebP' );
+        } else {
+            /* translators: %s: format name (e.g., "WebP") */
+            $webp_label .= ' — ' . sprintf( __( '%s is not supported on this server', 'admin-clean-up' ), 'WebP' );
+        }
+
+        $avif_label = 'AVIF';
+        if ( $format_support['avif'] ) {
+            /* translators: %s: format name (e.g., "AVIF") */
+            $avif_label .= ' — ' . sprintf( __( '%s is supported on this server', 'admin-clean-up' ), 'AVIF' );
+        } else {
+            /* translators: %s: format name (e.g., "AVIF") */
+            $avif_label .= ' — ' . sprintf( __( '%s is not supported on this server', 'admin-clean-up' ), 'AVIF' );
+        }
+
+        WP_Clean_Up_Components::render_radio_group( [
+            'name'    => WP_Clean_Up::OPTION_KEY . '[media][convert_format]',
+            'value'   => $media['convert_format'] ?? 'webp',
+            'options' => [
+                [
+                    'value' => 'webp',
+                    'label' => $webp_label,
+                ],
+                [
+                    'value' => 'avif',
+                    'label' => $avif_label,
+                    'description' => __( 'Better compression than WebP but slower to encode. Requires PHP 8.1+ with Imagick/GD AVIF support.', 'admin-clean-up' ),
+                ],
+            ],
+        ] );
+        WP_Clean_Up_Components::render_text_input( [
+            'name'        => WP_Clean_Up::OPTION_KEY . '[media][convert_quality]',
+            'value'       => $media['convert_quality'] ?? 82,
+            'label'       => __( 'Quality (1–100)', 'admin-clean-up' ),
+            'placeholder' => '82',
+            'description' => __( 'Lower values produce smaller files. 80–85 is a good balance between quality and file size.', 'admin-clean-up' ),
+        ] );
+
+        if ( ! $format_support['webp'] && ! $format_support['avif'] ) {
+            echo '<p class="acu-text-warning">';
+            esc_html_e( 'Your server does not support WebP or AVIF conversion. Please contact your hosting provider to enable GD or Imagick with WebP/AVIF support.', 'admin-clean-up' );
+            echo '</p>';
+        }
+        $content3 = ob_get_clean();
+
+        WP_Clean_Up_Components::render_card( [
+            'title'       => __( 'Image Conversion', 'admin-clean-up' ),
+            'description' => __( 'Convert uploaded images to modern formats for smaller file sizes.', 'admin-clean-up' ),
+            'content'     => $content3,
         ] );
     }
 

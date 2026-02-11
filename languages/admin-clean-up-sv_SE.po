@@ -549,3 +549,69 @@ msgstr "Ladda upp en logotyp för inloggningssidan."
 #: includes/class-admin-page.php
 msgid "Or set a site logo in the Customizer"
 msgstr "Eller ange en webbplatslogotyp i Utseende"
+
+#: includes/class-admin-page.php
+msgid "Image Resize"
+msgstr "Bildstorleksändring"
+
+#: includes/class-admin-page.php
+msgid "Resize oversized images automatically when they are uploaded."
+msgstr "Ändra automatiskt storlek på för stora bilder vid uppladdning."
+
+#: includes/class-admin-page.php
+msgid "Resize Large Images on Upload"
+msgstr "Ändra storlek på stora bilder vid uppladdning"
+
+#: includes/class-admin-page.php
+msgid "Automatically downsizes images that exceed the maximum dimensions. Aspect ratio is preserved."
+msgstr "Förminskar automatiskt bilder som överskrider maxdimensionerna. Bildförhållandet bevaras."
+
+#: includes/class-admin-page.php
+msgid "Max Width (px)"
+msgstr "Maxbredd (px)"
+
+#: includes/class-admin-page.php
+msgid "Max Height (px)"
+msgstr "Maxhöjd (px)"
+
+#: includes/class-admin-page.php
+msgid "Image Conversion"
+msgstr "Bildkonvertering"
+
+#: includes/class-admin-page.php
+msgid "Convert uploaded images to modern formats for smaller file sizes."
+msgstr "Konvertera uppladdade bilder till moderna format för mindre filstorlekar."
+
+#: includes/class-admin-page.php
+msgid "Convert Images on Upload"
+msgstr "Konvertera bilder vid uppladdning"
+
+#: includes/class-admin-page.php
+msgid "Converts JPG and PNG images to a modern format for smaller file sizes. GIF and SVG files are not converted."
+msgstr "Konverterar JPG- och PNG-bilder till ett modernt format för mindre filstorlekar. GIF- och SVG-filer konverteras inte."
+
+#: includes/class-admin-page.php
+#, php-format
+msgid "%s is supported on this server"
+msgstr "%s stöds på denna server"
+
+#: includes/class-admin-page.php
+#, php-format
+msgid "%s is not supported on this server"
+msgstr "%s stöds inte på denna server"
+
+#: includes/class-admin-page.php
+msgid "Better compression than WebP but slower to encode. Requires PHP 8.1+ with Imagick/GD AVIF support."
+msgstr "Bättre komprimering än WebP men långsammare att koda. Kräver PHP 8.1+ med Imagick/GD AVIF-stöd."
+
+#: includes/class-admin-page.php
+msgid "Quality (1–100)"
+msgstr "Kvalitet (1–100)"
+
+#: includes/class-admin-page.php
+msgid "Lower values produce smaller files. 80–85 is a good balance between quality and file size."
+msgstr "Lägre värden ger mindre filer. 80–85 är en bra balans mellan kvalitet och filstorlek."
+
+#: includes/class-admin-page.php
+msgid "Your server does not support WebP or AVIF conversion. Please contact your hosting provider to enable GD or Imagick with WebP/AVIF support."
+msgstr "Din server stöder inte WebP- eller AVIF-konvertering. Kontakta din hostingleverantör för att aktivera GD eller Imagick med WebP/AVIF-stöd."
