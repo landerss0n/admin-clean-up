@@ -365,14 +365,14 @@ class WP_Clean_Up_Plugin_Notices {
         // Remove AI
         wp_dequeue_script( 'elementor-ai' );
         wp_deregister_script( 'elementor-ai' );
-        wp_register_script( 'elementor-ai', false ); // Prevent re-enqueue.
+        wp_register_script( 'elementor-ai', false, array(), false, true ); // Prevent re-enqueue.
         wp_dequeue_style( 'elementor-ai-editor' );
         wp_dequeue_style( 'elementor-ai-layout-preview' );
 
         // Remove What's New / notifications
         wp_dequeue_script( 'e-editor-notifications' );
         wp_deregister_script( 'e-editor-notifications' );
-        wp_register_script( 'e-editor-notifications', false ); // Prevent re-enqueue.
+        wp_register_script( 'e-editor-notifications', false, array(), false, true ); // Prevent re-enqueue.
 
         // Block What's New from registering in the app bar (patch registerLink after app bar loads).
         $js = 'if(typeof elementorV2!=="undefined"&&elementorV2.editorAppBar&&elementorV2.editorAppBar.utilitiesMenu){';

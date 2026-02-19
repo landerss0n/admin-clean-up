@@ -16,6 +16,9 @@
 /vendor
 /node_modules
 
+# CI/CD
+/.github
+
 # IDE & OS
 /.idea
 /.vscode
